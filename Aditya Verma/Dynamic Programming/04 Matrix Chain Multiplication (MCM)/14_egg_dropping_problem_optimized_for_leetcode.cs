@@ -1,0 +1,79 @@
+using System;
+
+class Solution
+{
+    // Memoization table to store results of subproblems
+    const int MAX_EGGS = 107;
+    const int MAX_FLOORS = 10007;
+    int[,] dp = new int[MAX_EGGS, MAX_FLOORS];
+
+    // Function to solve the problem with a binary search optimization
+    public int Solve(int eggs, int floors)
+    {
+        // If the result is already computed, return it
+        if (dp[eggs, floors] != -1)
+            return dp[eggs, floors];
+
+        // Base cases: If there is only 1 egg or no or one floor
+        if (eggs == 1 || floors == 0 || floors == 1)
+        {
+            dp[eggs, floors] = floors;
+            return floors;
+        }
+
+        int ans = floors;
+        int low = 1, high = floors;
+
+        // Perform binary search for the optimal floor to drop the egg from
+        while (low <= high)
+        {
+            int mid = low + (high - low) / 2;
+
+            // Bottom represents the case where the egg breaks
+            int bottom = Solve(eggs - 1, mid - 1);
+
+            // Top represents the case where the egg does not break
+            int top = Solve(eggs, floors - mid);
+
+            // The worst-case scenario for the current floor (taking maximum)
+            int temp = 1 + Math.Max(top, bottom);
+
+            // Minimize the answer by trying to reduce the worst-case scenario
+            if (bottom < top)
+                low = mid + 1;
+            else
+                high = mid - 1;
+
+            // Update the answer with the minimum value found
+            ans = Math.Min(ans, temp);
+        }
+
+        // Store the result for the current subproblem
+        dp[eggs, floors] = ans;
+        return ans;
+    }
+
+    // Main function to solve the problem using the Solve method
+    public int SuperEggDrop(int K, int N)
+    {
+        // Initialize dp array with -1 to indicate uncomputed states
+        Array.Clear(dp, 0, dp.Length);
+
+        // Call the Solve function to get the answer
+        return Solve(K, N);
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Example usage:
+        Solution solution = new Solution();
+        int K = 3; // Number of eggs
+        int N = 14; // Number of floors
+
+        int result = solution.SuperEggDrop(K, N);
+        Console.WriteLine($"Minimum number of trials: {result}");
+    }
+}

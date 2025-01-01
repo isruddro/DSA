@@ -1,0 +1,41 @@
+using System;
+
+public class Solution
+{
+    public static int LCS(string X, string Y, int n, int m)
+    {
+        int[,] dp = new int[n + 1, m + 1]; // DP - matrix
+
+        // base case initialization of dp matrix
+        for (int i = 0; i <= n; i++)
+            for (int j = 0; j <= m; j++)
+                if (i == 0 || j == 0)
+                    dp[i, j] = 0;
+
+        // Filling the DP table
+        for (int i = 1; i <= n; i++)
+        {
+            for (int j = 1; j <= m; j++)
+            {
+                if (X[i - 1] == Y[j - 1]) // when last characters are same
+                    dp[i, j] = 1 + dp[i - 1, j - 1];
+                else // when last characters are different, pick max
+                    dp[i, j] = Math.Max(dp[i - 1, j], dp[i, j - 1]);
+            }
+        }
+
+        return dp[n, m];
+    }
+
+    public static void Main()
+    {
+        // Input strings
+        string X = Console.ReadLine();
+        string Y = Console.ReadLine();
+
+        int n = X.Length, m = Y.Length;
+
+        // Output the length of the Longest Common Subsequence
+        Console.WriteLine(LCS(X, Y, n, m));
+    }
+}

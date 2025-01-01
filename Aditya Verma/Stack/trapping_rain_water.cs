@@ -1,0 +1,44 @@
+using System;
+
+class Solution
+{
+    public static int RainWaterTrapping(int[] arr)
+    {
+        int n = arr.Length;
+        int[] maxL = new int[n];
+        int[] maxR = new int[n];
+
+        // Initialize the first element of maxL and last element of maxR
+        maxL[0] = arr[0];
+        maxR[n - 1] = arr[n - 1];
+
+        // Fill maxL array (maximum height to the left of each element)
+        for (int i = 1; i < n; i++)
+        {
+            maxL[i] = Math.Max(maxL[i - 1], arr[i]);
+        }
+
+        // Fill maxR array (maximum height to the right of each element)
+        for (int i = n - 2; i >= 0; i--)
+        {
+            maxR[i] = Math.Max(maxR[i + 1], arr[i]);
+        }
+
+        // Calculate the total trapped water
+        int totalWater = 0;
+        for (int i = 0; i < n; i++)
+        {
+            totalWater += Math.Min(maxL[i], maxR[i]) - arr[i];
+        }
+
+        return totalWater;
+    }
+
+    static void Main(string[] args)
+    {
+        int[] arr = { 3, 0, 0, 2, 0, 4 };
+        int result = RainWaterTrapping(arr);
+
+        Console.WriteLine("Total trapped rainwater: " + result);
+    }
+}

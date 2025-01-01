@@ -1,0 +1,37 @@
+using System;
+
+class Program
+{
+    // Function to find the peak element in the array
+    static int FindPeakElement(int[] arr)
+    {
+        int s = 0, e = arr.Length - 1;
+
+        while (s < e)
+        {
+            int m = s + (e - s) / 2;
+
+            // If the element at m is smaller than the element at m-1, move left
+            if (m > 0 && arr[m] < arr[m - 1]) e = m - 1;
+            // If the element at m is smaller than the element at m+1, move right
+            else if (m < arr.Length - 1 && arr[m] < arr[m + 1]) s = m + 1;
+            // If neither condition is true, m is the peak element
+            else return m;
+        }
+
+        // When s == e, we've found the peak
+        return s;
+    }
+
+    static void Main()
+    {
+        // Example array
+        int[] arr = { 1, 2, 3, 1 };
+
+        // Find the peak element
+        int peakIndex = FindPeakElement(arr);
+
+        // Output the index of the peak element
+        Console.WriteLine($"Peak element is at index: {peakIndex}");
+    }
+}

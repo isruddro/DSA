@@ -1,0 +1,53 @@
+// A = "agbcba"
+// reverse(A) = "abcbga"
+
+// LPS(A) = LCS(A, reverse(A)) = "abcba"
+
+using System;
+
+class Program
+{
+    // Function to calculate the LCS
+    static int LCS(string X, string Y, int n, int m)
+    {
+        // Create a DP matrix for storing lengths of longest common subsequence.
+        int[,] dp = new int[n + 1, m + 1];
+
+        // Fill the dp matrix based on LCS logic.
+        for (int i = 0; i <= n; i++)
+        {
+            for (int j = 0; j <= m; j++)
+            {
+                if (i == 0 || j == 0)
+                    dp[i, j] = 0; // Base case initialization
+                else if (X[i - 1] == Y[j - 1]) // When characters match
+                    dp[i, j] = 1 + dp[i - 1, j - 1];
+                else // When characters do not match, take max of top and left cell
+                    dp[i, j] = Math.Max(dp[i - 1, j], dp[i, j - 1]);
+            }
+        }
+
+        // Return the length of LCS for the full strings.
+        return dp[n, m];
+    }
+
+    // Function to calculate LPS (Longest Palindromic Subsequence)
+    static int LPS(string X, int n)
+    {
+        // Reverse the string
+        string rev_X = new string(X.ToCharArray().Reverse().ToArray());
+
+        // Return the LCS of the string and its reverse
+        return LCS(X, rev_X, n, n);
+    }
+
+    static void Main(string[] args)
+    {
+        // Read the input string
+        string X = Console.ReadLine();
+        int n = X.Length;
+
+        // Call the LPS function and output the result
+        Console.WriteLine(LPS(X, n));
+    }
+}
