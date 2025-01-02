@@ -1,3 +1,20 @@
+/* When its about array and j is dependent on i, then we need to think of implementing with Stack.
+    LIFO
+    1324
+    We need to traverse from right as stack is LIFO.
+
+
+    Idea is:
+    1. s.Peek() > array[i]
+    2. s = empty then return -1
+    3. s.Peek() <= array[i] (means we have stacks top element that is lesser than i, so we need to
+                                keep looking for the greater element and keep poppin)
+        POP
+            (two condition:)
+            1. s = empty then return -1
+            2. or we found s.Peek() > array[i]
+ */
+
 using System;
 using System.Collections.Generic;
 
