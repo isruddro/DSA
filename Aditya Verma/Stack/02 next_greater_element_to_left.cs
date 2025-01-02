@@ -1,3 +1,7 @@
+/*
+    Here, i will go left to right and we dont need to make reverse as it will give the answer directly.
+ */
+
 using System;
 using System.Collections.Generic;
 

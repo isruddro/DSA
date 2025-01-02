@@ -13,6 +13,8 @@
             (two condition:)
             1. s = empty then return -1
             2. or we found s.Peek() > array[i]
+    
+    At last we need to reverse for the answer
  */
 
 using System;
