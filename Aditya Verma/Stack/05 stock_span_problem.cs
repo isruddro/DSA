@@ -1,3 +1,7 @@
+/* Previously Consicutive smaller or equal to the number, return how many number
+    we are actually getting nearest greater to left
+    then we need to find the index and add it to the answer */
+
 using System;
 using System.Collections.Generic;
 

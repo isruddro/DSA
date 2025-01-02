@@ -1,3 +1,81 @@
+/* Height of the building makes the histogram
+    If we have same or bigger height then we can make area
+    If we have less height we cant make area
+    width = NSR - NSL - 1
+    here Nearest Smaller.
+    We will find the index and then we will calculate width.
+    edge case is that: on the NSR we hypothetically get a index, length +1, as it will have 0
+                        on the NSL we hypothetically get a index, -1, as it will have 0 
+     */
+
+Answer 1 : 
+
+
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static int LargestRectangleArea(int[] heights)
+    {
+        int n = heights.Length;
+
+        // Arrays to store NSR and NSL indices
+        int[] NSR = new int[n];
+        int[] NSL = new int[n];
+
+        Stack<int> stack = new Stack<int>();
+
+        // Finding NSR for each bar
+        for (int i = n - 1; i >= 0; i--)
+        {
+            while (stack.Count > 0 && heights[stack.Peek()] >= heights[i])
+            {
+                stack.Pop();
+            }
+            NSR[i] = stack.Count == 0 ? n : stack.Peek();
+            stack.Push(i);
+        }
+
+        // Clear the stack for NSL calculation
+        stack.Clear();
+
+        // Finding NSL for each bar
+        for (int i = 0; i < n; i++)
+        {
+            while (stack.Count > 0 && heights[stack.Peek()] >= heights[i])
+            {
+                stack.Pop();
+            }
+            NSL[i] = stack.Count == 0 ? -1 : stack.Peek();
+            stack.Push(i);
+        }
+
+        // Calculate the maximum area
+        int maxArea = 0;
+        for (int i = 0; i < n; i++)
+        {
+            int width = NSR[i] - NSL[i] - 1;
+            int area = heights[i] * width;
+            maxArea = Math.Max(maxArea, area);
+        }
+
+        return maxArea;
+    }
+
+    static void Main(string[] args)
+    {
+        int[] heights = { 2, 1, 5, 6, 2, 3 }; // Example input
+        int maxArea = LargestRectangleArea(heights);
+        Console.WriteLine("The largest rectangle area is: " + maxArea);
+    }
+}
+
+
+
+Answer 2:
+
+
 using System;
 using System.Collections.Generic;
 
@@ -7,6 +85,8 @@ public class Solution
     {
         List<int> nsl = new List<int>();  // Nearest Smaller to Left
         List<int> nsr = new List<int>();  // Nearest Smaller to Right
+
+        //to store NSL and index
         Stack<Tuple<int, int>> stack = new Stack<Tuple<int, int>>();
         
         bars = AppendZero(bars);  // Add a 0 at the end of the bars array to simplify the logic
