@@ -1,32 +1,41 @@
 using System;
-using System.Collections.Generic;
 
-public class Solution
+class Program
 {
-    public void GetSorted(string op, ref string S, List<string> result)
+    static void Solve(string ip, string op)
     {
-        if (S.Length == 0)
+        // Base case: if the input is empty, print the output and return
+        if (ip.Length == 0)
         {
-            result.Add(op);
+            Console.WriteLine(op);
             return;
         }
 
-        string op1 = op;
-        string op2 = op;
-        op1 += " " + S[0];
-        op2 += S[0];
-        S = S.Substring(1); // Remove the first character
-        GetSorted(op1, ref S, result);
-        GetSorted(op2, ref S, result);
-        return;
+        // Generate two options for recursion:
+        // Option 1: Add an underscore (space) before the next character
+        string op1 = op + "_" + ip[0];
+
+        // Option 2: Add the character directly (without space)
+        string op2 = op + ip[0];
+
+        // Remove the processed character from the input
+        ip = ip.Substring(1);
+
+        // Recursive calls for the two options
+        Solve(ip, op1);
+        Solve(ip, op2);
     }
 
-    public List<string> Permutation(string S)
+    static void Main(string[] args)
     {
-        List<string> result = new List<string>();
-        string op = S[0].ToString();
-        S = S.Substring(1); // Remove the first character
-        GetSorted(op, ref S, result);
-        return result;
+        string input = "ABC"; // Example input
+        string output = "";
+
+        // Initialize output with the first character of the input
+        output += input[0];
+        input = input.Substring(1);
+
+        // Start recursion
+        Solve(input, output);
     }
 }
