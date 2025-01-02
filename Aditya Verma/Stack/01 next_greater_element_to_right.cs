@@ -1,4 +1,5 @@
-/* When its about array and j is dependent on i, then we need to think of implementing with Stack.
+/* When its about array and j is dependent on i on bruite force,
+     then we need to think of implementing with Stack.
     LIFO
     1324
     We need to traverse from right as stack is LIFO.
