@@ -1,3 +1,5 @@
+https://leetcode.com/problems/next-greater-element-i/submissions/1315287157/
+
 /* When its about array and j is dependent on i on bruite force,
      then we need to think of implementing with Stack.
     LIFO

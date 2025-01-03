@@ -1,3 +1,5 @@
+https://leetcode.com/problems/largest-rectangle-in-histogram/
+
 /* Height of the building makes the histogram
     If we have same or bigger height then we can make area
     If we have less height we cant make area
@@ -86,7 +88,7 @@ public class Solution
         List<int> nsl = new List<int>();  // Nearest Smaller to Left
         List<int> nsr = new List<int>();  // Nearest Smaller to Right
 
-        //to store NSL and index
+        //to store saparately NSR and NSL and index
         Stack<Tuple<int, int>> stack = new Stack<Tuple<int, int>>();
         
         bars = AppendZero(bars);  // Add a 0 at the end of the bars array to simplify the logic
