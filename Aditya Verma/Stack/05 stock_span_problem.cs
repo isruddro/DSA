@@ -1,3 +1,5 @@
+https://leetcode.com/problems/online-stock-span/submissions/1496528225/
+
 /* Previously Consicutive smaller or equal to the number, return how many number
     we are actually getting nearest greater to left
     then we need to find the index and add it to the answer */
