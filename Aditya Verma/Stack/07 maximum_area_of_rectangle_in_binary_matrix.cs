@@ -1,165 +1,105 @@
+/* 
+    Answer will be the maximum of the each MAH.
+    ans: Max(MAH(H1), MAH(H2), MAH(H3), MAH(H4))
+
+
+    we traverse top to bottom, if we find any 0 in bottom index, we will reset to 0
+
+    Process is:
+
+    MAH fn.
+    traverse every row.
+        check if there is any 0 make that a[i][j] = 0
+ */
+
+
 using System;
 using System.Collections.Generic;
 
-public class Solution
+class Program
 {
-    public static List<int> NSR(int[] bars)
+    // Function to calculate Maximum Area Histogram (MAH)
+    static int MAH(int[] heights)
     {
-        Stack<Tuple<int, int>> stack = new Stack<Tuple<int, int>>();
-        List<int> nsr = new List<int>();
-        bars = AppendZero(bars); // Add a 0 at the end of the bars array to simplify the logic
+        int n = heights.Length;
+        int[] left = new int[n];
+        int[] right = new int[n];
+        Stack<int> stack = new Stack<int>();
 
-        for (int i = bars.Length - 1; i >= 0; i--)
+        // Calculate nearest smaller to left
+        for (int i = 0; i < n; i++)
         {
-            if (stack.Count == 0)
+            while (stack.Count > 0 && heights[stack.Peek()] >= heights[i])
             {
-                nsr.Add(-1);
+                stack.Pop();
             }
-            else if (stack.Count != 0 && stack.Peek().Item1 < bars[i])
-            {
-                nsr.Add(stack.Peek().Item2);
-            }
-            else if (stack.Count != 0 && stack.Peek().Item1 >= bars[i])
-            {
-                while (stack.Count > 0 && stack.Peek().Item1 >= bars[i])
-                {
-                    stack.Pop();
-                }
+            left[i] = stack.Count == 0 ? -1 : stack.Peek();
+            stack.Push(i);
+        }
 
-                if (stack.Count == 0)
+        // Clear the stack to reuse for right calculation
+        stack.Clear();
+
+        // Calculate nearest smaller to right
+        for (int i = n - 1; i >= 0; i--)
+        {
+            while (stack.Count > 0 && heights[stack.Peek()] >= heights[i])
+            {
+                stack.Pop();
+            }
+            right[i] = stack.Count == 0 ? n : stack.Peek();
+            stack.Push(i);
+        }
+
+        // Calculate area for each bar and find max area
+        int maxArea = 0;
+        for (int i = 0; i < n; i++)
+        {
+            int width = right[i] - left[i] - 1;
+            maxArea = Math.Max(maxArea, heights[i] * width);
+        }
+        return maxArea;
+    }
+
+    // Function to find maximum rectangle area in a binary matrix
+    static int MaxRectangle(int[][] matrix)
+    {
+        int n = matrix.Length;
+        int m = matrix[0].Length;
+
+        int[] histogram = new int[m];
+        int maxArea = 0;
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                // Update the histogram
+                if (matrix[i][j] == 0)
                 {
-                    nsr.Add(-1);
+                    histogram[j] = 0;
                 }
                 else
                 {
-                    nsr.Add(stack.Peek().Item2);
+                    histogram[j] += matrix[i][j];
                 }
             }
-            stack.Push(new Tuple<int, int>(bars[i], i));
+            // Calculate the maximum area for the current histogram
+            maxArea = Math.Max(maxArea, MAH(histogram));
         }
-
-        nsr.Reverse();
-        nsr.RemoveAt(nsr.Count - 1); // Remove the last value which is for the 0 at the end of bars
-        return nsr;
+        return maxArea;
     }
 
-    public static List<int> NSL(int[] bars)
+    static void Main(string[] args)
     {
-        Stack<Tuple<int, int>> stack = new Stack<Tuple<int, int>>();
-        List<int> nsl = new List<int>();
-        bars = AppendZero(bars); // Add a 0 at the end of the bars array to simplify the logic
-
-        for (int i = 0; i < bars.Length; i++)
+        int[][] matrix = new int[][]
         {
-            if (stack.Count == 0)
-            {
-                nsl.Add(-1);
-            }
-            else if (stack.Count > 0 && stack.Peek().Item1 < bars[i])
-            {
-                nsl.Add(stack.Peek().Item2);
-            }
-            else if (stack.Count > 0 && stack.Peek().Item1 >= bars[i])
-            {
-                while (stack.Count > 0 && stack.Peek().Item1 >= bars[i])
-                {
-                    stack.Pop();
-                }
-
-                if (stack.Count == 0)
-                {
-                    nsl.Add(-1);
-                }
-                else
-                {
-                    nsl.Add(stack.Peek().Item2);
-                }
-            }
-            stack.Push(new Tuple<int, int>(bars[i], i));
-        }
-
-        nsl.RemoveAt(nsl.Count - 1); // Remove the last value which is for the 0 at the end of bars
-        return nsl;
-    }
-
-    public static int MaxAreaHistogram(int[] bars)
-    {
-        List<int> right = NSR(bars);
-        List<int> left = NSL(bars);
-        List<int> width = new List<int>();
-
-        for (int i = 0; i < right.Count; i++)
-        {
-            width.Add(right[i] - left[i] - 1);
-        }
-
-        List<int> area = new List<int>();
-        for (int i = 0; i < width.Count; i++)
-        {
-            area.Add(bars[i] * width[i]);
-        }
-
-        return Max(area);
-    }
-
-    private static int Max(List<int> list)
-    {
-        int max = list[0];
-        foreach (var item in list)
-        {
-            if (item > max)
-            {
-                max = item;
-            }
-        }
-        return max;
-    }
-
-    private static int[] AppendZero(int[] arr)
-    {
-        int[] newArr = new int[arr.Length + 1];
-        Array.Copy(arr, newArr, arr.Length);
-        newArr[arr.Length] = 0;
-        return newArr;
-    }
-
-    public static void Main(string[] args)
-    {
-        int[,] arr = {
-            {0, 1, 1, 0},
-            {1, 1, 1, 1},
-            {1, 1, 1, 1},
-            {1, 1, 0, 0}
+            new int[] {1, 0, 1, 0, 0},
+            new int[] {1, 0, 1, 1, 1},
+            new int[] {1, 1, 1, 1, 1},
+            new int[] {1, 0, 0, 1, 0}
         };
 
-        int[] bars = new int[arr.GetLength(1)];
-        int area = 0;
-
-        // Initialize bars with the first row
-        for (int j = 0; j < arr.GetLength(1); j++)
-        {
-            bars[j] = arr[0, j];
-        }
-        
-        area = MaxAreaHistogram(bars);
-
-        // Process remaining rows
-        for (int i = 1; i < arr.GetLength(0); i++)
-        {
-            for (int j = 0; j < arr.GetLength(1); j++)
-            {
-                if (arr[i, j] == 0)
-                {
-                    bars[j] = 0;
-                }
-                else
-                {
-                    bars[j] = bars[j] + arr[i, j];
-                }
-            }
-            area = Math.Max(area, MaxAreaHistogram(bars));
-        }
-
-        Console.WriteLine("Maximum area: " + area);
+        Console.WriteLine("Maximum Area of Rectangle: " + MaxRectangle(matrix));
     }
 }
