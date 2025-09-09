@@ -1,3 +1,59 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+const int MAX_EGGS = 107;
+const int MAX_FLOORS = 10007;
+int dp[MAX_EGGS][MAX_FLOORS];
+
+// Solve function with binary search optimization
+int Solve(int eggs, int floors) {
+    if (dp[eggs][floors] != -1)
+        return dp[eggs][floors];
+
+    // Base cases
+    if (eggs == 1 || floors == 0 || floors == 1)
+        return dp[eggs][floors] = floors;
+
+    int ans = floors;
+    int low = 1, high = floors;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+
+        int bottom = Solve(eggs - 1, mid - 1); // Egg breaks
+        int top = Solve(eggs, floors - mid);   // Egg survives
+
+        int temp = 1 + max(bottom, top);
+
+        if (bottom < top)
+            low = mid + 1;
+        else
+            high = mid - 1;
+
+        ans = min(ans, temp);
+    }
+
+    return dp[eggs][floors] = ans;
+}
+
+// Main function to initialize DP and solve
+int SuperEggDrop(int K, int N) {
+    memset(dp, -1, sizeof(dp));
+    return Solve(K, N);
+}
+
+int main() {
+    int K = 3;  // Number of eggs
+    int N = 14; // Number of floors
+
+    cout << "Minimum number of trials: " << SuperEggDrop(K, N) << endl;
+    return 0;
+}
+
+
+c#:
+
 using System;
 
 class Solution
