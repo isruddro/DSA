@@ -1,3 +1,51 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+private:
+    void GetSorted(string op, int one, int zero, int N, vector<string>& result) {
+        if (N == 0) {
+            result.push_back(op);
+            return;
+        }
+
+        // Add '1'
+        GetSorted(op + '1', one + 1, zero, N - 1, result);
+
+        // Add '0' only if ones > zeros
+        if (one > zero) {
+            GetSorted(op + '0', one, zero + 1, N - 1, result);
+        }
+    }
+
+public:
+    vector<string> NBitBinary(int N) {
+        vector<string> result;
+        if (N <= 0) return result;
+
+        string op = "1";  // Start with '1'
+        GetSorted(op, 1, 0, N - 1, result);
+        return result;
+    }
+};
+
+int main() {
+    int N;
+    cin >> N;
+
+    Solution solution;
+    vector<string> result = solution.NBitBinary(N);
+
+    for (auto &s : result) {
+        cout << s << " ";
+    }
+    cout << endl;
+    return 0;
+}
+
+
+c#:
 using System;
 using System.Collections.Generic;
 
