@@ -1,3 +1,31 @@
+py:
+import sys
+
+sys.setrecursionlimit(10000)  # Increase recursion limit if needed
+
+def solve(eggs, floors):
+    # Base cases
+    if eggs == 1:
+        return floors
+    if floors == 0 or floors == 1:
+        return floors
+
+    mn = float('inf')
+
+    # Try dropping from every floor from 1 to `floors`
+    for k in range(1, floors + 1):
+        temp_ans = 1 + max(solve(eggs - 1, k - 1), solve(eggs, floors - k))
+        mn = min(mn, temp_ans)
+
+    return mn
+
+if __name__ == "__main__":
+    eggs = int(input())
+    floors = int(input())
+
+    print(solve(eggs, floors))
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
