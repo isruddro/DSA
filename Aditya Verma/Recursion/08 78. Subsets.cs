@@ -1,3 +1,61 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+private:
+    void GetSorted(vector<int> &op, vector<int> &nums, vector<vector<int>> &result) {
+        // Base case: no numbers left
+        if (nums.empty()) {
+            result.push_back(op);
+            return;
+        }
+
+        int first = nums[0];
+        nums.erase(nums.begin());  // remove first element
+
+        // Include first element
+        op.push_back(first);
+        GetSorted(op, nums, result);
+        op.pop_back();  // backtrack
+
+        // Exclude first element
+        GetSorted(op, nums, result);
+
+        // Restore nums
+        nums.insert(nums.begin(), first);
+    }
+
+public:
+    vector<vector<int>> Subsets(vector<int> &nums) {
+        vector<int> op;
+        vector<vector<int>> result;
+        GetSorted(op, nums, result);
+        return result;
+    }
+};
+
+int main() {
+    Solution solution;
+    vector<int> nums = {1, 2, 3};
+    vector<vector<int>> result = solution.Subsets(nums);
+
+    for (auto &subset : result) {
+        cout << "[";
+        for (int i = 0; i < subset.size(); i++) {
+            cout << subset[i];
+            if (i != subset.size() - 1) cout << ", ";
+        }
+        cout << "] ";
+    }
+    cout << endl;
+
+    return 0;
+}
+
+
+
+c#:
 using System;
 using System.Collections.Generic;
 
