@@ -1,3 +1,66 @@
+cpp:
+#include <iostream>
+#include <vector>
+#include <climits>
+using namespace std;
+
+int minIndex = INT_MAX;
+int maxIndex = INT_MIN;
+
+void BinarySearch(int start, int end, const vector<int>& arr, int target, bool leftBias) {
+    if (start > end) return;
+
+    int mid = (start + end) / 2;
+
+    if (arr[mid] > target) {
+        BinarySearch(start, mid - 1, arr, target, leftBias);
+    }
+    else if (arr[mid] < target) {
+        BinarySearch(mid + 1, end, arr, target, leftBias);
+    }
+    else {
+        if (leftBias) {
+            minIndex = min(minIndex, mid);
+            BinarySearch(start, mid - 1, arr, target, leftBias);
+        } else {
+            maxIndex = max(maxIndex, mid);
+            BinarySearch(mid + 1, end, arr, target, leftBias);
+        }
+    }
+}
+
+int CountOccurrences(const vector<int>& arr, int x) {
+    minIndex = INT_MAX;
+    maxIndex = INT_MIN;
+
+    BinarySearch(0, arr.size() - 1, arr, x, true);   // Find leftmost occurrence
+    BinarySearch(0, arr.size() - 1, arr, x, false);  // Find rightmost occurrence
+
+    if (minIndex == INT_MAX) minIndex = -1;
+    if (maxIndex == INT_MIN) maxIndex = -1;
+
+    if (minIndex == -1) return 0;  // Target not found
+    return maxIndex - minIndex + 1; // Count of occurrences
+}
+
+int main() {
+    vector<int> arr = {2, 4, 4, 4, 6, 8, 8, 10};
+    int x = 4;
+
+    int count = CountOccurrences(arr, x);
+    cout << "The count of " << x << " is: " << count << endl;
+
+    return 0;
+}
+
+
+
+
+
+
+c#:
+
+
 using System;
 
 class Program
