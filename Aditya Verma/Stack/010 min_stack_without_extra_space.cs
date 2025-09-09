@@ -1,3 +1,78 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+class MinStack {
+private:
+    vector<long long> stack;
+    long long minElement;
+
+public:
+    MinStack() {
+        minElement = LLONG_MAX;
+    }
+
+    int GetMin() {
+        if (stack.empty()) return -1; // Stack empty
+        return (int)minElement;
+    }
+
+    void Push(int ele) {
+        if (stack.empty()) {
+            stack.push_back(ele);
+            minElement = ele;
+        } else {
+            if (ele >= minElement) {
+                stack.push_back(ele);
+            } else {
+                // Store a "modified" value
+                stack.push_back(2LL * ele - minElement);
+                minElement = ele;
+            }
+        }
+    }
+
+    void Pop() {
+        if (stack.empty()) {
+            cout << "Stack is empty." << endl;
+            return;
+        }
+
+        long long top = stack.back();
+        stack.pop_back();
+
+        if (top < minElement) {
+            minElement = 2LL * minElement - top;
+        }
+    }
+
+    void PrintStackMin() {
+        cout << "Current Min: " << GetMin() << endl;
+    }
+};
+
+int main() {
+    MinStack ms;
+    int arr[] = {18, 19, 29, 15, 16};
+
+    for (int num : arr) {
+        ms.Push(num);
+        cout << "Pushed: " << num << ", ";
+        ms.PrintStackMin();
+    }
+
+    cout << "Popping elements..." << endl;
+    while (true) {
+        if (ms.GetMin() == -1) break;
+        ms.Pop();
+        ms.PrintStackMin();
+    }
+
+    return 0;
+}
+
+
+c#:
 using System;
 using System.Collections.Generic;
 
