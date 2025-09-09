@@ -1,3 +1,47 @@
+cpp:
+#include <iostream>
+#include <string>
+#include <algorithm> // for std::max
+
+using namespace std;
+
+class Solution {
+public:
+    // Recursive function to calculate LCS
+    int LCS(const string &X, const string &Y, int n, int m) {
+        // Base case: If either string is empty
+        if (n == 0 || m == 0)
+            return 0;
+
+        // If last characters of both strings match
+        if (X[n - 1] == Y[m - 1])
+            return 1 + LCS(X, Y, n - 1, m - 1);
+
+        // If last characters don't match
+        else
+            return max(LCS(X, Y, n - 1, m), LCS(X, Y, n, m - 1));
+    }
+};
+
+int main() {
+    string X, Y;
+    getline(cin, X); // Read first string
+    getline(cin, Y); // Read second string
+
+    Solution solution;
+    int result = solution.LCS(X, Y, X.length(), Y.length());
+
+    cout << result << endl;
+
+    return 0;
+}
+
+
+
+
+
+c#:
+
 using System;
 
 public class Solution
