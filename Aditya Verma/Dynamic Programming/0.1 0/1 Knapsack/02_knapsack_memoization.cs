@@ -1,3 +1,43 @@
+py:
+
+from typing import List
+
+def knapsack_recursive(wt: List[int], val: List[int], W: int, n: int, t: List[List[int]]) -> int:
+    # Base case
+    if n == 0 or W == 0:
+        return 0
+
+    # Already calculated
+    if t[n][W] != -1:
+        return t[n][W]
+
+    if wt[n - 1] <= W:
+        t[n][W] = max(
+            val[n - 1] + knapsack_recursive(wt, val, W - wt[n - 1], n - 1, t),
+            knapsack_recursive(wt, val, W, n - 1, t)
+        )
+    else:
+        t[n][W] = knapsack_recursive(wt, val, W, n - 1, t)
+
+    return t[n][W]
+
+def knapsack(wt: List[int], val: List[int], W: int) -> int:
+    n = len(wt)
+    # Initialize memoization table
+    t = [[-1 for _ in range(W + 1)] for _ in range(n + 1)]
+    return knapsack_recursive(wt, val, W, n, t)
+
+
+if __name__ == "__main__":
+    weights = [1, 3, 4, 5]
+    values = [1, 4, 5, 7]
+    capacity = 7
+
+    max_value = knapsack(weights, values, capacity)
+    print(max_value)  # Output: 9
+
+
+
 cpp:
 #include <iostream>
 #include <vector>
