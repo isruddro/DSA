@@ -1,3 +1,49 @@
+cpp:
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+// Iterative Bottom-Up DP for 0/1 Knapsack
+int Knapsack(const vector<int>& wt, const vector<int>& val, int W) {
+    int n = wt.size();
+    vector<vector<int>> dp(n + 1, vector<int>(W + 1, 0));
+
+    for (int i = 0; i <= n; i++) {
+        for (int j = 0; j <= W; j++) {
+            if (i == 0 || j == 0) {
+                dp[i][j] = 0; // base case
+            }
+            else if (wt[i - 1] <= j) {
+                int val1 = val[i - 1] + dp[i - 1][j - wt[i - 1]]; // take item
+                int val2 = dp[i - 1][j];                           // skip item
+                dp[i][j] = max(val1, val2);
+            } else {
+                dp[i][j] = dp[i - 1][j]; // can't take item
+            }
+        }
+    }
+
+    return dp[n][W];
+}
+
+int main() {
+    vector<int> weights = {1, 3, 4, 5};
+    vector<int> values = {1, 4, 5, 7};
+    int capacity = 7;
+
+    int maxValue = Knapsack(weights, values, capacity);
+    cout << maxValue << endl; // Output: 9
+
+    return 0;
+}
+
+
+
+
+c#:
+
 using System;
 
 public class Solution
