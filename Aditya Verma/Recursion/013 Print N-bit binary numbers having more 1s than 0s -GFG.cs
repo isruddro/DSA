@@ -1,3 +1,35 @@
+py:
+from typing import List
+
+class Solution:
+    def get_sorted(self, op: str, ones: int, zeros: int, N: int, result: List[str]):
+        if N == 0:
+            result.append(op)
+            return
+        
+        # Add '1'
+        self.get_sorted(op + '1', ones + 1, zeros, N - 1, result)
+        
+        # Add '0' only if ones > zeros
+        if ones > zeros:
+            self.get_sorted(op + '0', ones, zeros + 1, N - 1, result)
+
+    def n_bit_binary(self, N: int) -> List[str]:
+        if N <= 0:
+            return []
+        
+        result = []
+        self.get_sorted('1', 1, 0, N - 1, result)  # Start with '1'
+        return result
+
+if __name__ == "__main__":
+    N = int(input("Enter N: "))
+    solution = Solution()
+    res = solution.n_bit_binary(N)
+    print(" ".join(res))
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
