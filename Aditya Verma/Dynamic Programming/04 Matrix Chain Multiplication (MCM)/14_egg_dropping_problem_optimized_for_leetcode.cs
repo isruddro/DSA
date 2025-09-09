@@ -1,3 +1,56 @@
+py:
+
+MAX_EGGS = 107
+MAX_FLOORS = 10007
+
+dp = [[-1 for _ in range(MAX_FLOORS)] for _ in range(MAX_EGGS)]
+
+def solve(eggs, floors):
+    # If already computed, return result
+    if dp[eggs][floors] != -1:
+        return dp[eggs][floors]
+
+    # Base cases
+    if eggs == 1 or floors == 0 or floors == 1:
+        dp[eggs][floors] = floors
+        return floors
+
+    ans = floors
+    low, high = 1, floors
+
+    # Binary search to minimize the worst-case attempts
+    while low <= high:
+        mid = low + (high - low) // 2
+
+        bottom = solve(eggs - 1, mid - 1)  # Egg breaks
+        top = solve(eggs, floors - mid)    # Egg survives
+
+        temp = 1 + max(bottom, top)
+
+        if bottom < top:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+        ans = min(ans, temp)
+
+    dp[eggs][floors] = ans
+    return ans
+
+def super_egg_drop(K, N):
+    global dp
+    # Reset dp table for new inputs
+    dp = [[-1 for _ in range(MAX_FLOORS)] for _ in range(MAX_EGGS)]
+    return solve(K, N)
+
+if __name__ == "__main__":
+    K = 3  # Number of eggs
+    N = 14 # Number of floors
+
+    print(f"Minimum number of trials: {super_egg_drop(K, N)}")
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
