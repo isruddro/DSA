@@ -1,3 +1,57 @@
+cpp:
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+string LCS(const string &X, const string &Y, int n, int m) {
+    vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+
+    // Fill the DP table
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            if (X[i - 1] == Y[j - 1])
+                dp[i][j] = 1 + dp[i - 1][j - 1];
+            else
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+        }
+    }
+
+    // Reconstruct the LCS string
+    int x = n, y = m;
+    string lcs = "";
+    while (x > 0 && y > 0) {
+        if (X[x - 1] == Y[y - 1]) {
+            lcs.push_back(X[x - 1]);
+            x--;
+            y--;
+        }
+        else if (dp[x - 1][y] > dp[x][y - 1])
+            x--;
+        else
+            y--;
+    }
+
+    reverse(lcs.begin(), lcs.end()); // Reverse to get correct order
+    return lcs;
+}
+
+int main() {
+    string X, Y;
+    getline(cin, X);
+    getline(cin, Y);
+
+    cout << LCS(X, Y, X.length(), Y.length()) << endl;
+
+    return 0;
+}
+
+
+c#:
+
 using System;
 using System.Collections.Generic;
 
