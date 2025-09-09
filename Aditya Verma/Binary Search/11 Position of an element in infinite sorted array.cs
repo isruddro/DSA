@@ -1,3 +1,54 @@
+cpp:
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+// Binary Search function to find target within range [s, e]
+int BinarySearch(const vector<int>& arr, int s, int e, int target) {
+    while (s <= e) {
+        int m = s + (e - s) / 2;
+        if (arr[m] == target) return m;  // Found target
+        if (arr[m] < target) s = m + 1; // Target in right half
+        else e = m - 1;                 // Target in left half
+    }
+    return -1; // Target not found
+}
+
+// Exponential Search to find range and then binary search
+int FindPositionInInfiniteArray(const vector<int>& arr, int target) {
+    int s = 0, e = 1;
+
+    // Expand the range exponentially
+    while (e < arr.size() && arr[e] < target) {
+        s = e;
+        e *= 2;
+    }
+
+    // Binary search within the identified range
+    return BinarySearch(arr, s, min(e, (int)arr.size() - 1), target);
+}
+
+int main() {
+    vector<int> arr = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31};
+    int target = 19;
+
+    int result = FindPositionInInfiniteArray(arr, target);
+    if (result != -1)
+        cout << "Target " << target << " found at index " << result << endl;
+    else
+        cout << "Target " << target << " not found in the array" << endl;
+
+    return 0;
+}
+
+
+
+
+c#:
+
+
 using System;
 
 class Program
