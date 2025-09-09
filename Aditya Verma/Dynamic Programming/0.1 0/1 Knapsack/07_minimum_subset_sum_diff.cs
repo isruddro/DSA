@@ -1,3 +1,67 @@
+cpp:
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+
+// Function to find all possible subset sums
+vector<int> IsSubsetPoss(const vector<int>& arr, int n, int sum) {
+    vector<vector<bool>> t(n + 1, vector<bool>(sum + 1, false));
+
+    // Initialization
+    for (int i = 0; i <= n; i++) t[i][0] = true; // sum = 0 is always possible
+    for (int j = 1; j <= sum; j++) t[0][j] = false; // no items cannot form sum > 0
+
+    // Fill DP table
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= sum; j++) {
+            if (arr[i - 1] <= j)
+                t[i][j] = t[i - 1][j - arr[i - 1]] || t[i - 1][j]; // include or exclude
+            else
+                t[i][j] = t[i - 1][j]; // exclude
+        }
+    }
+
+    vector<int> result;
+    for (int j = 0; j <= sum; j++) {
+        if (t[n][j]) result.push_back(j);
+    }
+
+    return result;
+}
+
+// Function to find the minimum subset sum difference
+int MinSubsetSumDiff(const vector<int>& arr) {
+    int n = arr.size();
+    int range = 0;
+    for (int num : arr) range += num;
+
+    vector<int> subsetSums = IsSubsetPoss(arr, n, range);
+    int minDiff = INT_MAX;
+
+    for (int s : subsetSums) {
+        minDiff = min(minDiff, abs(range - 2 * s));
+    }
+
+    return minDiff;
+}
+
+int main() {
+    vector<int> arr = {1, 2, 3, 9};
+
+    int result = MinSubsetSumDiff(arr);
+    cout << result << endl; // Output: 3
+
+    return 0;
+}
+
+
+
+
+
+c#:
+
 using System;
 using System.Collections.Generic;
 
