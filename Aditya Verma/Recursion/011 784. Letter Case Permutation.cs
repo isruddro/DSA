@@ -1,3 +1,37 @@
+py:
+from typing import List
+
+class Solution:
+    def get_solved(self, s: str, op: str, result: List[str]):
+        if not s:
+            result.append(op)
+            return
+        
+        c = s[0]
+        rest = s[1:]
+        
+        if c.isdigit():
+            # If digit, just add it and recurse
+            self.get_solved(rest, op + c, result)
+        else:
+            # If letter, branch into lowercase and uppercase
+            self.get_solved(rest, op + c.lower(), result)
+            self.get_solved(rest, op + c.upper(), result)
+
+    def letter_case_permutation(self, s: str) -> List[str]:
+        result = []
+        self.get_solved(s, "", result)
+        return result
+
+if __name__ == "__main__":
+    s = input("Enter string: ")
+    solution = Solution()
+    result = solution.letter_case_permutation(s)
+    print(" ".join(result))
+
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
