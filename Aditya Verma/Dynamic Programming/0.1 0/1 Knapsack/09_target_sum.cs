@@ -1,3 +1,43 @@
+py:
+
+from typing import List
+
+def count_subsets_with_sum(arr: List[int], n: int, target_sum: int) -> int:
+    # DP table: t[i][j] = number of subsets using first i elements to sum j
+    t = [[0] * (target_sum + 1) for _ in range(n + 1)]
+
+    # Base case: sum = 0 can always be formed with empty subset
+    for i in range(n + 1):
+        t[i][0] = 1
+
+    # Fill DP table
+    for i in range(1, n + 1):
+        for j in range(1, target_sum + 1):
+            if arr[i - 1] <= j:
+                t[i][j] = t[i - 1][j - arr[i - 1]] + t[i - 1][j]  # include or exclude
+            else:
+                t[i][j] = t[i - 1][j]  # exclude
+
+    return t[n][target_sum]
+
+def target_sum(arr: List[int], diff: int) -> int:
+    total_sum = sum(arr)
+
+    # If (sum + diff) is odd, no valid subset exists
+    if (total_sum + diff) % 2 != 0:
+        return 0
+
+    target = (total_sum + diff) // 2
+    return count_subsets_with_sum(arr, len(arr), target)
+
+if __name__ == "__main__":
+    arr = [1, 1, 2, 3]
+    diff = 1
+    result = target_sum(arr, diff)
+    print(result)  # Output: 3
+
+
+
 cpp:
 
 #include <iostream>
