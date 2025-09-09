@@ -1,3 +1,35 @@
+py:
+from typing import List
+
+class Solution:
+    def get_solved(self, opt: str, op: int, cl: int, result: List[str]):
+        # Base case: no open or close parentheses left
+        if op == 0 and cl == 0:
+            result.append(opt)
+            return
+
+        # If open parentheses remain, add '('
+        if op > 0:
+            self.get_solved(opt + "(", op - 1, cl, result)
+
+        # If there are more closing than open parentheses remaining, add ')'
+        if cl > op:
+            self.get_solved(opt + ")", op, cl - 1, result)
+
+    def generate_parenthesis(self, n: int) -> List[str]:
+        result = []
+        self.get_solved("", n, n, result)
+        return result
+
+if __name__ == "__main__":
+    n = int(input("Enter n: "))
+    solution = Solution()
+    res = solution.generate_parenthesis(n)
+    print(" ".join(res))
+
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
