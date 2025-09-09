@@ -1,5 +1,67 @@
 //Any to Any
 //focus on the negative so we consider that too
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode* l, TreeNode* r) : val(x), left(l), right(r) {}
+};
+
+class Solution {
+private:
+    int res;
+
+    // Recursive function to calculate the maximum path sum
+    int Solve(TreeNode* root) {
+        if (!root) return 0;
+
+        // Maximum path sum from left and right subtrees (discard negatives)
+        int left = max(0, Solve(root->left));
+        int right = max(0, Solve(root->right));
+
+        // Maximum path starting from current node
+        int temp = max(root->val + max(left, right), root->val);
+
+        // Maximum path including current node as junction
+        int ans = max(temp, left + right + root->val);
+
+        // Update global maximum
+        res = max(res, ans);
+
+        return temp; // Return max sum starting from current node
+    }
+
+public:
+    int MaxPathSum(TreeNode* root) {
+        res = INT_MIN; // Initialize result to smallest possible value
+        Solve(root);
+        return res;
+    }
+};
+
+int main() {
+    // Example usage:
+    TreeNode* root = new TreeNode(10, 
+                         new TreeNode(2, new TreeNode(20), new TreeNode(1)), 
+                         new TreeNode(10, nullptr, new TreeNode(-25, new TreeNode(3), new TreeNode(4)))
+                     );
+
+    Solution sol;
+    cout << "Maximum Path Sum: " << sol.MaxPathSum(root) << endl;
+    return 0;
+}
+
+
+
+
+c#:
+
 using System;
 
 public class TreeNode {
