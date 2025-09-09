@@ -1,3 +1,44 @@
+cpp:
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Function to find the peak element in the array
+int FindPeakElement(const vector<int>& arr) {
+    int s = 0, e = arr.size() - 1;
+
+    while (s < e) {
+        int m = s + (e - s) / 2;
+
+        // If the element at m is smaller than the element at m-1, move left
+        if (m > 0 && arr[m] < arr[m - 1])
+            e = m - 1;
+        // If the element at m is smaller than the element at m+1, move right
+        else if (m < arr.size() - 1 && arr[m] < arr[m + 1])
+            s = m + 1;
+        // If neither, m is the peak
+        else
+            return m;
+    }
+
+    // When s == e, we've found the peak
+    return s;
+}
+
+int main() {
+    vector<int> arr = {1, 2, 3, 1};
+
+    int peakIndex = FindPeakElement(arr);
+    cout << "Peak element is at index: " << peakIndex << endl;
+
+    return 0;
+}
+
+
+
+c#:
+
 using System;
 
 class Program
