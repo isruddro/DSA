@@ -14,8 +14,64 @@
             hypothesis will remove one
             induction will add that after comparing in the base condition 
  */
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+private:
+    // Insert an element into its correct position in a sorted vector
+    void insertInSortedOrder(vector<int>& nums, int t) {
+        if (nums.empty() || t >= nums.back()) {
+            nums.push_back(t);
+            return;
+        }
+
+        int last = nums.back();
+        nums.pop_back();
+
+        insertInSortedOrder(nums, t);
+
+        nums.push_back(last);
+    }
+
+    // Recursively sort the vector
+    void getSorted(vector<int>& nums) {
+        if (nums.empty())
+            return;
+
+        int last = nums.back();
+        nums.pop_back();
+
+        getSorted(nums);
+
+        insertInSortedOrder(nums, last);
+    }
+
+public:
+    vector<int> sortArray(vector<int>& nums) {
+        getSorted(nums);
+        return nums;
+    }
+};
+
+int main() {
+    vector<int> nums = {2, 5, 4, 1, 3};
+
+    Solution solution;
+    vector<int> sorted = solution.sortArray(nums);
+
+    for (int num : sorted) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
 
 
+
+c#:
 Answer 1:
 
 public class Solution 
