@@ -1,3 +1,37 @@
+py:
+
+from typing import List
+
+def is_subset_sum_possible(arr: List[int], target: int) -> bool:
+    n = len(arr)
+    dp = [[False for _ in range(target + 1)] for _ in range(n + 1)]
+
+    # Initialization
+    for i in range(n + 1):
+        dp[i][0] = True  # sum = 0 can always be formed
+    for j in range(1, target + 1):
+        dp[0][j] = False  # no items cannot form sum > 0
+
+    # Build DP table
+    for i in range(1, n + 1):
+        for j in range(1, target + 1):
+            if arr[i - 1] <= j:
+                dp[i][j] = dp[i - 1][j - arr[i - 1]] or dp[i - 1][j]  # include or exclude
+            else:
+                dp[i][j] = dp[i - 1][j]  # exclude
+
+    return dp[n][target]
+
+
+if __name__ == "__main__":
+    arr = [2, 3, 7, 8, 10]
+    target = 11
+
+    result = is_subset_sum_possible(arr, target)
+    print("Yes" if result else "No")  # Output: Yes
+
+
+
 cpp:
 
 #include <iostream>
