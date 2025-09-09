@@ -1,3 +1,39 @@
+py:
+
+
+import heapq
+
+class Pair:
+    def __init__(self, first, second):
+        self.first = first
+        self.second = second
+
+def k_closest_points(arr, k):
+    # Max-heap using negative distance
+    maxh = []
+
+    for point in arr:
+        dist = point.first ** 2 + point.second ** 2
+        heapq.heappush(maxh, (-dist, point))  # Use negative to simulate max-heap
+
+        if len(maxh) > k:
+            heapq.heappop(maxh)
+
+    # Extract points from heap
+    result = [heapq.heappop(maxh)[1] for _ in range(len(maxh))]
+    result.reverse()  # Optional: closest to farthest
+    return result
+
+# Example usage
+if __name__ == "__main__":
+    arr = [Pair(1, 3), Pair(-2, 2), Pair(5, 8), Pair(0, 3)]
+    k = 2
+    result = k_closest_points(arr, k)
+    for p in result:
+        print(f"{p.first}, {p.second}", end="; ")
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
