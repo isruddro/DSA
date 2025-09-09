@@ -1,3 +1,49 @@
+py:
+
+from typing import List
+
+min_index = float('inf')
+max_index = float('-inf')
+
+def binary_search(start: int, end: int, arr: List[int], target: int, left_bias: bool) -> None:
+    global min_index, max_index
+    if start > end:
+        return
+
+    mid = (start + end) // 2
+
+    if arr[mid] > target:
+        binary_search(start, mid - 1, arr, target, left_bias)
+    elif arr[mid] < target:
+        binary_search(mid + 1, end, arr, target, left_bias)
+    else:
+        if left_bias:
+            min_index = min(min_index, mid)
+            binary_search(start, mid - 1, arr, target, left_bias)
+        else:
+            max_index = max(max_index, mid)
+            binary_search(mid + 1, end, arr, target, left_bias)
+
+def count_occurrences(arr: List[int], x: int) -> int:
+    global min_index, max_index
+    min_index = float('inf')
+    max_index = float('-inf')
+
+    # Find leftmost and rightmost occurrences
+    binary_search(0, len(arr) - 1, arr, x, True)
+    binary_search(0, len(arr) - 1, arr, x, False)
+
+    if min_index == float('inf'):
+        return 0  # Target not found
+    return max_index - min_index + 1
+
+if __name__ == "__main__":
+    arr = [2, 4, 4, 4, 6, 8, 8, 10]
+    x = 4
+    count = count_occurrences(arr, x)
+    print(f"The count of {x} is: {count}")
+
+
 cpp:
 #include <iostream>
 #include <vector>
