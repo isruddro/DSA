@@ -1,3 +1,56 @@
+py:
+
+class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.min_element = float('inf')
+
+    def push(self, val: int):
+        if not self.stack:
+            self.stack.append(val)
+            self.min_element = val
+        else:
+            if val >= self.min_element:
+                self.stack.append(val)
+            else:
+                # Store a modified value
+                self.stack.append(2 * val - self.min_element)
+                self.min_element = val
+
+    def pop(self):
+        if not self.stack:
+            print("Stack is empty.")
+            return
+        top = self.stack.pop()
+        if top < self.min_element:
+            self.min_element = 2 * self.min_element - top
+
+    def get_min(self) -> int:
+        if not self.stack:
+            return -1
+        return self.min_element
+
+    def print_stack_min(self):
+        print("Current Min:", self.get_min())
+
+
+# Example usage:
+if __name__ == "__main__":
+    ms = MinStack()
+    arr = [18, 19, 29, 15, 16]
+
+    for num in arr:
+        ms.push(num)
+        print(f"Pushed: {num}, ", end="")
+        ms.print_stack_min()
+
+    print("Popping elements...")
+    while ms.get_min() != -1:
+        ms.pop()
+        ms.print_stack_min()
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
