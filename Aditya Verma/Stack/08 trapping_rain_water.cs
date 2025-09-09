@@ -1,3 +1,47 @@
+cpp:
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int RainWaterTrapping(const vector<int>& arr) {
+    int n = arr.size();
+    if (n == 0) return 0;
+
+    vector<int> maxL(n), maxR(n);
+
+    // Initialize first and last elements
+    maxL[0] = arr[0];
+    maxR[n - 1] = arr[n - 1];
+
+    // Fill maxL array (max height to the left)
+    for (int i = 1; i < n; i++) {
+        maxL[i] = max(maxL[i - 1], arr[i]);
+    }
+
+    // Fill maxR array (max height to the right)
+    for (int i = n - 2; i >= 0; i--) {
+        maxR[i] = max(maxR[i + 1], arr[i]);
+    }
+
+    // Calculate total trapped water
+    int totalWater = 0;
+    for (int i = 0; i < n; i++) {
+        totalWater += min(maxL[i], maxR[i]) - arr[i];
+    }
+
+    return totalWater;
+}
+
+int main() {
+    vector<int> arr = {3, 0, 0, 2, 0, 4};
+    int result = RainWaterTrapping(arr);
+    cout << "Total trapped rainwater: " << result << endl;
+    return 0;
+}
+
+
+c#:
 using System;
 
 class Solution
