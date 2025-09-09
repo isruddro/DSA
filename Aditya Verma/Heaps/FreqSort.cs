@@ -1,3 +1,32 @@
+py:
+
+import heapq
+from collections import Counter
+
+def frequency_sort(arr):
+    # Count frequency of each element
+    freq = Counter(arr)
+
+    # Max-heap: store (-frequency, element) so largest frequency comes first
+    maxh = [(-f, num) for num, f in freq.items()]
+    heapq.heapify(maxh)
+
+    result = []
+
+    # Extract elements from heap in frequency order
+    while maxh:
+        f, num = heapq.heappop(maxh)
+        result.extend([num] * (-f))  # Multiply by -1 to get original frequency
+
+    return result
+
+# Example usage
+if __name__ == "__main__":
+    arr = [4, 4, 4, 4, 3, 3, 1, 1, 1, 2]
+    print(*frequency_sort(arr))
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
