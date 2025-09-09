@@ -1,3 +1,40 @@
+py:
+
+from typing import List
+
+def find_floor(v: List[int], n: int, x: int) -> int:
+    start, end = 0, n - 1
+    ans = -1
+
+    while start <= end:
+        mid = start + (end - start) // 2
+
+        if v[mid] == x:
+            return mid
+
+        if v[mid] > x:
+            end = mid - 1
+        else:
+            if ans == -1 or v[mid] > v[ans]:
+                ans = mid
+            start = mid + 1
+
+    return ans
+
+
+if __name__ == "__main__":
+    v = [1, 2, 8, 10, 10, 12, 19]
+    n = len(v)
+    x = 5
+
+    result = find_floor(v, n, x)
+    if result != -1:
+        print(f"Floor of {x} is {v[result]} at index {result}")
+    else:
+        print("No floor found.")
+
+
+
 cpp:
 #include <iostream>
 #include <vector>
