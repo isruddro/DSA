@@ -1,3 +1,42 @@
+cpp:
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm> // for std::max
+
+using namespace std;
+
+int LCS(const string &X, const string &Y, int n, int m) {
+    vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+
+    // Fill the DP table
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            if (X[i - 1] == Y[j - 1])
+                dp[i][j] = 1 + dp[i - 1][j - 1];
+            else
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+        }
+    }
+
+    return dp[n][m];
+}
+
+int main() {
+    string X, Y;
+    getline(cin, X);
+    getline(cin, Y);
+
+    int result = LCS(X, Y, X.length(), Y.length());
+    cout << result << endl;
+
+    return 0;
+}
+
+
+
+c#:
+
 using System;
 
 public class Solution
