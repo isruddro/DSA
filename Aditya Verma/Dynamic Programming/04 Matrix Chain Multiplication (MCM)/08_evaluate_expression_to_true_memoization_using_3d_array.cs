@@ -1,3 +1,54 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+int dp[2][1001][1001]; // dp[isTrue][i][j]
+
+// Recursive function with 3D DP
+int Solve(const string &X, int i, int j, bool isTrue) {
+    if (i >= j) {
+        dp[isTrue ? 1 : 0][i][j] = (isTrue ? X[i] == 'T' : X[i] == 'F') ? 1 : 0;
+        return dp[isTrue ? 1 : 0][i][j];
+    }
+
+    if (dp[isTrue ? 1 : 0][i][j] != -1)
+        return dp[isTrue ? 1 : 0][i][j];
+
+    int ans = 0;
+    for (int k = i + 1; k < j; k += 2) {
+        int l_T = Solve(X, i, k - 1, true);
+        int l_F = Solve(X, i, k - 1, false);
+        int r_T = Solve(X, k + 1, j, true);
+        int r_F = Solve(X, k + 1, j, false);
+
+        if (X[k] == '|') {
+            ans += isTrue ? l_T * r_T + l_T * r_F + l_F * r_T : l_F * r_F;
+        } else if (X[k] == '&') {
+            ans += isTrue ? l_T * r_T : l_T * r_F + l_F * r_T + l_F * r_F;
+        } else if (X[k] == '^') {
+            ans += isTrue ? l_T * r_F + l_F * r_T : l_T * r_T + l_F * r_F;
+        }
+    }
+
+    return dp[isTrue ? 1 : 0][i][j] = ans;
+}
+
+int main() {
+    string X;
+    cin >> X;
+
+    // Initialize dp array to -1
+    memset(dp, -1, sizeof(dp));
+
+    cout << Solve(X, 0, X.size() - 1, true) << endl;
+    return 0;
+}
+
+
+
+
+c#:
+
 using System;
 
 class BooleanParenthesization
