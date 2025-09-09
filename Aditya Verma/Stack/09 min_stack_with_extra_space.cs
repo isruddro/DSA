@@ -1,3 +1,60 @@
+cpp:
+#include <iostream>
+#include <stack>
+using namespace std;
+
+class MinStack {
+private:
+    stack<int> st;      // main stack
+    stack<int> support; // stack to keep track of minimums
+
+public:
+    void push(int ele) {
+        st.push(ele);
+        if (support.empty() || ele <= support.top()) {
+            support.push(ele);
+        }
+    }
+
+    int pop() {
+        if (st.empty()) return -1;
+        int ans = st.top();
+        st.pop();
+        if (!support.empty() && ans == support.top()) {
+            support.pop();
+        }
+        return ans;
+    }
+
+    int getMin() {
+        if (support.empty()) return -1;
+        return support.top();
+    }
+};
+
+int main() {
+    int arr[] = {18, 19, 29, 15, 16};
+    int n = sizeof(arr)/sizeof(arr[0]);
+
+    MinStack minStack;
+
+    for (int i = 0; i < n; i++) {
+        minStack.push(arr[i]);
+        cout << "Pushed: " << arr[i] << ", Minimum: " << minStack.getMin() << endl;
+    }
+
+    cout << "Popping elements..." << endl;
+    while (true) {
+        int popped = minStack.pop();
+        if (popped == -1) break;
+        cout << "Popped: " << popped << ", Minimum: " << minStack.getMin() << endl;
+    }
+
+    return 0;
+}
+
+
+c#:
 using System;
 using System.Collections.Generic;
 
