@@ -1,3 +1,46 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+// Function to find the kth smallest element
+int FindKthSmallest(vector<int>& arr, int k) {
+    // Max-heap to store the k smallest elements
+    priority_queue<int> maxHeap;
+
+    for (int num : arr) {
+        maxHeap.push(num);
+
+        // If heap size exceeds k, remove the largest element
+        if ((int)maxHeap.size() > k)
+            maxHeap.pop();
+    }
+
+    // Top of max-heap is the kth smallest
+    return maxHeap.top();
+}
+
+int main() {
+    vector<int> arr = {7, 12, 9, 4, 1, 8, 3, 5, 6, 10};
+    int k1 = 4, k2 = 8;
+    int sum = 0;
+
+    int s = FindKthSmallest(arr, k1);
+    int f = FindKthSmallest(arr, k2);
+
+    // Sum elements strictly between k1th and k2th smallest
+    for (int num : arr) {
+        if (num > s && num < f)
+            sum += num;
+    }
+
+    cout << sum << endl;
+
+    return 0;
+}
+
+
+c#:
+
 using System;
 using System.Collections.Generic;
 
