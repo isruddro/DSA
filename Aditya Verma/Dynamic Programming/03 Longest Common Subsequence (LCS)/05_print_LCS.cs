@@ -1,3 +1,43 @@
+py:
+
+def lcs(X, Y):
+    n = len(X)
+    m = len(Y)
+    
+    # DP table initialization
+    dp = [[0] * (m + 1) for _ in range(n + 1)]
+
+    # Fill the DP table
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            if X[i - 1] == Y[j - 1]:
+                dp[i][j] = 1 + dp[i - 1][j - 1]
+            else:
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
+    # Reconstruct the LCS string
+    i, j = n, m
+    lcs_str = []
+    while i > 0 and j > 0:
+        if X[i - 1] == Y[j - 1]:
+            lcs_str.append(X[i - 1])
+            i -= 1
+            j -= 1
+        elif dp[i - 1][j] > dp[i][j - 1]:
+            i -= 1
+        else:
+            j -= 1
+
+    # Reverse to get correct order
+    lcs_str.reverse()
+    return ''.join(lcs_str)
+
+# Example usage
+X = input()
+Y = input()
+print(lcs(X, Y))
+
+
 cpp:
 
 #include <iostream>
