@@ -1,3 +1,36 @@
+py:
+
+# Recursive function to check if X can be scrambled into Y
+def solve(X, Y):
+    if X == Y:
+        return True
+    if len(X) <= 1:
+        return False
+
+    n = len(X)
+    for i in range(1, n):
+        # Case 1: swap
+        if solve(X[:i], Y[n-i:]) and solve(X[i:], Y[:n-i]):
+            return True
+        # Case 2: no swap
+        if solve(X[:i], Y[:i]) and solve(X[i:], Y[i:]):
+            return True
+
+    return False
+
+# Input
+X = input().strip()
+Y = input().strip()
+
+# Output
+if len(X) != len(Y):
+    print("No")
+else:
+    print("Yes" if solve(X, Y) else "No")
+
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
