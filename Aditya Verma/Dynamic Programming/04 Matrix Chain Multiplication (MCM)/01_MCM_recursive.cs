@@ -1,3 +1,31 @@
+py:
+def matrix_chain_multiplication(arr):
+    n = len(arr)
+    # Create DP table
+    dp = [[0] * n for _ in range(n)]
+
+    # Fill dp table
+    for length in range(2, n):  # chain length
+        for i in range(1, n - length + 1):
+            j = i + length - 1
+            dp[i][j] = float('inf')
+            for k in range(i, j):
+                cost = dp[i][k] + dp[k + 1][j] + arr[i - 1] * arr[k] * arr[j]
+                dp[i][j] = min(dp[i][j], cost)
+
+    return dp[1][n - 1]
+
+# Input
+n = int(input())
+arr = list(map(int, input().split()))
+
+# Output
+print(matrix_chain_multiplication(arr))
+
+
+
+cpp:
+
 #include <bits/stdc++.h>
 using namespace std;
 
