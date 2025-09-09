@@ -1,3 +1,33 @@
+py:
+import sys
+sys.setrecursionlimit(10**6)
+
+# Memoization table
+t = {}
+
+def solve(arr, i, j):
+    if i >= j:
+        return 0
+
+    if (i, j) in t:
+        return t[(i, j)]
+
+    ans = float('inf')
+    for k in range(i, j):
+        temp_ans = solve(arr, i, k) + solve(arr, k + 1, j) + arr[i - 1] * arr[k] * arr[j]
+        ans = min(ans, temp_ans)
+
+    t[(i, j)] = ans
+    return ans
+
+# Input
+n = int(input())
+arr = list(map(int, input().split()))
+
+# Compute minimum multiplications
+print(solve(arr, 1, n - 1))
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
