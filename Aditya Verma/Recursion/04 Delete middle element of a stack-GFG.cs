@@ -1,3 +1,56 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    // Helper function to delete the kth element from top
+    void getDeleted(stack<int>& s, int k) {
+        if (k == 0) {
+            s.pop();
+            return;
+        }
+
+        int t = s.top();
+        s.pop();
+        getDeleted(s, k - 1);
+        s.push(t);
+    }
+
+    // Function to delete the middle element of the stack
+    void deleteMid(stack<int>& s, int sizeOfStack) {
+        int k = ceil(sizeOfStack / 2.0) - 1; // middle index from top
+        getDeleted(s, k);
+    }
+};
+
+int main() {
+    stack<int> s;
+    int n;
+    cin >> n;
+
+    for (int i = 0; i < n; i++) {
+        int val;
+        cin >> val;
+        s.push(val);
+    }
+
+    Solution sol;
+    sol.deleteMid(s, n);
+
+    // Print stack from top to bottom
+    stack<int> temp = s;
+    while (!temp.empty()) {
+        cout << temp.top() << " ";
+        temp.pop();
+    }
+    cout << endl;
+
+    return 0;
+}
+
+
+c#:
 using System;
 using System.Collections.Generic;
 
