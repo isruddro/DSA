@@ -1,3 +1,25 @@
+py:
+
+def LRS(X):
+    n = len(X)
+    dp = [[0] * (n + 1) for _ in range(n + 1)]
+
+    for i in range(1, n + 1):
+        for j in range(1, n + 1):
+            # Characters match and indices are different
+            if X[i - 1] == X[j - 1] and i != j:
+                dp[i][j] = 1 + dp[i - 1][j - 1]
+            else:
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
+    return dp[n][n]
+
+# Example usage
+X = input()
+print(LRS(X))
+
+
+
 cpp:
 #include <iostream>
 #include <vector>
