@@ -1,3 +1,50 @@
+py:
+
+from typing import List
+
+def check(A: List[int], N: int, days: int, Pages: int) -> bool:
+    curr, d = 0, 1
+
+    for i in range(N):
+        curr += A[i]
+        if curr > Pages:
+            curr = A[i]
+            d += 1
+            if d > days:
+                return False
+
+    return True
+
+def find_pages(A: List[int], N: int, M: int) -> int:
+    if M > N:
+        return -1
+
+    mn = max(A)
+    mx = sum(A)
+
+    # Binary search for the answer
+    while mn < mx:
+        mid = mn + (mx - mn) // 2
+        if check(A, N, M, mid):
+            mx = mid
+        else:
+            mn = mid + 1
+
+    return mn
+
+
+if __name__ == "__main__":
+    A = [12, 34, 67, 90]  # Number of pages in books
+    N = len(A)             # Number of books
+    M = 2                  # Number of students
+
+    result = find_pages(A, N, M)
+    print(f"The minimum number of pages that can be assigned: {result}")
+
+
+
+        
+
 cpp:
 
 #include <iostream>
