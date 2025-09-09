@@ -1,5 +1,44 @@
 //on this question we need to check the second row initialization for overflow, that's why we need to check and use INF.
 //as it it working on the coin so we need to add 1, not the dp[i-1] that we used to do.
+py:
+
+from typing import List
+
+def get_min_number_of_coins(coins: List[int], n: int, target: int) -> int:
+    INF = float('inf')
+    dp = [[0] * (target + 1) for _ in range(n + 1)]
+
+    # Initialization
+    for i in range(n + 1):
+        for j in range(target + 1):
+            if j == 0:
+                dp[i][j] = 0  # 0 coins needed for sum 0
+            elif i == 0:
+                dp[i][j] = INF  # Impossible with 0 coins
+            elif i == 1:
+                dp[i][j] = j // coins[0] if j % coins[0] == 0 else INF
+
+    # Fill DP table
+    for i in range(2, n + 1):
+        for j in range(1, target + 1):
+            if coins[i - 1] <= j:
+                dp[i][j] = min(dp[i - 1][j], 1 + dp[i][j - coins[i - 1]])
+            else:
+                dp[i][j] = dp[i - 1][j]
+
+    return -1 if dp[n][target] == INF else dp[n][target]
+
+if __name__ == "__main__":
+    n = int(input("Enter number of coins: "))
+    coins = list(map(int, input("Enter coin denominations: ").split()))
+    target = int(input("Enter target sum: "))
+
+    result = get_min_number_of_coins(coins, n, target)
+    print(result)
+
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
