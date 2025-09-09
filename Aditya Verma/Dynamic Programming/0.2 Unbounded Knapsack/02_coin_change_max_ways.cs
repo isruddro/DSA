@@ -1,3 +1,53 @@
+cpp:
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Function to calculate the maximum number of ways to make change
+int GetMaxNumberOfWays(const vector<int>& coins, int n, int sum) {
+    vector<vector<int>> dp(n + 1, vector<int>(sum + 1, 0));
+
+    // Initialize base cases
+    for (int i = 0; i <= n; i++)
+        dp[i][0] = 1; // 1 way to make sum 0: pick no coins
+
+    // Fill dp table
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= sum; j++) {
+            if (coins[i - 1] <= j)
+                dp[i][j] = dp[i - 1][j] + dp[i][j - coins[i - 1]]; // Include or exclude coin
+            else
+                dp[i][j] = dp[i - 1][j]; // Exclude coin
+        }
+    }
+
+    return dp[n][sum];
+}
+
+int main() {
+    int n;
+    cin >> n; // Number of coins
+    vector<int> coins(n);
+
+    for (int i = 0; i < n; i++)
+        cin >> coins[i]; // Coin denominations
+
+    int sum;
+    cin >> sum; // Target sum
+
+    int result = GetMaxNumberOfWays(coins, n, sum);
+    cout << result << endl;
+
+    return 0;
+}
+
+
+
+
+
+c#:
+
+
 using System;
 
 public class Solution
