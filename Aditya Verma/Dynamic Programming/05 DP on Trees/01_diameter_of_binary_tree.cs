@@ -1,3 +1,47 @@
+py:
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def __init__(self):
+        self.res = float('-inf')
+    
+    # Helper function to calculate height and update diameter
+    def solve(self, root):
+        if not root:
+            return 0
+
+        left = self.solve(root.left)    # Height of left subtree
+        right = self.solve(root.right)  # Height of right subtree
+
+        temp = 1 + max(left, right)        # Height of current node
+        ans = max(temp, left + right + 1)  # Max diameter including this node
+        self.res = max(self.res, ans)      # Update global maximum
+
+        return temp  # Return height
+    
+    def diameterOfBinaryTree(self, root):
+        if not root:
+            return 0
+
+        self.res = float('-inf')  # Initialize result
+        self.solve(root)
+        return self.res - 1       # Subtract 1 to get actual diameter
+
+# Example usage
+if __name__ == "__main__":
+    root = TreeNode(1,
+                    TreeNode(2, TreeNode(4), TreeNode(5)),
+                    TreeNode(3))
+    sol = Solution()
+    print("Diameter of binary tree:", sol.diameterOfBinaryTree(root))
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
