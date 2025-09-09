@@ -1,3 +1,44 @@
+py:
+
+import sys
+sys.setrecursionlimit(10**6)
+
+# DP table for memoization
+t = [[-1 for _ in range(1001)] for _ in range(1001)]
+
+# Function to check if a substring is a palindrome
+def is_palindrome(X, i, j):
+    while i <= j:
+        if X[i] != X[j]:
+            return False
+        i += 1
+        j -= 1
+    return True
+
+# Recursive function with memoization
+def solve(X, i, j):
+    if i >= j or is_palindrome(X, i, j):
+        return 0
+
+    if t[i][j] != -1:
+        return t[i][j]
+
+    ans = float('inf')
+    for k in range(i, j):
+        temp_ans = solve(X, i, k) + solve(X, k + 1, j) + 1
+        ans = min(ans, temp_ans)
+
+    t[i][j] = ans
+    return ans
+
+# Input
+X = input().strip()
+
+# Compute and print minimum cuts
+print(solve(X, 0, len(X) - 1))
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
