@@ -19,6 +19,41 @@ https://leetcode.com/problems/next-greater-element-i/submissions/1315287157/
     
     At last we need to reverse for the answer
  */
+py:
+
+def next_greater_element_to_right(arr):
+    ans = []
+    stack = []
+
+    # Traverse from right to left
+    for i in range(len(arr) - 1, -1, -1):
+        # Pop elements smaller or equal to current element
+        while stack and stack[-1] <= arr[i]:
+            stack.pop()
+
+        # If stack is empty, no greater element
+        if not stack:
+            ans.append(-1)
+        else:
+            ans.append(stack[-1])
+
+        # Push current element onto stack
+        stack.append(arr[i])
+
+    # Reverse to restore original order
+    ans.reverse()
+    return ans
+
+
+if __name__ == "__main__":
+    arr = [1, 3, 2, 4]
+    result = next_greater_element_to_right(arr)
+    print("Next Greater Element to Right:", result)
+
+
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
