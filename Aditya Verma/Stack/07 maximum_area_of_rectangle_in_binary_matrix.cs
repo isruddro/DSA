@@ -11,8 +11,80 @@
     traverse every row.
         check if there is any 0 make that a[i][j] = 0
  */
+cpp:
+#include <iostream>
+#include <vector>
+#include <stack>
+#include <algorithm>
+using namespace std;
+
+// Function to calculate Maximum Area Histogram (MAH)
+int MAH(const vector<int>& heights) {
+    int n = heights.size();
+    vector<int> left(n), right(n);
+    stack<int> st;
+
+    // Nearest Smaller to Left
+    for (int i = 0; i < n; i++) {
+        while (!st.empty() && heights[st.top()] >= heights[i])
+            st.pop();
+        left[i] = st.empty() ? -1 : st.top();
+        st.push(i);
+    }
+
+    // Clear stack for NSR
+    while (!st.empty()) st.pop();
+
+    // Nearest Smaller to Right
+    for (int i = n - 1; i >= 0; i--) {
+        while (!st.empty() && heights[st.top()] >= heights[i])
+            st.pop();
+        right[i] = st.empty() ? n : st.top();
+        st.push(i);
+    }
+
+    // Compute max area
+    int maxArea = 0;
+    for (int i = 0; i < n; i++) {
+        int width = right[i] - left[i] - 1;
+        maxArea = max(maxArea, heights[i] * width);
+    }
+    return maxArea;
+}
+
+// Function to find maximum rectangle in a binary matrix
+int MaxRectangle(vector<vector<int>>& matrix) {
+    int n = matrix.size();
+    if (n == 0) return 0;
+    int m = matrix[0].size();
+    vector<int> histogram(m, 0);
+    int maxArea = 0;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            histogram[j] = matrix[i][j] == 0 ? 0 : histogram[j] + matrix[i][j];
+        }
+        maxArea = max(maxArea, MAH(histogram));
+    }
+    return maxArea;
+}
+
+int main() {
+    vector<vector<int>> matrix = {
+        {1, 0, 1, 0, 0},
+        {1, 0, 1, 1, 1},
+        {1, 1, 1, 1, 1},
+        {1, 0, 0, 1, 0}
+    };
+
+    cout << "Maximum Area of Rectangle: " << MaxRectangle(matrix) << endl;
+    return 0;
+}
 
 
+
+
+c#:
 using System;
 using System.Collections.Generic;
 
