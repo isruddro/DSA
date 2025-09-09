@@ -1,3 +1,52 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+const int D = 101;
+int t[D][D];
+
+// Recursive function with memoization
+int Solve(int eggs, int floors) {
+    // If already computed, return result
+    if (t[eggs][floors] != -1) return t[eggs][floors];
+
+    // Base cases
+    if (eggs == 1 || floors == 0 || floors == 1) {
+        t[eggs][floors] = floors;
+        return floors;
+    }
+
+    int mn = INT_MAX;
+
+    // Try dropping from each floor
+    for (int k = 1; k <= floors; k++) {
+        int temp_ans = 1 + max(Solve(eggs - 1, k - 1), Solve(eggs, floors - k));
+        mn = min(mn, temp_ans);
+    }
+
+    // Store and return
+    t[eggs][floors] = mn;
+    return mn;
+}
+
+int main() {
+    int eggs, floors;
+    cin >> eggs >> floors;
+
+    // Initialize memoization table with -1
+    for (int i = 0; i < D; i++)
+        for (int j = 0; j < D; j++)
+            t[i][j] = -1;
+
+    cout << Solve(eggs, floors) << endl;
+
+    return 0;
+}
+
+
+
+c#:
+
 using System;
 
 class Program
