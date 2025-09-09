@@ -1,3 +1,51 @@
+py:
+from typing import List
+
+def peak(arr: List[int]) -> int:
+    s, e = 0, len(arr) - 1
+    while s < e:
+        m = s + (e - s) // 2
+        if m > 0 and arr[m] < arr[m - 1]:
+            e = m - 1
+        elif m < len(arr) - 1 and arr[m] < arr[m + 1]:
+            s = m + 1
+        else:
+            return m
+    return s
+
+def bs(v: List[int], s: int, e: int, x: int, ascending: bool) -> int:
+    while s <= e:
+        m = s + (e - s) // 2
+        if v[m] == x:
+            return m
+        if v[m] > x:
+            if ascending:
+                e = m - 1
+            else:
+                s = m + 1
+        else:
+            if ascending:
+                s = m + 1
+            else:
+                e = m - 1
+    return -1
+
+def solve(A: List[int], B: int) -> int:
+    m = peak(A)
+    # Search in ascending part
+    idx = bs(A, 0, m, B, True)
+    if idx != -1:
+        return idx
+    # Search in descending part
+    return bs(A, m + 1, len(A) - 1, B, False)
+
+if __name__ == "__main__":
+    A = [1, 3, 8, 12, 4, 2]
+    B = 4
+    result = solve(A, B)
+    print(f"Element {B} found at index: {result}" if result != -1 else f"Element {B} not found")
+
+
 cpp:
 
 #include <iostream>
