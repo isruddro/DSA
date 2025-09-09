@@ -1,5 +1,50 @@
 https://leetcode.com/problems/maximum-depth-of-binary-tree/description/
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
 
+// Definition for a binary tree node
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode* l, TreeNode* r) : val(x), left(l), right(r) {}
+};
+
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        // Base case: if root is null, depth is 0
+        if (root == nullptr) return 0;
+
+        // Recursively find the max depth of left and right subtrees
+        int leftDepth = maxDepth(root->left);
+        int rightDepth = maxDepth(root->right);
+
+        // Return the max depth plus 1 for the current node
+        return 1 + max(leftDepth, rightDepth);
+    }
+};
+
+// Example usage:
+int main() {
+    TreeNode* root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+
+    Solution sol;
+    cout << "Maximum Depth: " << sol.maxDepth(root) << endl;
+
+    return 0;
+}
+
+
+c#:
 public class TreeNode {
     public int val;
     public TreeNode left;
