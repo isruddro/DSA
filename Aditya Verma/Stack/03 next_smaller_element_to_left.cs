@@ -1,3 +1,44 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> NextSmallerElementToLeft(vector<int>& arr) {
+    vector<int> ans;
+    stack<int> st;
+
+    for (int i = 0; i < arr.size(); i++) {
+        // Pop elements greater than or equal to current element
+        while (!st.empty() && st.top() >= arr[i]) {
+            st.pop();
+        }
+
+        // If stack is empty, no smaller element to left
+        if (st.empty())
+            ans.push_back(-1);
+        else
+            ans.push_back(st.top());
+
+        // Push current element onto stack
+        st.push(arr[i]);
+    }
+
+    return ans;
+}
+
+int main() {
+    vector<int> arr = {4, 5, 2, 10, 8};
+    vector<int> result = NextSmallerElementToLeft(arr);
+
+    cout << "Next Smaller Element to Left: ";
+    for (int x : result)
+        cout << x << " ";
+    cout << endl;
+
+    return 0;
+}
+
+
+c#:
 using System;
 using System.Collections.Generic;
 
