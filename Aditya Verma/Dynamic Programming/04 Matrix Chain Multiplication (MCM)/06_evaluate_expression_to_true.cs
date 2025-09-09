@@ -1,3 +1,48 @@
+py:
+
+# Recursive function to count the number of ways
+def solve(X, i, j, is_true):
+    if i >= j:
+        if is_true:
+            return 1 if X[i] == 'T' else 0
+        else:
+            return 1 if X[i] == 'F' else 0
+
+    ans = 0
+
+    # Loop through all operators in the expression
+    for k in range(i + 1, j, 2):
+        l_T = solve(X, i, k - 1, True)
+        l_F = solve(X, i, k - 1, False)
+        r_T = solve(X, k + 1, j, True)
+        r_F = solve(X, k + 1, j, False)
+
+        if X[k] == '|':
+            if is_true:
+                ans += l_T * r_T + l_T * r_F + l_F * r_T
+            else:
+                ans += l_F * r_F
+        elif X[k] == '&':
+            if is_true:
+                ans += l_T * r_T
+            else:
+                ans += l_T * r_F + l_F * r_T + l_F * r_F
+        elif X[k] == '^':
+            if is_true:
+                ans += l_T * r_F + l_F * r_T
+            else:
+                ans += l_T * r_T + l_F * r_F
+
+    return ans
+
+# Input
+X = input().strip()
+
+# Output number of ways to make the expression TRUE
+print(solve(X, 0, len(X) - 1, True))
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
