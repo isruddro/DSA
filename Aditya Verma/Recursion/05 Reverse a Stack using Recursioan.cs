@@ -1,3 +1,36 @@
+py:
+
+class Solution:
+    # Helper function to insert an element at the bottom of the stack
+    def insert_at_bottom(self, stack, val):
+        if not stack:
+            stack.append(val)
+            return
+        top = stack.pop()
+        self.insert_at_bottom(stack, val)
+        stack.append(top)
+
+    # Recursive function to reverse the stack
+    def reverse_stack(self, stack):
+        if not stack:
+            return
+        top = stack.pop()
+        self.reverse_stack(stack)
+        self.insert_at_bottom(stack, top)
+
+if __name__ == "__main__":
+    n = int(input())
+    vals = list(map(int, input().split()))
+    
+    stack = vals[::-1]  # Reverse input to simulate stack push order
+    sol = Solution()
+    sol.reverse_stack(stack)
+
+    # Print stack from top to bottom
+    print(' '.join(map(str, stack[::-1])))
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
