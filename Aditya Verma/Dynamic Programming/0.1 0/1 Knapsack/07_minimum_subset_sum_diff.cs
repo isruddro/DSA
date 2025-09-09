@@ -1,3 +1,47 @@
+py:
+
+from typing import List
+
+def subset_sums(arr: List[int], n: int, total_sum: int) -> List[int]:
+    # DP table: t[i][j] = True if sum j is possible with first i elements
+    t = [[False] * (total_sum + 1) for _ in range(n + 1)]
+
+    # Initialization
+    for i in range(n + 1):
+        t[i][0] = True  # sum = 0 is always possible
+
+    for j in range(1, total_sum + 1):
+        t[0][j] = False  # no items cannot form sum > 0
+
+    # Fill DP table
+    for i in range(1, n + 1):
+        for j in range(1, total_sum + 1):
+            if arr[i - 1] <= j:
+                t[i][j] = t[i - 1][j - arr[i - 1]] or t[i - 1][j]  # include or exclude
+            else:
+                t[i][j] = t[i - 1][j]  # exclude
+
+    result = [j for j in range(total_sum + 1) if t[n][j]]
+    return result
+
+def min_subset_sum_diff(arr: List[int]) -> int:
+    n = len(arr)
+    total_sum = sum(arr)
+
+    possible_sums = subset_sums(arr, n, total_sum)
+    min_diff = min(abs(total_sum - 2 * s) for s in possible_sums)
+
+    return min_diff
+
+if __name__ == "__main__":
+    arr = [1, 2, 3, 9]
+    result = min_subset_sum_diff(arr)
+    print(result)  # Output: 3
+
+
+
+
+
 cpp:
 #include <iostream>
 #include <vector>
