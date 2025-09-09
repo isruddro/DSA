@@ -1,3 +1,53 @@
+py:
+
+# Boolean Parenthesization with 3D DP table
+
+MAX = 1001
+dp = [[[-1 for _ in range(MAX)] for _ in range(MAX)] for _ in range(2)]  # dp[isTrue][i][j]
+
+def solve(X, i, j, is_true):
+    idx = 1 if is_true else 0
+
+    # Base case
+    if i >= j:
+        dp[idx][i][j] = 1 if (X[i] == 'T' and is_true) or (X[i] == 'F' and not is_true) else 0
+        return dp[idx][i][j]
+
+    # If already computed
+    if dp[idx][i][j] != -1:
+        return dp[idx][i][j]
+
+    ans = 0
+    for k in range(i + 1, j, 2):
+        l_T = solve(X, i, k - 1, True)
+        l_F = solve(X, i, k - 1, False)
+        r_T = solve(X, k + 1, j, True)
+        r_F = solve(X, k + 1, j, False)
+
+        if X[k] == '|':
+            ans += l_T * r_T + l_T * r_F + l_F * r_T if is_true else l_F * r_F
+        elif X[k] == '&':
+            ans += l_T * r_T if is_true else l_T * r_F + l_F * r_T + l_F * r_F
+        elif X[k] == '^':
+            ans += l_T * r_F + l_F * r_T if is_true else l_T * r_T + l_F * r_F
+
+    dp[idx][i][j] = ans
+    return ans
+
+# Input
+X = input().strip()
+
+# Initialize DP table
+for b in range(2):
+    for i in range(MAX):
+        for j in range(MAX):
+            dp[b][i][j] = -1
+
+# Output number of ways to make expression TRUE
+print(solve(X, 0, len(X) - 1, True))
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
