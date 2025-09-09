@@ -1,3 +1,42 @@
+py:
+
+from typing import List
+
+def binary_search(arr: List[int], s: int, e: int, target: int) -> int:
+    while s <= e:
+        m = s + (e - s) // 2
+        if arr[m] == target:
+            return m  # Found target
+        elif arr[m] < target:
+            s = m + 1
+        else:
+            e = m - 1
+    return -1  # Target not found
+
+def find_position_in_infinite_array(arr: List[int], target: int) -> int:
+    s, e = 0, 1
+
+    # Expand the range exponentially
+    while e < len(arr) and arr[e] < target:
+        s = e
+        e *= 2
+
+    # Binary search within the identified range
+    return binary_search(arr, s, min(e, len(arr) - 1), target)
+
+
+if __name__ == "__main__":
+    arr = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31]
+    target = 19
+
+    result = find_position_in_infinite_array(arr, target)
+    if result != -1:
+        print(f"Target {target} found at index {result}")
+    else:
+        print(f"Target {target} not found in the array")
+
+
+
 cpp:
 
 #include <iostream>
