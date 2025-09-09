@@ -1,3 +1,45 @@
+cpp:
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+bool IsSubsetSumPossible(const vector<int>& arr, int sum) {
+    int n = arr.size();
+    vector<vector<bool>> dp(n + 1, vector<bool>(sum + 1, false));
+
+    // Initialization
+    for (int i = 0; i <= n; i++) dp[i][0] = true; // sum = 0 can always be formed
+    for (int j = 1; j <= sum; j++) dp[0][j] = false; // no items cannot form sum > 0
+
+    // Build DP table
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= sum; j++) {
+            if (arr[i - 1] <= j)
+                dp[i][j] = dp[i - 1][j - arr[i - 1]] || dp[i - 1][j]; // include or exclude
+            else
+                dp[i][j] = dp[i - 1][j]; // exclude
+        }
+    }
+
+    return dp[n][sum];
+}
+
+int main() {
+    vector<int> arr = {2, 3, 7, 8, 10};
+    int sum = 11;
+
+    bool result = IsSubsetSumPossible(arr, sum);
+    cout << (result ? "Yes" : "No") << endl; // Output: Yes
+
+    return 0;
+}
+
+
+
+c#:
+
+
 using System;
 
 public class Solution
