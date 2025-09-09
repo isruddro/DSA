@@ -1,3 +1,55 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode* l, TreeNode* r) : val(x), left(l), right(r) {}
+};
+
+class Solution {
+private:
+    int res;
+
+    // Recursive helper function to calculate height and update diameter
+    int Solve(TreeNode* root) {
+        if (!root) return 0;
+
+        int left = Solve(root->left);   // Height of left subtree
+        int right = Solve(root->right); // Height of right subtree
+
+        int temp = 1 + max(left, right);       // Height of current node
+        int ans = max(temp, left + right + 1); // Max diameter including this node
+        res = max(res, ans);                   // Update global maximum
+
+        return temp; // Return height
+    }
+
+public:
+    int DiameterOfBinaryTree(TreeNode* root) {
+        if (!root) return 0;
+        res = INT_MIN + 1; // Initialize result
+        Solve(root);
+        return res - 1;    // Subtract 1 to get actual diameter
+    }
+};
+
+int main() {
+    // Example usage:
+    TreeNode* root = new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3));
+    Solution sol;
+    cout << "Diameter of binary tree: " << sol.DiameterOfBinaryTree(root) << endl;
+    return 0;
+}
+
+
+
+c#:
+
 using System;
 
 public class TreeNode {
