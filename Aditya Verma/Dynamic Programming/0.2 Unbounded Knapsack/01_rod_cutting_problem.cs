@@ -1,3 +1,49 @@
+cpp:
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+// Function to calculate the maximum profit from cutting the rod
+int GetMaxProfit(const vector<int>& length, const vector<int>& price, int n, int L) {
+    vector<vector<int>> dp(n + 1, vector<int>(L + 1, 0));
+
+    // Fill the DP table
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= L; j++) {
+            if (length[i - 1] <= j)
+                dp[i][j] = max(dp[i - 1][j], price[i - 1] + dp[i][j - length[i - 1]]);
+            else
+                dp[i][j] = dp[i - 1][j];
+        }
+    }
+
+    return dp[n][L]; // Return the maximum profit
+}
+
+int main() {
+    int n;
+    cin >> n; // Number of different lengths
+    vector<int> length(n), price(n);
+
+    for (int i = 0; i < n; i++) cin >> length[i]; // Input lengths
+    for (int i = 0; i < n; i++) cin >> price[i];  // Input prices
+
+    int L;
+    cin >> L; // Total length of the rod
+
+    int result = GetMaxProfit(length, price, n, L);
+    cout << result << endl;
+
+    return 0;
+}
+
+
+
+c#:
+
+
 using System;
 
 public class Solution
