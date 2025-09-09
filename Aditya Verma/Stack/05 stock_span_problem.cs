@@ -4,6 +4,54 @@ https://leetcode.com/problems/online-stock-span/submissions/1496528225/
     we are actually getting nearest greater to left
     then we need to find the index and add it to the answer */
 
+cpp:
+#include <iostream>
+#include <vector>
+#include <stack>
+using namespace std;
+
+vector<int> StockSpanProblem(vector<int>& stock) {
+    vector<int> ans;
+    stack<int> st; // stores indices
+
+    for (int i = 0; i < stock.size(); i++) {
+        // Pop indices whose stock price is <= current price
+        while (!st.empty() && stock[st.top()] <= stock[i]) {
+            st.pop();
+        }
+
+        if (st.empty()) {
+            ans.push_back(i + 1); // All previous prices smaller
+        } else {
+            ans.push_back(i - st.top()); // Distance to last greater
+        }
+
+        st.push(i);
+    }
+
+    return ans;
+}
+
+int main() {
+    vector<int> stock = {100, 80, 60, 70, 60, 75, 85};
+    vector<int> result = StockSpanProblem(stock);
+
+    cout << "Stock Span: ";
+    for (int x : result) {
+        cout << x << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+
+
+
+
+
+
+c#:
+
 using System;
 using System.Collections.Generic;
 
