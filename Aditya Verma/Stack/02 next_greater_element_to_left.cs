@@ -1,7 +1,48 @@
 /*
     Here, i will go left to right and we dont need to make reverse as it will give the answer directly.
  */
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
 
+vector<int> NextGreaterElementToLeft(vector<int>& arr) {
+    vector<int> ans;
+    stack<int> st;
+
+    for (int i = 0; i < arr.size(); i++) {
+        // Pop elements smaller or equal to current element
+        while (!st.empty() && st.top() <= arr[i]) {
+            st.pop();
+        }
+
+        // If stack is empty, no greater element to left
+        if (st.empty())
+            ans.push_back(-1);
+        else
+            ans.push_back(st.top());
+
+        // Push current element onto stack
+        st.push(arr[i]);
+    }
+
+    return ans;
+}
+
+int main() {
+    vector<int> arr = {1, 3, 2, 4};
+    vector<int> result = NextGreaterElementToLeft(arr);
+
+    cout << "Next Greater Element to Left: ";
+    for (int x : result)
+        cout << x << " ";
+    cout << endl;
+
+    return 0;
+}
+
+
+
+c#:
 using System;
 using System.Collections.Generic;
 
