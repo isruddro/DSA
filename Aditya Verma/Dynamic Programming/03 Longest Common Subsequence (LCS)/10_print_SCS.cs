@@ -1,3 +1,81 @@
+cpp:
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+// Function to calculate the Longest Common Subsequence (LCS)
+vector<vector<int>> LCS_DP(const string &X, const string &Y) {
+    int n = X.size();
+    int m = Y.size();
+    vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            if (X[i - 1] == Y[j - 1])
+                dp[i][j] = 1 + dp[i - 1][j - 1];
+            else
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+        }
+    }
+    return dp;
+}
+
+// Function to build the Shortest Common Supersequence (SCS)
+string SCS(const string &X, const string &Y) {
+    int n = X.size();
+    int m = Y.size();
+    vector<vector<int>> dp = LCS_DP(X, Y);
+
+    int a = n, b = m;
+    string scs;
+
+    // Backtracking to build SCS
+    while (a > 0 && b > 0) {
+        if (X[a - 1] == Y[b - 1]) {
+            scs.push_back(X[a - 1]);
+            a--; b--;
+        } else if (dp[a][b - 1] > dp[a - 1][b]) {
+            scs.push_back(Y[b - 1]);
+            b--;
+        } else {
+            scs.push_back(X[a - 1]);
+            a--;
+        }
+    }
+
+    // Add remaining characters
+    while (a > 0) {
+        scs.push_back(X[a - 1]);
+        a--;
+    }
+    while (b > 0) {
+        scs.push_back(Y[b - 1]);
+        b--;
+    }
+
+    reverse(scs.begin(), scs.end());
+    return scs;
+}
+
+int main() {
+    string X, Y;
+    getline(cin, X);
+    getline(cin, Y);
+
+    cout << SCS(X, Y) << endl;
+
+    return 0;
+}
+
+
+
+
+
+
+c#:
+
 using System;
 using System.Text;
 
