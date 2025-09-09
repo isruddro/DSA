@@ -19,6 +19,53 @@ https://leetcode.com/problems/next-greater-element-i/submissions/1315287157/
     
     At last we need to reverse for the answer
  */
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> NextGreaterElementToRight(vector<int>& arr) {
+    vector<int> ans;
+    stack<int> s;
+
+    // Traverse from right to left
+    for (int i = arr.size() - 1; i >= 0; i--) {
+        // Pop smaller or equal elements
+        while (!s.empty() && s.top() <= arr[i]) {
+            s.pop();
+        }
+
+        // If stack is empty, no greater element to the right
+        if (s.empty()) {
+            ans.push_back(-1);
+        } else {
+            ans.push_back(s.top());
+        }
+
+        // Push current element onto stack
+        s.push(arr[i]);
+    }
+
+    // Reverse to get the correct order
+    reverse(ans.begin(), ans.end());
+    return ans;
+}
+
+int main() {
+    vector<int> arr = {1, 3, 2, 4};
+    vector<int> result = NextGreaterElementToRight(arr);
+
+    cout << "Next Greater Element to Right: ";
+    for (int x : result) {
+        cout << x << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+
+
+
+c#:
 
 using System;
 using System.Collections.Generic;
