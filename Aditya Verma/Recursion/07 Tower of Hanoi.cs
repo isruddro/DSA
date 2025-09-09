@@ -1,3 +1,47 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    long GetSolved(int N, int fromRod, int toRod, int auxRod, long &count) {
+        if (N == 0) return 0;
+
+        count++;  // Increment move count
+
+        // Move N-1 disks from 'fromRod' to 'auxRod'
+        GetSolved(N - 1, fromRod, auxRod, toRod, count);
+
+        // Print the move for current disk
+        cout << "Move disk " << N << " from rod " << fromRod << " to rod " << toRod << endl;
+
+        // Move N-1 disks from 'auxRod' to 'toRod'
+        GetSolved(N - 1, auxRod, toRod, fromRod, count);
+
+        return count;
+    }
+
+    long Toh(int N, int fromRod, int toRod, int auxRod) {
+        long count = 0;
+        GetSolved(N, fromRod, toRod, auxRod, count);
+        return count;
+    }
+};
+
+int main() {
+    Solution solution;
+    int N;
+    cin >> N;  // Number of disks
+
+    long moves = solution.Toh(N, 1, 3, 2);  // 1: from rod, 3: to rod, 2: auxiliary rod
+    cout << "Total moves: " << moves << endl;
+
+    return 0;
+}
+
+
+
+c#:
 using System;
 
 public class Solution
