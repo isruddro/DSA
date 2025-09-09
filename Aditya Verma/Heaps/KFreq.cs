@@ -1,3 +1,45 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    vector<int> arr = {1, 1, 1, 3, 3, 2, 4};
+    int n = arr.size();
+    int k = 2; // top k frequent elements
+
+    // Count frequency of each element
+    unordered_map<int, int> freqMap;
+    for (int num : arr) {
+        freqMap[num]++;
+    }
+
+    // Min-heap: pair<frequency, number>, smallest frequency on top
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> minHeap;
+
+    for (auto &p : freqMap) {
+        minHeap.push({p.second, p.first});
+        if ((int)minHeap.size() > k)
+            minHeap.pop(); // remove element with smallest frequency
+    }
+
+    // Extract top k elements
+    vector<int> result;
+    while (!minHeap.empty()) {
+        result.push_back(minHeap.top().second);
+        minHeap.pop();
+    }
+
+    cout << "Top " << k << " frequent numbers: ";
+    for (int num : result) cout << num << " ";
+    cout << endl;
+
+    return 0;
+}
+
+
+
+c#:
+
 using System;
 using System.Collections.Generic;
 
