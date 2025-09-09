@@ -1,3 +1,34 @@
+py:
+
+from typing import List
+
+def get_max_number_of_ways(coins: List[int], n: int, target: int) -> int:
+    # dp[i][j] = number of ways to make sum j using first i coins
+    dp = [[0] * (target + 1) for _ in range(n + 1)]
+
+    # Base case: sum = 0 can always be made with 0 coins
+    for i in range(n + 1):
+        dp[i][0] = 1
+
+    # Fill DP table
+    for i in range(1, n + 1):
+        for j in range(1, target + 1):
+            if coins[i - 1] <= j:
+                dp[i][j] = dp[i - 1][j] + dp[i][j - coins[i - 1]]  # include or exclude coin
+            else:
+                dp[i][j] = dp[i - 1][j]  # exclude coin
+
+    return dp[n][target]
+
+if __name__ == "__main__":
+    n = int(input("Enter number of coins: "))
+    coins = list(map(int, input("Enter coin denominations: ").split()))
+    target = int(input("Enter target sum: "))
+
+    result = get_max_number_of_ways(coins, n, target)
+    print(result)
+
+
 cpp:
 #include <iostream>
 #include <vector>
