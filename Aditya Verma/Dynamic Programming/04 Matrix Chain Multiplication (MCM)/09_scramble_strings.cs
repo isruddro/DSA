@@ -1,3 +1,46 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+// Recursive function to check if X can be scrambled into Y
+bool Solve(const string &X, const string &Y) {
+    if (X == Y) return true;       // Strings are equal
+    if (X.size() <= 1) return false; // Single char strings that aren't equal
+
+    int n = X.size();
+    for (int i = 1; i <= n - 1; i++) {
+        // Case 1: Swap
+        if (Solve(X.substr(0, i), Y.substr(n - i, i)) &&
+            Solve(X.substr(i), Y.substr(0, n - i)))
+            return true;
+
+        // Case 2: No swap
+        if (Solve(X.substr(0, i), Y.substr(0, i)) &&
+            Solve(X.substr(i), Y.substr(i)))
+            return true;
+    }
+
+    return false;
+}
+
+int main() {
+    string X, Y;
+    cin >> X >> Y;
+
+    if (X.size() != Y.size()) {
+        cout << "No\n";
+    } else {
+        cout << (Solve(X, Y) ? "Yes\n" : "No\n");
+    }
+
+    return 0;
+}
+
+
+
+
+c#:
+
 using System;
 
 class Program
