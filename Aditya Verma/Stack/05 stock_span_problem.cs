@@ -3,6 +3,35 @@ https://leetcode.com/problems/online-stock-span/submissions/1496528225/
 /* Previously Consicutive smaller or equal to the number, return how many number
     we are actually getting nearest greater to left
     then we need to find the index and add it to the answer */
+py:
+
+from typing import List
+
+def stock_span_problem(prices: List[int]) -> List[int]:
+    ans = []
+    stack = []  # stores indices
+
+    for i, price in enumerate(prices):
+        # Pop indices whose stock price is <= current price
+        while stack and prices[stack[-1]] <= price:
+            stack.pop()
+
+        if not stack:
+            ans.append(i + 1)  # All previous prices smaller
+        else:
+            ans.append(i - stack[-1])  # Distance to last greater
+
+        stack.append(i)
+
+    return ans
+
+# Example usage
+if __name__ == "__main__":
+    stock = [100, 80, 60, 70, 60, 75, 85]
+    result = stock_span_problem(stock)
+    print("Stock Span:", result)
+
+
 
 cpp:
 #include <iostream>
