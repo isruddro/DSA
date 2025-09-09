@@ -1,3 +1,57 @@
+py:
+# Memoization dictionary
+memo = {}
+
+def solve(X, i, j, is_true):
+    key = (i, j, is_true)
+    if key in memo:
+        return memo[key]
+
+    # Base case: single character
+    if i >= j:
+        if is_true:
+            memo[key] = 1 if X[i] == 'T' else 0
+        else:
+            memo[key] = 1 if X[i] == 'F' else 0
+        return memo[key]
+
+    ans = 0
+
+    # Loop through all operators in the expression
+    for k in range(i + 1, j, 2):
+        l_T = solve(X, i, k - 1, True)
+        l_F = solve(X, i, k - 1, False)
+        r_T = solve(X, k + 1, j, True)
+        r_F = solve(X, k + 1, j, False)
+
+        if X[k] == '|':
+            if is_true:
+                ans += l_T * r_T + l_T * r_F + l_F * r_T
+            else:
+                ans += l_F * r_F
+        elif X[k] == '&':
+            if is_true:
+                ans += l_T * r_T
+            else:
+                ans += l_T * r_F + l_F * r_T + l_F * r_F
+        elif X[k] == '^':
+            if is_true:
+                ans += l_T * r_F + l_F * r_T
+            else:
+                ans += l_T * r_T + l_F * r_F
+
+    memo[key] = ans
+    return ans
+
+# Input
+X = input().strip()
+memo.clear()
+
+# Output number of ways to make expression TRUE
+print(solve(X, 0, len(X) - 1, True))
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
