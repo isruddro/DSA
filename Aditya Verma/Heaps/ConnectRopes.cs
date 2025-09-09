@@ -1,3 +1,40 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    // Initialize the rope lengths
+    vector<int> arr = {1, 2, 3, 4, 5, 6};
+    int cost = 0;
+
+    // Min-heap to store the rope lengths
+    priority_queue<int, vector<int>, greater<int>> minh;
+
+    // Push all elements into the min-heap
+    for (int len : arr) {
+        minh.push(len);
+    }
+
+    // Connect ropes until there is more than one rope
+    while (minh.size() >= 2) {
+        int len1 = minh.top(); minh.pop();
+        int len2 = minh.top(); minh.pop();
+
+        // Add the cost of connecting the two smallest ropes
+        cost += len1 + len2;
+
+        // Push the new connected rope back into the heap
+        minh.push(len1 + len2);
+    }
+
+    // Output the minimum cost
+    cout << cost << endl;
+
+    return 0;
+}
+
+
+c#:
 using System;
 using System.Collections.Generic;
 
