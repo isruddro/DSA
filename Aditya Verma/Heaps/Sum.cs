@@ -1,3 +1,37 @@
+py:
+
+import heapq
+
+def find_kth_smallest(arr, k):
+    # Max-heap to store k smallest elements
+    max_heap = []
+
+    for num in arr:
+        heapq.heappush(max_heap, -num)  # Push negative to simulate max-heap
+
+        if len(max_heap) > k:
+            heapq.heappop(max_heap)  # Remove largest among k+1 elements
+
+    # Top of max-heap is the kth smallest (invert back)
+    return -max_heap[0]
+
+if __name__ == "__main__":
+    arr = [7, 12, 9, 4, 1, 8, 3, 5, 6, 10]
+    k1, k2 = 4, 8
+    sum_between = 0
+
+    s = find_kth_smallest(arr, k1)
+    f = find_kth_smallest(arr, k2)
+
+    # Sum elements strictly between k1th and k2th smallest
+    for num in arr:
+        if s < num < f:
+            sum_between += num
+
+    print(sum_between)
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
