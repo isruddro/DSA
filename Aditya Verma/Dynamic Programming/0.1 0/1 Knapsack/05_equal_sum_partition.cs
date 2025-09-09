@@ -1,3 +1,39 @@
+py:
+
+from typing import List
+
+def is_subset_sum_possible(arr: List[int], n: int, target: int) -> bool:
+    dp = [[False for _ in range(target + 1)] for _ in range(n + 1)]
+
+    # Initialization
+    for i in range(n + 1):
+        dp[i][0] = True  # sum = 0 is always possible
+    for j in range(1, target + 1):
+        dp[0][j] = False  # no items cannot form sum > 0
+
+    # Build DP table
+    for i in range(1, n + 1):
+        for j in range(1, target + 1):
+            if arr[i - 1] <= j:
+                dp[i][j] = dp[i - 1][j - arr[i - 1]] or dp[i - 1][j]  # include or exclude
+            else:
+                dp[i][j] = dp[i - 1][j]  # exclude
+
+    return dp[n][target]
+
+def equal_sum_partition_possible(arr: List[int]) -> bool:
+    total_sum = sum(arr)
+    if total_sum % 2 != 0:
+        return False  # Odd sum cannot be partitioned equally
+    return is_subset_sum_possible(arr, len(arr), total_sum // 2)
+
+if __name__ == "__main__":
+    arr = [1, 5, 11, 5]
+    result = equal_sum_partition_possible(arr)
+    print("YES" if result else "NO")  # Output: YES
+
+
+
 cpp:
 
 
