@@ -1,3 +1,48 @@
+py:
+
+
+D = 101
+dp = [[-1 for _ in range(D)] for _ in range(D)]
+
+def solve(eggs, floors):
+    # If already computed, return result
+    if dp[eggs][floors] != -1:
+        return dp[eggs][floors]
+
+    # Base cases
+    if eggs == 1 or floors == 0 or floors == 1:
+        dp[eggs][floors] = floors
+        return floors
+
+    mn = float('inf')
+
+    # Try every floor
+    for k in range(1, floors + 1):
+        # Check top
+        if dp[eggs - 1][k - 1] != -1:
+            top = dp[eggs - 1][k - 1]
+        else:
+            top = solve(eggs - 1, k - 1)
+
+        # Check bottom
+        if dp[eggs][floors - k] != -1:
+            bottom = dp[eggs][floors - k]
+        else:
+            bottom = solve(eggs, floors - k)
+
+        mn = min(mn, 1 + max(top, bottom))
+
+    dp[eggs][floors] = mn
+    return mn
+
+if __name__ == "__main__":
+    eggs = int(input())
+    floors = int(input())
+
+    print(solve(eggs, floors))
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
