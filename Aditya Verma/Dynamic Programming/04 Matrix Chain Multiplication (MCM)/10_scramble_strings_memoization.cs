@@ -1,3 +1,72 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+// Memoization map for storing previously computed results
+unordered_map<string, bool> ump;
+
+// Recursive function to check if string X can be scrambled into string Y
+bool Solve(const string &X, const string &Y) {
+    string key = X + " " + Y; // Unique key for memoization
+
+    // Check if result is already computed
+    if (ump.find(key) != ump.end())
+        return ump[key];
+
+    // Base case: strings are identical
+    if (X == Y) {
+        ump[key] = true;
+        return true;
+    }
+
+    // Base case: single character strings that aren't equal
+    if (X.size() <= 1) {
+        ump[key] = false;
+        return false;
+    }
+
+    int n = X.size();
+    bool flag = false;
+
+    // Try splitting the string at different positions
+    for (int i = 1; i <= n - 1; i++) {
+        // Case 1: Swap
+        if (Solve(X.substr(0, i), Y.substr(n - i, i)) &&
+            Solve(X.substr(i), Y.substr(0, n - i))) {
+            flag = true;
+            break;
+        }
+
+        // Case 2: No swap
+        if (Solve(X.substr(0, i), Y.substr(0, i)) &&
+            Solve(X.substr(i), Y.substr(i))) {
+            flag = true;
+            break;
+        }
+    }
+
+    // Store the result in the memoization map
+    ump[key] = flag;
+    return flag;
+}
+
+int main() {
+    string X, Y;
+    cin >> X >> Y;
+
+    ump.clear(); // Clear the memoization map
+
+    if (X.size() != Y.size())
+        cout << "No\n";
+    else
+        cout << (Solve(X, Y) ? "Yes\n" : "No\n");
+
+    return 0;
+}
+
+
+c#:
+
 using System;
 using System.Collections.Generic;
 
