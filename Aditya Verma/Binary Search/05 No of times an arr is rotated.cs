@@ -1,3 +1,53 @@
+cpp:
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int FindKRotation(const vector<int>& arr, int n) {
+    int start = 0, end = n - 1;
+
+    // If the array is already sorted (no rotation)
+    if (arr[start] <= arr[end])
+        return 0;
+
+    while (start < end) {
+        int mid = start + (end - start) / 2;
+
+        // If the mid element is greater than the start, rotation is on the right side
+        if (arr[mid] > arr[start]) {
+            start = mid;
+        } else {
+            // Otherwise, rotation point is on the left side
+            end = mid;
+        }
+    }
+
+    // Rotation count is index of smallest element
+    return start + 1;
+}
+
+int main() {
+    vector<int> arr = {15, 18, 2, 3, 6, 12};
+    int n = arr.size();
+
+    int rotations = FindKRotation(arr, n);
+    cout << "The array is rotated " << rotations << " times." << endl;
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+c#:
+
 using System;
 
 class Program
