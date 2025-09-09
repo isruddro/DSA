@@ -1,3 +1,33 @@
+py:
+
+import heapq
+
+def k_closest_numbers(arr, k, m):
+    # Max-heap: store (-abs_diff, value) to simulate a max-heap
+    maxhp = []
+
+    for num in arr:
+        diff = abs(num - m)
+        heapq.heappush(maxhp, (-diff, -num))  # Use -num to handle tie-breaks if needed
+
+        if len(maxhp) > k:
+            heapq.heappop(maxhp)
+
+    # Extract numbers from heap
+    result = [-heapq.heappop(maxhp)[1] for _ in range(len(maxhp))]
+    result.sort()  # Optional: sort to have them in order closest to farthest
+    return result
+
+# Example usage
+if __name__ == "__main__":
+    arr = [5, 6, 7, 8, 9]
+    m = 7  # target
+    k = int(input("Enter k: "))
+    result = k_closest_numbers(arr, k, m)
+    print("The k closest numbers are:", *result)
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
