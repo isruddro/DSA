@@ -1,3 +1,31 @@
+py:
+
+from typing import List
+
+def get_max_profit(length: List[int], price: List[int], n: int, L: int) -> int:
+    # DP table: dp[i][j] = max profit using first i lengths and rod length j
+    dp = [[0] * (L + 1) for _ in range(n + 1)]
+
+    for i in range(1, n + 1):
+        for j in range(1, L + 1):
+            if length[i - 1] <= j:
+                dp[i][j] = max(dp[i - 1][j], price[i - 1] + dp[i][j - length[i - 1]])
+            else:
+                dp[i][j] = dp[i - 1][j]
+
+    return dp[n][L]
+
+if __name__ == "__main__":
+    n = int(input("Enter number of lengths: "))
+    length = list(map(int, input("Enter lengths: ").split()))
+    price = list(map(int, input("Enter prices: ").split()))
+    L = int(input("Enter total rod length: "))
+
+    result = get_max_profit(length, price, n, L)
+    print(result)
+
+
+
 cpp:
 
 #include <iostream>
