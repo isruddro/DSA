@@ -1,5 +1,56 @@
 //Leaf to Leaf
 //so we don't consider the root, unless only one element is root. then we take that root.
+py:
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+class Solution:
+    def __init__(self):
+        self.res = float('-inf')
+
+    # Recursive function to calculate maximum leaf-to-leaf path sum
+    def solve(self, root):
+        if not root:
+            return 0
+
+        left = self.solve(root.left)
+        right = self.solve(root.right)
+
+        # If both children exist, consider path through this node
+        if root.left and root.right:
+            self.res = max(self.res, left + right + root.data)
+            temp = root.data + max(left, right)
+        elif root.left:
+            temp = root.data + left
+        elif root.right:
+            temp = root.data + right
+        else:  # Leaf node
+            temp = root.data
+
+        return temp
+
+    def maxPathSum(self, root):
+        self.res = float('-inf')
+        self.solve(root)
+        return self.res
+
+# Example usage
+if __name__ == "__main__":
+    root = Node(-10)
+    root.left = Node(9)
+    root.right = Node(20)
+    root.right.left = Node(15)
+    root.right.right = Node(7)
+
+    sol = Solution()
+    print("Maximum Leaf-to-Leaf Path Sum:", sol.maxPathSum(root))
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
