@@ -1,3 +1,61 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+const int D = 101;
+int dp[D][D];
+
+// Function to solve Egg Dropping Puzzle with memoization
+int Solve(int eggs, int floors) {
+    if (dp[eggs][floors] != -1) 
+        return dp[eggs][floors];
+
+    // Base cases
+    if (eggs == 1 || floors == 0 || floors == 1) {
+        dp[eggs][floors] = floors;
+        return floors;
+    }
+
+    int mn = INT_MAX;
+
+    // Try every floor
+    for (int k = 1; k <= floors; k++) {
+        int top, bottom;
+
+        if (dp[eggs - 1][k - 1] != -1)
+            top = dp[eggs - 1][k - 1];
+        else
+            top = Solve(eggs - 1, k - 1);
+
+        if (dp[eggs][floors - k] != -1)
+            bottom = dp[eggs][floors - k];
+        else
+            bottom = Solve(eggs, floors - k);
+
+        mn = min(mn, 1 + max(top, bottom));
+    }
+
+    dp[eggs][floors] = mn;
+    return mn;
+}
+
+int main() {
+    int eggs, floors;
+    cin >> eggs >> floors;
+
+    // Initialize dp array with -1
+    for (int i = 0; i < D; i++)
+        for (int j = 0; j < D; j++)
+            dp[i][j] = -1;
+
+    cout << Solve(eggs, floors) << endl;
+    return 0;
+}
+
+
+
+c#:
+
 using System;
 
 class Program
