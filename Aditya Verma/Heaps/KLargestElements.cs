@@ -1,3 +1,30 @@
+py:
+import heapq
+
+def k_largest(arr, k):
+    # Min-heap to store k largest elements
+    min_heap = []
+
+    for num in arr:
+        heapq.heappush(min_heap, num)
+
+        # If heap size exceeds k, remove the smallest
+        if len(min_heap) > k:
+            heapq.heappop(min_heap)
+
+    # Extract k largest elements
+    result = [heapq.heappop(min_heap) for _ in range(len(min_heap))]
+    return result
+
+# Example usage
+if __name__ == "__main__":
+    arr = [30, 67, 28, 47, 19]
+    k = int(input("Enter k: "))
+    result = k_largest(arr, k)
+    print("K largest elements:", *result)
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
