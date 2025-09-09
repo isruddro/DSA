@@ -1,3 +1,39 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+// Function to find the kth largest element
+int FindKthLargest(vector<int>& arr, int k) {
+    // Min-heap to store the k largest elements
+    priority_queue<int, vector<int>, greater<int>> minHeap;
+
+    for (int num : arr) {
+        minHeap.push(num);
+
+        // If heap size exceeds k, remove the smallest element
+        if ((int)minHeap.size() > k)
+            minHeap.pop();
+    }
+
+    // Top of min-heap is the kth largest element
+    return minHeap.top();
+}
+
+int main() {
+    vector<int> arr = {56, 89, 44, 65, 33};
+    int k;
+
+    cout << "Enter k: ";
+    cin >> k;
+
+    cout << FindKthLargest(arr, k) << endl;
+
+    return 0;
+}
+
+
+c#:
+
 using System;
 using System.Collections.Generic;
 
