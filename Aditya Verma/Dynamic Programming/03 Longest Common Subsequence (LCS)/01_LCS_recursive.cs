@@ -1,3 +1,28 @@
+py:
+
+def LCS(X: str, Y: str, n: int, m: int) -> int:
+    # Base case: If either string is empty
+    if n == 0 or m == 0:
+        return 0
+
+    # If last characters match
+    if X[n - 1] == Y[m - 1]:
+        return 1 + LCS(X, Y, n - 1, m - 1)
+
+    # If last characters don't match
+    else:
+        return max(LCS(X, Y, n - 1, m), LCS(X, Y, n, m - 1))
+
+
+if __name__ == "__main__":
+    X = input().strip()
+    Y = input().strip()
+
+    result = LCS(X, Y, len(X), len(Y))
+    print(result)
+
+
+
 cpp:
 #include <iostream>
 #include <string>
