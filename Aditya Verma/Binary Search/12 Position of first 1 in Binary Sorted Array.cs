@@ -1,3 +1,34 @@
+py:
+
+from typing import List
+
+def first_index(a: List[int]) -> int:
+    i, j = 0, len(a) - 1
+
+    # Perform binary search to find first 1
+    while i < j:
+        m = i + (j - i) // 2
+        if a[m] == 1:
+            j = m  # Search left half
+        else:
+            i = m + 1  # Search right half
+
+    # If no 1's in the array
+    if a[i] == 0:
+        return -1
+
+    return i  # Index of first 1
+
+
+if __name__ == "__main__":
+    a = [0, 0, 0, 1, 1, 1, 1]
+    result = first_index(a)
+    if result != -1:
+        print(f"First index of 1 is: {result}")
+    else:
+        print("No 1's found in the array")
+
+
 cpp:
 
 #include <iostream>
