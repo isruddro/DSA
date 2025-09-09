@@ -1,3 +1,30 @@
+py:
+
+from typing import List
+
+def binary_search(lst: List[int], to_find: int) -> int:
+    start, end = 0, len(lst) - 1
+    ans = -1
+
+    while start <= end:
+        mid = (start + end) // 2
+        if lst[mid] == to_find:
+            ans = mid
+            break
+        elif lst[mid] > to_find:
+            end = mid - 1
+        else:
+            start = mid + 1
+
+    return ans
+
+
+if __name__ == "__main__":
+    lst = [1,2,3,4,5,6,7,8,9,10]
+    to_find = 10
+    print(binary_search(lst, to_find))
+
+
 cpp:
 #include <iostream>
 #include <vector>
