@@ -1,3 +1,61 @@
+cpp:
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+// Function to check if allocation is possible
+bool Check(const vector<int>& A, int N, int days, int Pages) {
+    int curr = 0, d = 1;
+
+    for (int i = 0; i < N; i++) {
+        curr += A[i];
+        if (curr > Pages) {
+            curr = A[i];
+            d++;
+            if (d > days) return false;
+        }
+    }
+
+    return true;
+}
+
+// Function to find the minimum number of pages
+int FindPages(const vector<int>& A, int N, int M) {
+    if (M > N) return -1;
+
+    int mn = *max_element(A.begin(), A.end());
+    int mx = 0;
+    for (int i = 0; i < N; i++) mx += A[i];
+
+    // Binary search for the answer
+    while (mn < mx) {
+        int mid = mn + (mx - mn) / 2;
+        if (Check(A, N, M, mid))
+            mx = mid;
+        else
+            mn = mid + 1;
+    }
+
+    return mn;
+}
+
+int main() {
+    vector<int> A = {12, 34, 67, 90};  // Number of pages in books
+    int N = A.size();                  // Number of books
+    int M = 2;                          // Number of students
+
+    int result = FindPages(A, N, M);
+    cout << "The minimum number of pages that can be assigned: " << result << endl;
+
+    return 0;
+}
+
+
+
+c#:
+
 using System;
 
 class Solution
