@@ -9,7 +9,60 @@ https://leetcode.com/problems/largest-rectangle-in-histogram/
     edge case is that: on the NSR we hypothetically get a index, length +1, as it will have 0
                         on the NSL we hypothetically get a index, -1, as it will have 0 
      */
+cpp:
+#include <iostream>
+#include <vector>
+#include <stack>
+#include <algorithm>
+using namespace std;
 
+int LargestRectangleArea(vector<int>& heights) {
+    int n = heights.size();
+    vector<int> NSR(n); // Nearest Smaller to Right indices
+    vector<int> NSL(n); // Nearest Smaller to Left indices
+    stack<int> st;
+
+    // Compute NSR
+    for (int i = n - 1; i >= 0; i--) {
+        while (!st.empty() && heights[st.top()] >= heights[i]) {
+            st.pop();
+        }
+        NSR[i] = st.empty() ? n : st.top();
+        st.push(i);
+    }
+
+    // Clear stack for NSL calculation
+    while (!st.empty()) st.pop();
+
+    // Compute NSL
+    for (int i = 0; i < n; i++) {
+        while (!st.empty() && heights[st.top()] >= heights[i]) {
+            st.pop();
+        }
+        NSL[i] = st.empty() ? -1 : st.top();
+        st.push(i);
+    }
+
+    // Compute maximum area
+    int maxArea = 0;
+    for (int i = 0; i < n; i++) {
+        int width = NSR[i] - NSL[i] - 1;
+        int area = heights[i] * width;
+        maxArea = max(maxArea, area);
+    }
+
+    return maxArea;
+}
+
+int main() {
+    vector<int> heights = {2, 1, 5, 6, 2, 3};
+    cout << "The largest rectangle area is: " << LargestRectangleArea(heights) << endl;
+    return 0;
+}
+
+
+
+c#:
 Answer 1 : 
 
 
