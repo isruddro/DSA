@@ -1,3 +1,33 @@
+py:
+
+import heapq
+
+def sort_using_minheap(arr, k):
+    min_heap = []
+    result = []
+
+    for num in arr:
+        heapq.heappush(min_heap, num)
+
+        # If heap size exceeds k, pop the smallest and add to result
+        if len(min_heap) > k:
+            result.append(heapq.heappop(min_heap))
+
+    # Empty remaining elements in the heap
+    while min_heap:
+        result.append(heapq.heappop(min_heap))
+
+    return result
+
+# Example usage
+if __name__ == "__main__":
+    arr = [6, 5, 3, 2, 8, 10, 9]
+    k = 3
+    sorted_arr = sort_using_minheap(arr, k)
+    print("Sorted array:", *sorted_arr)
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
