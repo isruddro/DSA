@@ -1,3 +1,56 @@
+py:
+
+# Dictionary to memoize previously computed results
+memo = {}
+
+def solve(X, Y):
+    key = X + " " + Y  # Unique key for memoization
+
+    # Return cached result if available
+    if key in memo:
+        return memo[key]
+
+    # Base case: strings are identical
+    if X == Y:
+        memo[key] = True
+        return True
+
+    # Base case: single character strings that aren't equal
+    if len(X) <= 1:
+        memo[key] = False
+        return False
+
+    n = len(X)
+    flag = False
+
+    # Try splitting the string at different positions
+    for i in range(1, n):
+        # Case 1: swap
+        if solve(X[:i], Y[n-i:]) and solve(X[i:], Y[:n-i]):
+            flag = True
+            break
+        # Case 2: no swap
+        if solve(X[:i], Y[:i]) and solve(X[i:], Y[i:]):
+            flag = True
+            break
+
+    memo[key] = flag
+    return flag
+
+# Input
+X = input().strip()
+Y = input().strip()
+
+# Output
+memo.clear()
+if len(X) != len(Y):
+    print("No")
+else:
+    print("Yes" if solve(X, Y) else "No")
+
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
