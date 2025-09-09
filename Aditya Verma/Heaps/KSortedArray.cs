@@ -1,3 +1,44 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    vector<int> arr = {6, 5, 3, 2, 8, 10, 9};
+    int k = 3;
+
+    vector<int> v; // To store the sorted result
+    int n = arr.size();
+
+    // Min-heap to keep the smallest elements
+    priority_queue<int, vector<int>, greater<int>> minHeap;
+
+    for (int num : arr) {
+        minHeap.push(num);
+
+        // If heap size exceeds k, pop the smallest element and add to result
+        if ((int)minHeap.size() > k) {
+            v.push_back(minHeap.top());
+            minHeap.pop();
+        }
+    }
+
+    // Empty the heap and add remaining elements to result
+    while (!minHeap.empty()) {
+        v.push_back(minHeap.top());
+        minHeap.pop();
+    }
+
+    // Print the sorted array
+    for (int num : v) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+
+
+c#:
 using System;
 using System.Collections.Generic;
 
