@@ -1,3 +1,56 @@
+cpp:
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Function to find the peak index in a bitonic array
+int Peak(const vector<int>& arr) {
+    int s = 0, e = arr.size() - 1;
+
+    while (s < e) {
+        int m = s + (e - s) / 2;
+        if (m > 0 && arr[m] < arr[m - 1])
+            e = m - 1;
+        else if (m < arr.size() - 1 && arr[m] < arr[m + 1])
+            s = m + 1;
+        else
+            return m;
+    }
+
+    return s;
+}
+
+// Binary search helper function
+int Bs(const vector<int>& v, int s, int e, int x, bool dir) {
+    while (s <= e) {
+        int m = s + (e - s) / 2;
+        if (v[m] == x) return m;
+
+        if (v[m] > x) {
+            if (dir) e = m - 1;  // ascending part
+            else s = m + 1;      // descending part
+        } else {
+            if (dir) s = m + 1;  // ascending part
+            else e = m - 1;      // descending part
+        }
+    }
+
+    return -1;
+}
+
+// Main solution function
+int Solve(const vector<int>& A, int B) {
+    int s = 0;
+    int e = A.size() - 1;
+    int m = Peak(A);
+
+    int i = Bs(A, s, m - 1, B, true);  //
+
+
+
+
+c#:
+
 using System;
 using System.Collections.Generic;
 
