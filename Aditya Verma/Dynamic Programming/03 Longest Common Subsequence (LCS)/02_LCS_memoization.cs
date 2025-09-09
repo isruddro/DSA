@@ -1,3 +1,42 @@
+py:
+
+import sys
+sys.setrecursionlimit(10**6)  # Increase recursion limit if strings are large
+
+class Solution:
+    D = 1001  # Maximum dimension for dp table
+
+    def __init__(self):
+        # Initialize dp table with -1
+        self.dp = [[-1 for _ in range(self.D)] for _ in range(self.D)]
+
+    def LCS(self, X: str, Y: str, n: int, m: int) -> int:
+        # Base case
+        if n == 0 or m == 0:
+            return 0
+
+        # If already computed
+        if self.dp[n][m] != -1:
+            return self.dp[n][m]
+
+        if X[n - 1] == Y[m - 1]:
+            self.dp[n][m] = 1 + self.LCS(X, Y, n - 1, m - 1)
+        else:
+            self.dp[n][m] = max(self.LCS(X, Y, n - 1, m), self.LCS(X, Y, n, m - 1))
+
+        return self.dp[n][m]
+
+
+if __name__ == "__main__":
+    X = input().strip()
+    Y = input().strip()
+
+    solution = Solution()
+    result = solution.LCS(X, Y, len(X), len(Y))
+    print(result)
+
+        
+
 cpp:
 #include <iostream>
 #include <string>
