@@ -1,3 +1,46 @@
+cpp:
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Function to find the peak index in a mountain array
+int PeakIndexInMountainArray(const vector<int>& arr) {
+    int s = 0, e = arr.size() - 1;
+
+    while (s < e) {
+        int m = s + (e - s) / 2;
+
+        // If element at m is less than element at m-1, move left
+        if (m > 0 && arr[m] < arr[m - 1])
+            e = m - 1;
+        // If element at m is less than element at m+1, move right
+        else if (m < arr.size() - 1 && arr[m] < arr[m + 1])
+            s = m + 1;
+        // Otherwise, m is the peak
+        else
+            return m;
+    }
+
+    // When s == e, we've found the peak index
+    return s;
+}
+
+int main() {
+    vector<int> arr = {0, 2, 3, 4, 3, 1, 0};
+
+    int peakIndex = PeakIndexInMountainArray(arr);
+    cout << "Peak index is: " << peakIndex << endl;
+
+    return 0;
+}
+
+
+
+
+
+
+c#:
+
 using System;
 
 class Program
