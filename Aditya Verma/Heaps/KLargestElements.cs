@@ -1,3 +1,42 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+void KLarge(vector<int>& arr, int k) {
+    // Min-heap to store k largest elements
+    priority_queue<int, vector<int>, greater<int>> minHeap;
+
+    for (int num : arr) {
+        minHeap.push(num);
+
+        // If heap size exceeds k, remove the smallest
+        if ((int)minHeap.size() > k)
+            minHeap.pop();
+    }
+
+    // Print the k largest elements
+    while (!minHeap.empty()) {
+        cout << minHeap.top() << "\t";
+        minHeap.pop();
+    }
+    cout << endl;
+}
+
+int main() {
+    vector<int> arr = {30, 67, 28, 47, 19};
+
+    int k;
+    cout << "Enter k: ";
+    cin >> k;
+
+    KLarge(arr, k);
+
+    return 0;
+}
+
+
+
+c#:
 using System;
 using System.Collections.Generic;
 
