@@ -1,3 +1,46 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> NextSmallerElementToRight(vector<int>& arr) {
+    vector<int> ans;
+    stack<int> st;
+
+    // Traverse from right to left
+    for (int i = arr.size() - 1; i >= 0; i--) {
+        // Pop elements greater than or equal to current
+        while (!st.empty() && st.top() >= arr[i]) {
+            st.pop();
+        }
+
+        // If stack empty, no smaller element
+        if (st.empty())
+            ans.push_back(-1);
+        else
+            ans.push_back(st.top());
+
+        st.push(arr[i]);
+    }
+
+    // Reverse the result since we traversed right-to-left
+    reverse(ans.begin(), ans.end());
+    return ans;
+}
+
+int main() {
+    vector<int> arr = {4, 5, 2, 10, 8};
+    vector<int> result = NextSmallerElementToRight(arr);
+
+    cout << "Next Smaller Element to Right: ";
+    for (int x : result)
+        cout << x << " ";
+    cout << endl;
+
+    return 0;
+}
+
+
+c#:
 using System;
 using System.Collections.Generic;
 
