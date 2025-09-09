@@ -1,3 +1,31 @@
+py:
+
+from typing import List
+
+def knapsack(wt: List[int], val: List[int], W: int, n: int) -> int:
+    # Base case
+    if n == 0 or W == 0:
+        return 0
+
+    # If weight of nth item is less than or equal to capacity
+    if wt[n - 1] <= W:
+        return max(
+            val[n - 1] + knapsack(wt, val, W - wt[n - 1], n - 1),
+            knapsack(wt, val, W, n - 1)
+        )
+    else:  # If weight of nth item is more than capacity
+        return knapsack(wt, val, W, n - 1)
+
+
+if __name__ == "__main__":
+    wt = [1, 3, 4, 5]    # Weights
+    val = [1, 4, 5, 7]   # Values
+    W = 7                # Knapsack capacity
+    n = len(wt)          # Number of items
+
+    print(knapsack(wt, val, W, n))
+
+
 cpp:
 #include <iostream>
 #include <vector>
