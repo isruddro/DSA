@@ -1,3 +1,44 @@
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+void Solve(string ip, string op) {
+    // Base case: if input is empty, print the current output
+    if (ip.empty()) {
+        cout << op << endl;
+        return;
+    }
+
+    // Option 1: add an underscore before the next character
+    string op1 = op + "_" + ip[0];
+
+    // Option 2: add the character directly
+    string op2 = op + ip[0];
+
+    // Remove the first character from input
+    ip = ip.substr(1);
+
+    // Recursive calls
+    Solve(ip, op1);
+    Solve(ip, op2);
+}
+
+int main() {
+    string input = "ABC"; // Example input
+    string output = "";
+
+    // Initialize output with the first character
+    output += input[0];
+    input = input.substr(1);
+
+    // Start recursion
+    Solve(input, output);
+
+    return 0;
+}
+
+
+c#:
 using System;
 
 class Program
