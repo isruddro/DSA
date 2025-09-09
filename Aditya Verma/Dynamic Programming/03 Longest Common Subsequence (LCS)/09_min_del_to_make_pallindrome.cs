@@ -1,3 +1,31 @@
+py:
+
+def lcs(X, Y):
+    n, m = len(X), len(Y)
+    dp = [[0] * (m + 1) for _ in range(n + 1)]
+
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            if X[i - 1] == Y[j - 1]:
+                dp[i][j] = 1 + dp[i - 1][j - 1]
+            else:
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+    return dp[n][m]
+
+def longest_palindromic_subsequence(X):
+    rev_X = X[::-1]
+    return lcs(X, rev_X)
+
+def min_deletions_to_palindrome(X):
+    n = len(X)
+    return n - longest_palindromic_subsequence(X)
+
+# Example usage
+X = input()
+print(min_deletions_to_palindrome(X))
+
+
+
 cpp:
 #include <iostream>
 #include <string>
