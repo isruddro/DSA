@@ -1,3 +1,38 @@
+py:
+
+import math
+
+class Solution:
+    # Helper function to delete the kth element from top
+    def get_deleted(self, stack, k):
+        if k == 0:
+            stack.pop()
+            return
+        
+        top = stack.pop()
+        self.get_deleted(stack, k - 1)
+        stack.append(top)
+
+    # Delete the middle element of the stack
+    def delete_mid(self, stack):
+        size = len(stack)
+        k = math.ceil(size / 2) - 1  # middle index from top
+        self.get_deleted(stack, k)
+
+if __name__ == "__main__":
+    n = int(input())
+    vals = list(map(int, input().split()))
+
+    stack = vals[::-1]  # Reverse to simulate pushing onto stack
+    sol = Solution()
+    sol.delete_mid(stack)
+
+    # Print stack from top to bottom
+    print(' '.join(map(str, stack[::-1])))
+
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
