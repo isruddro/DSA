@@ -1,3 +1,28 @@
+py:
+
+import heapq
+
+def find_kth_largest(arr, k):
+    # Min-heap to store k largest elements
+    min_heap = []
+
+    for num in arr:
+        heapq.heappush(min_heap, num)
+
+        # If heap size exceeds k, remove the smallest element
+        if len(min_heap) > k:
+            heapq.heappop(min_heap)
+
+    # Top of min-heap is the kth largest element
+    return min_heap[0]
+
+if __name__ == "__main__":
+    arr = [56, 89, 44, 65, 33]
+    k = int(input("Enter k: "))
+    print(find_kth_largest(arr, k))
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
