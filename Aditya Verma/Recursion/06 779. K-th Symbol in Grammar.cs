@@ -1,3 +1,27 @@
+py:
+class Solution:
+    def kthGrammar(self, n: int, k: int) -> int:
+        # Base case: first row, first element is 0
+        if n == 1 and k == 1:
+            return 0
+        
+        # Number of elements in the first half of the row
+        mid = 1 << (n - 2)  # 2^(n-2)
+        
+        # If k is in the first half, same as previous row
+        if k <= mid:
+            return self.kthGrammar(n - 1, k)
+        else:
+            # If k is in the second half, invert the value from previous row
+            return 1 - self.kthGrammar(n - 1, k - mid)
+
+if __name__ == "__main__":
+    n, k = map(int, input().split())
+    solution = Solution()
+    print(solution.kthGrammar(n, k))
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
