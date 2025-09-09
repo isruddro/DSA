@@ -1,3 +1,46 @@
+cpp:
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Function to find the first index of 1 in a binary array
+int FirstIndex(const vector<int>& a) {
+    int i = 0, j = a.size() - 1;
+
+    // Perform binary search to find first 1
+    while (i < j) {
+        int m = i + (j - i) / 2;
+        if (a[m] == 1)
+            j = m;      // Search left half
+        else
+            i = m + 1;  // Search right half
+    }
+
+    // If no 1's in the array
+    if (a[i] == 0) return -1;
+
+    return i;  // Index of first 1
+}
+
+int main() {
+    vector<int> a = {0, 0, 0, 1, 1, 1, 1};
+
+    int result = FirstIndex(a);
+    if (result != -1)
+        cout << "First index of 1 is: " << result << endl;
+    else
+        cout << "No 1's found in the array" << endl;
+
+    return 0;
+}
+
+
+
+
+
+c#:
+
 using System;
 
 class Program
