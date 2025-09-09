@@ -1,5 +1,53 @@
 //Any to Any
 //focus on the negative so we consider that too
+py:
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def __init__(self):
+        self.res = float('-inf')
+    
+    # Recursive function to calculate maximum path sum
+    def solve(self, root):
+        if not root:
+            return 0
+        
+        # Maximum path sum from left and right subtrees (discard negatives)
+        left = max(0, self.solve(root.left))
+        right = max(0, self.solve(root.right))
+        
+        # Maximum path starting from current node
+        temp = max(root.val + max(left, right), root.val)
+        
+        # Maximum path including current node as junction
+        ans = max(temp, left + right + root.val)
+        
+        # Update global maximum
+        self.res = max(self.res, ans)
+        
+        return temp  # Return max sum starting from current node
+    
+    def maxPathSum(self, root):
+        self.res = float('-inf')
+        self.solve(root)
+        return self.res
+
+# Example usage
+if __name__ == "__main__":
+    root = TreeNode(10, 
+                    TreeNode(2, TreeNode(20), TreeNode(1)), 
+                    TreeNode(10, None, TreeNode(-25, TreeNode(3), TreeNode(4)))
+                   )
+    sol = Solution()
+    print("Maximum Path Sum:", sol.maxPathSum(root))
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
