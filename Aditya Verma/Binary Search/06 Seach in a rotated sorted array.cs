@@ -1,3 +1,45 @@
+py:
+
+from typing import List
+
+def search(nums: List[int], target: int) -> int:
+    start, end = 0, len(nums) - 1
+
+    while start <= end:
+        mid = start + (end - start) // 2
+
+        # If the target is found
+        if nums[mid] == target:
+            return mid
+
+        # Check if the left half is sorted
+        if nums[start] <= nums[mid]:
+            # If target lies within the sorted left half
+            if nums[start] <= target <= nums[mid]:
+                end = mid - 1
+            else:
+                start = mid + 1
+        else:
+            # Otherwise, right half must be sorted
+            if nums[mid] <= target <= nums[end]:
+                start = mid + 1
+            else:
+                end = mid - 1
+
+    return -1  # Target not found
+
+
+if __name__ == "__main__":
+    nums = [4, 5, 6, 7, 0, 1, 2]
+    target = 0
+    result = search(nums, target)
+    if result != -1:
+        print(f"Target found at index: {result}")
+    else:
+        print("Target not found.")
+
+
+
 cpp:
 #include <iostream>
 #include <vector>
