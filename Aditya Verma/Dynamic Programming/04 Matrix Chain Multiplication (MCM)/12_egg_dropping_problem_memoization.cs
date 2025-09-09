@@ -1,3 +1,37 @@
+py:
+
+D = 101
+t = [[-1 for _ in range(D)] for _ in range(D)]
+
+def solve(eggs, floors):
+    # If already computed, return result
+    if t[eggs][floors] != -1:
+        return t[eggs][floors]
+
+    # Base cases
+    if eggs == 1 or floors == 0 or floors == 1:
+        t[eggs][floors] = floors
+        return floors
+
+    mn = float('inf')
+
+    # Try dropping from each floor
+    for k in range(1, floors + 1):
+        temp_ans = 1 + max(solve(eggs - 1, k - 1), solve(eggs, floors - k))
+        mn = min(mn, temp_ans)
+
+    # Store and return
+    t[eggs][floors] = mn
+    return mn
+
+if __name__ == "__main__":
+    eggs = int(input())
+    floors = int(input())
+
+    print(solve(eggs, floors))
+
+
+
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
