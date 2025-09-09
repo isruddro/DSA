@@ -2,6 +2,50 @@
 // reverse(A) = "abcbga"
 
 // LPS(A) = LCS(A, reverse(A)) = "abcba"
+cpp:
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+// Function to calculate the LCS of two strings
+int LCS(const string &X, const string &Y) {
+    int n = X.size();
+    int m = Y.size();
+    vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            if (X[i - 1] == Y[j - 1])
+                dp[i][j] = 1 + dp[i - 1][j - 1];
+            else
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+        }
+    }
+    return dp[n][m];
+}
+
+// Function to calculate the Longest Palindromic Subsequence
+int LPS(const string &X) {
+    string rev_X = X;
+    reverse(rev_X.begin(), rev_X.end());
+    return LCS(X, rev_X);
+}
+
+int main() {
+    string X;
+    getline(cin, X);
+
+    cout << LPS(X) << endl;
+
+    return 0;
+}
+
+
+
+c#:
 
 using System;
 
