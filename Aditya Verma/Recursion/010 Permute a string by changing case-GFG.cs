@@ -1,5 +1,4 @@
-https://leetcode.com/problems/letter-case-permutation/description/
-
+https://www.geeksforgeeks.org/dsa/permute-string-changing-case/
 py:
 
 from typing import List
