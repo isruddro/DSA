@@ -1,3 +1,5 @@
+https://leetcode.com/problems/search-insert-position/description/?utm_source=chatgpt.com
+
 py:
 
 from typing import List
