@@ -1,5 +1,6 @@
 https://www.geeksforgeeks.org/problems/perfect-sum-problem5633/1
 
+#same as subset sum but we just use +. As we are count all the subjet that equal to sum.
 py:
 
 from typing import List
