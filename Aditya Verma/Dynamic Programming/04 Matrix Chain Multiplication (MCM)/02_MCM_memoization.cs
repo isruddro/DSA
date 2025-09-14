@@ -1,3 +1,5 @@
+https://www.geeksforgeeks.org/problems/matrix-chain-multiplication0303/1
+
 py:
 import sys
 sys.setrecursionlimit(10**6)
