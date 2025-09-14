@@ -1,3 +1,6 @@
+#we initialize the first row and first column with base case of 2D matrix
+
+
 py:
 
 from typing import List
