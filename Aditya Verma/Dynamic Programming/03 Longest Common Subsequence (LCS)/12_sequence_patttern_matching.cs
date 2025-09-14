@@ -1,3 +1,5 @@
+https://leetcode.com/problems/is-subsequence/description/
+
 py:
 
 def LCS(X, Y):
