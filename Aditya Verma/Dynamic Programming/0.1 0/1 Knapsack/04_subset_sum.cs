@@ -1,5 +1,4 @@
-https://www.geeksforgeeks.org/dsa/subset-sum-problem-dp-25/
-
+https://www.geeksforgeeks.org/problems/subset-sum-problem-1611555638/1
 
 py:
 
