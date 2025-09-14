@@ -1,5 +1,9 @@
 https://leetcode.com/problems/partition-equal-subset-sum/description/
 
+
+#same as subset sum but we check if the sum is possible in a funcion. If half of total sum is odd
+then partition is not possible.
+
 py:
 
 from typing import List
