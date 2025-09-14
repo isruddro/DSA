@@ -1,3 +1,5 @@
+https://leetcode.com/problems/shortest-common-supersequence/description/
+
 py:
 
 def lcs_dp(X, Y):
