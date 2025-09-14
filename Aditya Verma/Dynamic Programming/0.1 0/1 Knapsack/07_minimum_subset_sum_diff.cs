@@ -1,5 +1,20 @@
 https://www.geeksforgeeks.org/problems/minimum-sum-partition3317/1
 
+#here we need subset1 and subset2
+Suppose you partition the array into two subsets S1 and S2.
+
+sum(S1) = s
+
+sum(S2) = total_sum - s
+
+The difference is |sum(S1) - sum(S2)| = |total_sum - 2*s|.
+
+That’s why we check abs(total_sum - 2*s).
+
+
+
+
+
 py:
 
 from typing import List
