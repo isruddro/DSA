@@ -1,5 +1,5 @@
 https://www.geeksforgeeks.org/problems/longest-common-substring1452/1
-
+https://leetcode.com/problems/maximum-length-of-repeated-subarray/description/
 py:
 
 def lc_substr(X, Y):
