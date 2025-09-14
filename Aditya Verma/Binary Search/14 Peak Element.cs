@@ -1,3 +1,5 @@
+https://leetcode.com/problems/peak-index-in-a-mountain-array/description/?utm_source=chatgpt.com
+
 py:
 
 
