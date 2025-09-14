@@ -1,3 +1,5 @@
+https://www.geeksforgeeks.org/problems/minimum-number-of-deletions4610/1
+
 py:
 
 def lcs(X, Y):
