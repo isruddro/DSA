@@ -1,3 +1,5 @@
+https://leetcode.com/problems/k-th-symbol-in-grammar/
+
 py:
 class Solution:
     def kthGrammar(self, n: int, k: int) -> int:
