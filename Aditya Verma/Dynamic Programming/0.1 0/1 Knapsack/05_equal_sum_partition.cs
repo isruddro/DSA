@@ -28,6 +28,8 @@ def is_subset_sum_possible(arr: List[int], n: int, target: int) -> bool:
     return dp[n][target]
 
 def equal_sum_partition_possible(arr: List[int]) -> bool:
+
+    #using built in sum() function of python
     total_sum = sum(arr)
     if total_sum % 2 != 0:
         return False  # Odd sum cannot be partitioned equally
