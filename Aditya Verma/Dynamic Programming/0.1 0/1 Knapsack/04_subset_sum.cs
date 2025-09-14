@@ -1,3 +1,6 @@
+https://www.geeksforgeeks.org/dsa/subset-sum-problem-dp-25/
+
+
 py:
 
 from typing import List
