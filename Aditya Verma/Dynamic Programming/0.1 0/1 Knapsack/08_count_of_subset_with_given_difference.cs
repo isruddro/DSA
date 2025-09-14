@@ -1,5 +1,12 @@
 https://leetcode.com/problems/target-sum/description/
 
+
+# two eq:
+    from question  :s1-s2 = diff
+    we know        :s1+s2 = total
+    adding two eq: we get: s1= (total+diff) //2
+    we can say this in other way: target_sum = (total_sum + diff) // 2
+
 py:
 
 from typing import List
