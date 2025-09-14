@@ -7,6 +7,8 @@ https://leetcode.com/problems/target-sum/description/
     adding two eq: we get: s1= (total+diff) //2
     we can say this in other way: target_sum = (total_sum + diff) // 2
 
+    rest is same as target sum.
+
 py:
 
 from typing import List
