@@ -1,3 +1,5 @@
+https://www.geeksforgeeks.org/problems/longest-common-substring1452/1
+
 py:
 
 def lc_substr(X, Y):
