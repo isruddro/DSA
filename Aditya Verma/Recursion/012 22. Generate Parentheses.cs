@@ -1,3 +1,5 @@
+https://leetcode.com/problems/generate-parentheses/description/
+
 py:
 from typing import List
 
