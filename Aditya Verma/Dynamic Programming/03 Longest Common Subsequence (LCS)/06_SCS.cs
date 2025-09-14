@@ -1,3 +1,5 @@
+https://www.geeksforgeeks.org/problems/shortest-common-supersequence0322/1
+
 py:
 
 def lcs_length(X, Y):
