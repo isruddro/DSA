@@ -1,3 +1,5 @@
+https://leetcode.com/problems/min-stack/description/?utm_source=chatgpt.com
+
 py:
 class MinStack:
     def __init__(self):
