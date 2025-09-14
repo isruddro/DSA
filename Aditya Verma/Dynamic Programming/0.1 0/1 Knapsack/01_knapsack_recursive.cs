@@ -1,3 +1,6 @@
+#when we see sum( n = total number or bag) and choices whether take or not take then we think about
+knapsack. If there is no way to retake the already taken value then its 0/1 knapsack.
+
 py:
 
 from typing import List
