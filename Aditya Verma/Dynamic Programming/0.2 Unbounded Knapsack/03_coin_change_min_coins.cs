@@ -1,3 +1,5 @@
+https://www.geeksforgeeks.org/problems/number-of-coins1824/1
+
 //on this question we need to check the second row initialization for overflow, that's why we need to check and use INF.
 //as it it working on the coin so we need to add 1, not the dp[i-1] that we used to do.
 py:
