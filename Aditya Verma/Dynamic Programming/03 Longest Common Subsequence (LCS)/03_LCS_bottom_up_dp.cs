@@ -1,3 +1,5 @@
+https://leetcode.com/problems/longest-common-subsequence/description/
+
 py:
 
 def LCS(X: str, Y: str) -> int:
