@@ -1,3 +1,5 @@
+https://www.geeksforgeeks.org/problems/palindromic-patitioning4845/1
+
 py:
 
 import sys
