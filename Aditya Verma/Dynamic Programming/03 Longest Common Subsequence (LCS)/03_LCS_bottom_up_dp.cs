@@ -1,6 +1,7 @@
 https://leetcode.com/problems/longest-common-subsequence/description/
 
-#special about subsequence is: it counts with gaps too but needs to come one after another.
+#What special about subsequence is: it counts with gaps too but needs to come one after another.
+    opposite of this is substring. where we count consequtive elements. 
 
 py:
 
