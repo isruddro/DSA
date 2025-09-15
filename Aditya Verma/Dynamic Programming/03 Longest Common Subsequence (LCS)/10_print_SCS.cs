@@ -1,5 +1,15 @@
 https://leetcode.com/problems/shortest-common-supersequence/description/
 
+# Things to rem:
+        Previous concepts apply here. Be flexible.
+        In short:
+                1. Code for SCS from LCS.
+                2. During filling DP table, think of going last cell to gradually up and:
+                            * If the same element then: i--, j--
+                            * If not same then whereever we find greater element we go towards
+                                that cell. if [a][b-1] greater then we go b--
+                                    else: alternate
+
 py:
 
 def lcs_dp(X, Y):
