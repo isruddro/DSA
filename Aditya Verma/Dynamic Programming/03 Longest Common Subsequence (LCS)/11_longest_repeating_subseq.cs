@@ -1,6 +1,15 @@
 https://www.geeksforgeeks.org/problems/longest-repeating-subsequence2004/1
 
 
+# Things to rem: (Only thing)
+    * We have one string how to connect with LCS pattern? 
+        by treating same string twice but the indexing will be different.
+        str1 = a b c b
+        str2 = a b d c b
+        (here both strings b has different index. so i != j)
+
+    * Rest is just LCS as both has same seq and it also repeats!
+
 py:
 
 def LRS(X):
