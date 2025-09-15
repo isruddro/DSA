@@ -1,5 +1,11 @@
 https://www.geeksforgeeks.org/problems/boolean-parenthesization5610/1
 
+# Things to rem:
+    We want to put k in the place of operator. so, always k= k+2
+* i= 0, j = len(s) -1
+* Base case depends on T , F
+* At the time of ^(XOR): True when: l_T * r_F + l_F * r_T
+
 py:
 
 # Recursive function to count the number of ways
