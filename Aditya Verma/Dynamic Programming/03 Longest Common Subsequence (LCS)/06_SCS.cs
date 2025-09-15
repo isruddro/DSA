@@ -1,6 +1,11 @@
 https://www.geeksforgeeks.org/problems/shortest-common-supersequence0322/1
 
 # Things to rem:
+    Its too easy that only asked to print the length in int!
+        So, from both string if we substract the LCS then we get SCS!
+    Its like a bag with both n and m elements and we just substract LCS to get SCS.
+
+# Things to rem:
     It's sequence, so order matters here but not necessary continous.
 
 py:
