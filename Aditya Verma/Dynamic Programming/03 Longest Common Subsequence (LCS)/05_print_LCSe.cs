@@ -1,3 +1,14 @@
+# Things to rem:
+    * First is same as LCSe.
+    * During printing (last cell to gradually going up:
+        1. If both string same then we add that subse. Then we go one back (both row and col).
+                       i--, j--
+        2. If both not equal we go towards the greter elements cell.
+                       when i-1 greater we go i--. Or else.
+        3. By that we a subse in reverse. So we reverse that to get the correct subsequence.
+
+
+
 py:
 
 def lcs(X, Y):
