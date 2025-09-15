@@ -6,6 +6,7 @@
                                 = 36
    * arr[] = [40 20 30 10 30] from here we use formula: A[i] = arr[i-1] * arr[i]
       We got: A1: 40 20, A2: 20 30, A3: 30 10, A4: 10 30
+         and then total cost of the array is: arr[i-1] * arr[k] * arr[j]
          So: this MCM problems cost depends on brackets.
 
  # In this problem: 
