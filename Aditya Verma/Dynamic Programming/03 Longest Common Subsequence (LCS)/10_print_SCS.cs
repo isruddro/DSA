@@ -9,6 +9,7 @@ https://leetcode.com/problems/shortest-common-supersequence/description/
                             * If not same then whereever we find greater element we go towards
                                 that cell. if [a][b-1] greater then we go b--
                                     else: alternate
+                3. Don't forget to reverse as during filling the DP we get in reverse!
 
 py:
 
