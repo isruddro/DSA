@@ -1,5 +1,14 @@
 https://www.geeksforgeeks.org/problems/longest-common-substring1452/1
 https://leetcode.com/problems/maximum-length-of-repeated-subarray/description/
+
+# Things to rem:
+    same as LCSe but: whenever we found any discontinuty on two strings we put zero and 
+    recursion loop over.
+        As:
+            a b c d e
+            a b f c e
+            1+1+0 = here the moment last two char did not match, we put zero and move on.
+                Here, two strings were abc and abf. last chars c and f did not match.
 py:
 
 def lc_substr(X, Y):
