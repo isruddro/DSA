@@ -1,5 +1,15 @@
 https://www.geeksforgeeks.org/problems/minimum-number-of-deletions-and-insertions0209/1
 
+Too easy to rem:
+    What is common to both str? Of course their LCS! Just keep in mind.
+    * Think about this: why we need to delete or insert? Cos, both str are not same size!
+    * From the longer str length we substract LCS length (common seq) = deletion number!
+    * From the shorter string length we substract the LCS length (common seq) = insertion number!
+
+        As:
+            deletions = n - lcs_len;
+            insertions = m - lcs_len;
+
 py:
 
 def lcs_length(X, Y):
