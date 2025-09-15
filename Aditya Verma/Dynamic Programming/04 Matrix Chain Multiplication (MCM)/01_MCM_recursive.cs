@@ -1,3 +1,11 @@
+# Things to rem:
+    * Multiplication of two matrix( A x B and C x D) is possible only if: B = C. And product is A x D
+    * Cost = number of multiplication:
+            If two matrix: 2 x 3 and 3 x 6 multiply:
+                        Cost is: 2 x 3 x 6 (only took one  from middle as they are same)
+                                = 36
+
+
 py:
 def matrix_chain_multiplication(arr):
     n = len(arr)
