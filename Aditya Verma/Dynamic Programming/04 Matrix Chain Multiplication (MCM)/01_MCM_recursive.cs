@@ -13,8 +13,8 @@ Kinda big but when I get this its intuitive.
     * If array element 1 multiplication is not possible. 
 
     * Two ways to make loops and function calls: (most important)
-         1. When loop: k=i, k= j-1 then function calls: fn(i to k) , fn(k+1 to j)
-         2. When loop: k=i+1, k= j then function calls: fn(i to k-1), fn(k to j)
+         1. When loop: k=i (START), k= j-1(END) then function calls (BREAK): fn(i to k) , fn(k+1 to j)
+         2. When loop: k=i+1 (START), k= j(END) then function calls (BREAK): fn(i to k-1), fn(k to j)
             So basically, k will be placed in between i and j, and keep in mind: at least one needed.
                If there is one and nothing on the right, we take exact left.
                
