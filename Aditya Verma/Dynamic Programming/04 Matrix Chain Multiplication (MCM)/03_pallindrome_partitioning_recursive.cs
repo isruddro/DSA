@@ -5,6 +5,7 @@ https://www.geeksforgeeks.org/problems/palindromic-patitioning4845/1
 * Base case is same as MCM, when i>j that means no element there.
         Specifically in this question, if string is palindrome then its not possible to make it
             palindrome again.
+* In the function: we add 1 because initially we make a partition when we put k in between i and j.
 
 py:
 
