@@ -9,12 +9,14 @@
          So: this MCM problems cost depends on brackets.
 
  # In this problem: 
-    *  i = 1, j = n - 1
+    *  i = 1, j = n - 1 (i is in 1 index and j is last index)
     * If array element 1 multiplication is not possible. 
 
     * Two ways to make loops and function calls: (most important)
          1. When loop: k=i, k= j-1 then function calls: fn(i to k) , fn(k+1 to j)
          2. When loop: k=i+1, k= j then function calls: fn(i to k-1), fn(k to j)
+            So basically, k will be placed in between i and j, and keep in mind: at least one needed.
+               If there is one and nothing on the right, we take exact left.
 
 py:
 def matrix_chain_multiplication(arr):
