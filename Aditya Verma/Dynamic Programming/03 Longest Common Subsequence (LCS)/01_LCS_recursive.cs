@@ -1,3 +1,7 @@
+#What special about subsequence is: it counts with gaps too but needs to come one after another.
+    opposite of this is substring. where we count consequtive elements. 
+
+
 #Things to rem:
     * When last char matches from both strings. We already know one is matched so we count 1 and 
         look for the rest of the string for both. As: n-1 for first and m-1 for second.
