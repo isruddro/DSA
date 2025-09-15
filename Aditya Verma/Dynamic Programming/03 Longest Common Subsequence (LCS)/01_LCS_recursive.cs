@@ -1,8 +1,8 @@
 #Things to rem:
     * When last char matches from both strings. We already know one is matched so we count 1 and 
         look for the rest of the string for both. As: n-1 for first and m-1 for second.
-    * When last char doesn't match, we go with a hope for rest of the string and take maximum
-        out of em.
+    * When last char doesn't match, we go with a hope that: we take one full and other one less.
+         Same thing alternates.
 
 py:
 
