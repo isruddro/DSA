@@ -1,5 +1,8 @@
 https://www.geeksforgeeks.org/problems/minimum-number-of-deletions4610/1
 
+# Things to rem:
+        Previous concepts apply here. Be flexible.
+
 py:
 
 def lcs(X, Y):
