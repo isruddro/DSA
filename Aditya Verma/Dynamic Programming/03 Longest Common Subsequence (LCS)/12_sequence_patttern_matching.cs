@@ -1,5 +1,11 @@
 https://leetcode.com/problems/is-subsequence/description/
 
+# Things to rem:
+    We can solve this q using recursion too!
+    But its better to know the LCS connection.
+
+        * Logic is simple: 
+            Return after checking, if the shorter str is the LCS of both.
 py:
 
 def LCS(X, Y):
