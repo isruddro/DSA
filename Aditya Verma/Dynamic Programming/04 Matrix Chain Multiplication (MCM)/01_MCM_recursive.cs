@@ -1,3 +1,5 @@
+MCM pattern = "Where to cut/divide/partition or about brackets optimally"
+
 Kinda big but when I get this its intuitive.
 
 # Things to rem:
