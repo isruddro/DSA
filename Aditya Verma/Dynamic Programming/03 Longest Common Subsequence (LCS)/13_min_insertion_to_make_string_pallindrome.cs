@@ -1,58 +1,47 @@
 https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/description/
 
+# Things to rem:
+    * We need extra char from the total string to make a LPS palindrome,
+        that is why we substract LPS from n to get insertion number.
+    * Rest of the process is same like LPS previous problem.
+
+
 py:
 
-using System;
-using System.Linq;
+# Function to compute the length of the Longest Common Subsequence (LCS)
+def LCS(X, Y, n, m):
+    dp = [[0 for _ in range(m + 1)] for _ in range(n + 1)]
+    
+    for i in range(n + 1):
+        for j in range(m + 1):
+            if i == 0 or j == 0:
+                dp[i][j] = 0
+    
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            if X[i - 1] == Y[j - 1]:
+                dp[i][j] = 1 + dp[i - 1][j - 1]
+            else:
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+    
+    return dp[n][m]
 
-class Program
-{
-    // Function to compute the length of the Longest Common Subsequence (LCS)
-    static int LCS(string X, string Y, int n, int m)
-    {
-        int[,] dp = new int[n + 1, m + 1];
+# Function to compute the Longest Palindromic Subsequence (LPS)
+def LPS(X, n):
+    rev_X = X[::-1]
+    return LCS(X, rev_X, n, n)
 
-        for (int i = 0; i <= n; i++)
-            for (int j = 0; j <= m; j++)
-                if (i == 0 || j == 0)
-                    dp[i, j] = 0;
+# Function to compute the minimum insertions required to make the string a palindrome
+def MinInsertForPalindrome(X, n):
+    return n - LPS(X, n)
 
-        for (int i = 1; i <= n; i++)
-        {
-            for (int j = 1; j <= m; j++)
-            {
-                if (X[i - 1] == Y[j - 1])
-                    dp[i, j] = 1 + dp[i - 1, j - 1];
-                else
-                    dp[i, j] = Math.Max(dp[i - 1, j], dp[i, j - 1]);
-            }
-        }
+# Main execution
+X = input().strip()
+n = len(X)
+print(MinInsertForPalindrome(X, n))
 
-        return dp[n, m];
-    }
 
-    // Function to compute the Longest Palindromic Subsequence (LPS)
-    static int LPS(string X, int n)
-    {
-        string rev_X = new string(X.Reverse().ToArray());
-        return LCS(X, rev_X, n, n);
-    }
-
-    // Function to compute the minimum insertions required to make the string a palindrome
-    static int MinInsertForPalindrome(string X, int n)
-    {
-        return n - LPS(X, n);
-    }
-
-    static void Main()
-    {
-        string X = Console.ReadLine();
-        int n = X.Length;
-
-        Console.WriteLine(MinInsertForPalindrome(X, n));
-    }
-}
-
+        
 
 
 cpp:
