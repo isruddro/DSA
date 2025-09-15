@@ -1,5 +1,9 @@
 https://www.geeksforgeeks.org/dsa/longest-palindromic-subsequence-dp-12/
 
+# Things to rem:
+    Here only one str? How can we apply LCS?
+        Well just reverse the string and then apply LCS for both.
+
 // A = "agbcba"
 // reverse(A) = "abcbga"
 
