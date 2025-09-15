@@ -2,6 +2,9 @@ https://www.geeksforgeeks.org/problems/boolean-parenthesization5610/1
 
 # Things to rem:
     We want to put k in the place of operator. so, always k= k+2
+    That is why:
+        for k in range(i + 1, j, 2):
+    (We have two steps every time, that is the place of k)
 * i= 0, j = len(s) -1
 * Base case depends on T , F
 * At the time of ^(XOR): True when: l_T * r_F + l_F * r_T
