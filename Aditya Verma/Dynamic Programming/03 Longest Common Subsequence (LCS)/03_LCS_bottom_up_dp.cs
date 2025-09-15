@@ -1,5 +1,8 @@
 https://leetcode.com/problems/longest-common-subsequence/description/
-
+Bottom up:
+    We just initialize every cell of the table with zero. And on the loop we start from the
+    second to last for both row and column and we keep filling the dp table later when we
+    recursively find any elements, so everything is inside the table.
 
 py:
 
