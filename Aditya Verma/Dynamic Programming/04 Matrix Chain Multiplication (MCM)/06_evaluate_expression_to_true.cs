@@ -6,7 +6,7 @@ https://www.geeksforgeeks.org/problems/boolean-parenthesization5610/1
         for k in range(i + 1, j, 2):
     (We have two steps every time, that is the place of k)
 * i= 0, j = len(s) -1
-* Base case depends on T , F
+* Base case depends on T , F. We need to consider both.
 * At the time of ^(XOR): True when: l_T * r_F + l_F * r_T
 
 py:
@@ -23,6 +23,7 @@ def solve(X, i, j, is_true):
 
     # Loop through all operators in the expression
     for k in range(i + 1, j, 2):
+        # We have total of 4 posibilities and for each partition left or right we have two each.
         l_T = solve(X, i, k - 1, True)
         l_F = solve(X, i, k - 1, False)
         r_T = solve(X, k + 1, j, True)
