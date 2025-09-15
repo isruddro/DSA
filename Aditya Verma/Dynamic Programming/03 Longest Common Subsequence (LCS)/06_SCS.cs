@@ -1,5 +1,8 @@
 https://www.geeksforgeeks.org/problems/shortest-common-supersequence0322/1
 
+# Things to rem:
+    sequence, so order matters here.
+
 py:
 
 def lcs_length(X, Y):
