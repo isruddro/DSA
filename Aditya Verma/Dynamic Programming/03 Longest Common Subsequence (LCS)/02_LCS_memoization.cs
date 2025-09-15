@@ -1,6 +1,11 @@
 # We only make table for memo in which the variable changes. Here its n and m. Both reducing.
     So we made dp table of n, m. dp[n][m]
 
+* For dp table:
+     When using DP with sequences of max length 1000, you need indices 0 through 1000 to handle
+        base cases (0 elements) plus all possible lengths.
+            So D = 1001 gives you dp[0][0] through dp[1000][1000], covering all cases 
+                 from "0 elements from both sequences" to "1000 elements from both sequences".
 py:
 
 import sys
