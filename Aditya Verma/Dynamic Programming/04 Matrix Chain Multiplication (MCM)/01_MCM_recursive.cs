@@ -4,7 +4,17 @@
             If two matrix: 2 x 3 and 3 x 6 multiply:
                         Cost is: 2 x 3 x 6 (only took one  from middle as they are same)
                                 = 36
+   * arr[] = [40 20 30 10 30] from here we use formula: A[i] = arr[i-1] * arr[i]
+      We got: A1: 40 20, A2: 20 30, A3: 30 10, A4: 10 30
+         So: this MCM problems cost depends on brackets.
 
+ # In this problem: 
+    *  i = 1, j = n - 1
+    * If array element 1 multiplication is not possible. 
+
+    * Two ways to make loops and function calls: (most important)
+         1. When loop: k=i, k= j-1 then function calls: fn(i to k) , fn(k+1 to j)
+         2. When loop: k=i+1, k= j then function calls: fn(i to k-1), fn(k to j)
 
 py:
 def matrix_chain_multiplication(arr):
