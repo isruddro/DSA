@@ -4,10 +4,6 @@
             If two matrix: 2 x 3 and 3 x 6 multiply:
                         Cost is: 2 x 3 x 6 (only took one  from middle as they are same)
                                 = 36
-   * arr[] = [40 20 30 10 30] from here we use formula: A[i] = arr[i-1] * arr[i]
-      We got: A1: 40 20, A2: 20 30, A3: 30 10, A4: 10 30
-         and then total cost of the array is: arr[i-1] * arr[k] * arr[j]
-         So: this MCM problems cost depends on brackets.
 
  # In this problem: 
     *  i = 1, j = n - 1 (i is in 1 index and j is last index)
@@ -18,6 +14,12 @@
          2. When loop: k=i+1, k= j then function calls: fn(i to k-1), fn(k to j)
             So basically, k will be placed in between i and j, and keep in mind: at least one needed.
                If there is one and nothing on the right, we take exact left.
+               
+     * arr[] = [40 20 30 10 30] from here we use formula: A[i] = arr[i-1] * arr[i]
+      We got: A1: 40 20, A2: 20 30, A3: 30 10, A4: 10 30
+         and then total cost of the array is:
+               40 * 30 * 30 = arr[i-1] * arr[k] * arr[j]
+         So: this MCM problems cost depends on brackets.
 
 py:
 def matrix_chain_multiplication(arr):
