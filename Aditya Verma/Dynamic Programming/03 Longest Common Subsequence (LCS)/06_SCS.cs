@@ -2,8 +2,10 @@ https://www.geeksforgeeks.org/problems/shortest-common-supersequence0322/1
 
 # Things to rem:
     Its too easy that only asked to print the length in int!
-        So, from both string if we substract the LCS then we get SCS!
-    Its like a bag with both n and m elements and we just substract LCS to get SCS.
+        So, from both string's length (n+m) if we substract the LCS length then we get SCS length!
+    Its like a bag with both n and m elements and we just substract length of LCS to get 
+            length of SCS.
+            As: SCS Length = n + m - LCS Length
 
 # Things to rem:
     It's sequence, so order matters here but not necessary continous.
