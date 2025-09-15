@@ -1,3 +1,5 @@
+Kinda big but when I get this its intuitive.
+
 # Things to rem:
     * Multiplication of two matrix( A x B and C x D) is possible only if: B = C. And product is A x D
     * Cost = number of multiplication:
