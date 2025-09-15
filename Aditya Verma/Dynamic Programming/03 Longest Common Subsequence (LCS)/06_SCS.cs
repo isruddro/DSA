@@ -1,7 +1,7 @@
 https://www.geeksforgeeks.org/problems/shortest-common-supersequence0322/1
 
 # Things to rem:
-    sequence, so order matters here.
+    It's sequence, so order matters here but not necessary continous.
 
 py:
 
