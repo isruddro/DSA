@@ -1,3 +1,6 @@
+# We only make table for memo in which the variable changes. Here its n and m. Both reducing.
+    So we made dp table of n, m. dp[n][m]
+
 py:
 
 import sys
