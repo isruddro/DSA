@@ -1,3 +1,9 @@
+https://www.geeksforgeeks.org/problems/sum-of-elements-between-k1th-and-k2th-smallest-elements3133/1
+
+# Way is to:
+    * Make function to find kth smallest element. Then find to k.
+    * We need value between two k's. So make for loop and store those then later add to find res.
+
 py:
 
 import heapq
