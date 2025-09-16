@@ -1,7 +1,7 @@
 # Things to rem:
     * First is same as LCSe.
     * During printing (last cell to gradually going up:
-        1. If both string same then we add that subse. Then we go one back (both row and col).
+        1. If both string same then we add that subse. Then we add and the go one back (both row and col).
                        i--, j--
         2. If both not equal we go towards the greter elements cell.
                        when i-1 greater we go i--. Or else.
