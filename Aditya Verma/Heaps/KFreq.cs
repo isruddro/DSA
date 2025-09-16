@@ -1,3 +1,7 @@
+# In this prob:
+    We need to consider number and frequency.
+        
+
 py:
 
 
