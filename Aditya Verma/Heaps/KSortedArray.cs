@@ -1,3 +1,10 @@
+https://www.geeksforgeeks.org/problems/k-sorted-array1610/1?utm_source=chatgpt.com
+
+# K sorted array aka nearly sorted array.
+* We need min heap. Element on top needed to extract and put it in the result list.
+    If size is greater than k then we need to pop top element and put the element on heap. (cos in min heap
+        the top element will always be smaller)
+
 py:
 
 import heapq
