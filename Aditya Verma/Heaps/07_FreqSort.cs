@@ -1,5 +1,9 @@
 https://www.geeksforgeeks.org/problems/sorting-elements-of-an-array-by-frequency-1587115621/1
 
+# Similar as K freq, but here we need to sort all element based on freq and we do not need the condidion of k. 
+    We print everything.
+Another way to solve this using compare function.
+
 py:
 
 import heapq
