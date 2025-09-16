@@ -1,6 +1,8 @@
 Heap:
 1. k
-2. smallest / largest
+2.
+   * smallest / lowest / closest (maxheap)
+   * largest / greatest / top (minheap)
 
    * k + smallest = maxheap
    * k + largest = minheap (min will come on top and we will reamove that and rest will be largest on bottom!)
