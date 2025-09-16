@@ -1,7 +1,7 @@
 https://www.geeksforgeeks.org/problems/palindromic-patitioning4845/1
 
 # Things to rem:
-    In this question: i = 0, and j = len(s) -1
+    In this question: i = 0, and j = len(s) -1  # (last element)
 * Base case is same as MCM, when i>j that means no element there.
         Specifically in this question, if string is palindrome then its not possible to make it
             palindrome again.
