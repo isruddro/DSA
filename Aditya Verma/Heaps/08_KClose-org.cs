@@ -1,3 +1,8 @@
+# Things to rem:
+    Distance will be the length between two dot. It will be key.
+    So, it is: root(x^2 + y^2)
+          simplify: x^2 + y^2
+
 py:
 
 
