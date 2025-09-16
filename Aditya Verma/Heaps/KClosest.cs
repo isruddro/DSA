@@ -1,3 +1,16 @@
+https://www.geeksforgeeks.org/problems/k-closest-elements3619/0
+
+# Think of this:
+        5 6 6 8 9
+abs (-) 7 7 7 7 7
+    (=) 2 1 0 1 2
+        finally on the basis of the diff we get: 7 6 8 are k(3) closest numbers. (here x is 7)
+
+* Closest means smallest. So we keeping smallest numbers, that is why we deleting maximum numbers. (using maxheap)
+    
+    In this problem i need to consider abs diffs numbers of k. Both abs diffs (work as key) and the number I need to put on the heap.
+    The results will be on the basis of the abs diffs.
+
 py:
 
 import heapq
