@@ -2,6 +2,9 @@ MCM pattern = "Where to cut/divide/partition or about brackets optimally"
 
 Kinda big but when I get this its intuitive.
 
+Any MCM's 4 steps:
+1. Find i and j, 2. Base case. 3. k loop. 4. Function to find the temp answers.
+
 # Things to rem:
     * Multiplication of two matrix( A x B and C x D) is possible only if: B = C. 
                                                        And product is A x D
