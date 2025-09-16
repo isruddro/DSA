@@ -1,7 +1,7 @@
 https://leetcode.com/problems/next-greater-element-i/submissions/1315287157/
 
-/* When its about array and j is dependent on i on bruite force,
-     then we need to think of implementing with Stack.
+# Things to rem:
+     When its about array and j is dependent on i on bruite force, then we need to think of implementing with Stack.
     LIFO
     1324
     We need to traverse from right as stack is LIFO.
@@ -18,7 +18,9 @@ https://leetcode.com/problems/next-greater-element-i/submissions/1315287157/
             2. or we found s.Peek() > array[i]
     
     At last we need to reverse for the answer
- */
+
+
+ 
 py:
 
 def next_greater_element_to_right(arr):
