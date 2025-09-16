@@ -1,5 +1,7 @@
 https://www.geeksforgeeks.org/problems/boolean-parenthesization5610/1
 
+https://leetcode.com/problems/parsing-a-boolean-expression/description/
+
 # Things to rem:
     We want to put k in the place of operator. so, always k= k+2
     That is why:
