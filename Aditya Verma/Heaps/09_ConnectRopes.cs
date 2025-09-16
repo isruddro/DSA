@@ -1,3 +1,7 @@
+# Things to rem:
+    At any time we have to choose two minimum number to add. Then overall cost will be minimum at the end.
+
+
 py:
 
 import heapq
