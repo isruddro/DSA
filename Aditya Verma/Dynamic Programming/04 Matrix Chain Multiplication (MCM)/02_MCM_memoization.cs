@@ -8,6 +8,7 @@ sys.setrecursionlimit(10**6)
 t = {}
 
 def solve(arr, i, j):
+    # no elements
     if i >= j:
         return 0
 
