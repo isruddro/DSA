@@ -18,7 +18,7 @@ Kinda big but when I get this its intuitive.
          1. When loop: k=i (START), k= j-1(END) then function calls (BREAK): fn(i to k) , fn(k+1 to j) (preferable)
          2. When loop: k=i+1 (START), k= j(END) then function calls (BREAK): fn(i to k-1), fn(k to j)
             So basically, k will be placed in between i and j, and keep in mind: at least one needed.
-               If there is one and nothing on the right, we take exact left to multiply with.
+               If there is one and nothing on the right(last element), we take exact left to multiply with.
                
      * arr[] = [40 20 30 10 30] from here we use formula: A[i] = arr[i-1] * arr[i]
       We got: A1: 40 20, A2: 20 30, A3: 30 10, A4: 10 30
