@@ -5,7 +5,7 @@
                        i--, j--
         2. If both not equal we go towards the greter elements cell.
                        when i-1 greater we go i--. Or else.
-        3. By that we a subse in reverse. So we reverse that to get the correct subsequence.
+        3. By that we got subse in reverse (bottom up). So we reverse that to get the correct subsequence.
 
 
 
