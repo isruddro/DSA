@@ -1,6 +1,7 @@
-/*
-    Here, i will go left to right and we dont need to make reverse as it will give the answer directly.
- */
+
+# In this question: I need to go left to right and we dont need to make reverse as it will give the answer directly.
+
+    
 py:
 from typing import List
 
