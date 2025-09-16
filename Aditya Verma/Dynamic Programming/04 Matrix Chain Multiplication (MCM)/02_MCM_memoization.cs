@@ -16,6 +16,7 @@ def solve(arr, i, j):
         return t[(i, j)]
 
     ans = float('inf')
+    # k in between i and j
     for k in range(i, j):
         temp_ans = solve(arr, i, k) + solve(arr, k + 1, j) + arr[i - 1] * arr[k] * arr[j]
         ans = min(ans, temp_ans)
