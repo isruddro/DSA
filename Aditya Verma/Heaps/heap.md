@@ -8,3 +8,6 @@ Heap:
 Why heap?
 
 Sorting is normally O(nlogn) but when using heap its O(nlogk)
+
+* We will keep putting array element in the heap and using max or mean heap, element will be on top and we will delete
+  with the conditions of k range.
