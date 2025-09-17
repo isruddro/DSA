@@ -1,3 +1,8 @@
+
+# Bitonic array has only one peek. It increases then decreases.
+    On the basis of mid. There will be two sorted array in the bitonic array.
+
+
 py:
 from typing import List
 
