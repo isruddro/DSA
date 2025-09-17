@@ -1,3 +1,7 @@
+# [3, 1, 5, 2, 4]
+
+3 largest = [5, 4, 3]
+It is just top 3 largest element.
 py:
 import heapq
 
