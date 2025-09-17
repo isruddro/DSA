@@ -1,5 +1,7 @@
 https://leetcode.com/problems/coin-change-ii/description/
 
+# In the include case, we don’t move to i-1, we stay at i. (that is the diff from 0/1 knapsack)
+
 py:
 
 from typing import List
