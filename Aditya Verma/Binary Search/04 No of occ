@@ -1,5 +1,8 @@
 https://www.geeksforgeeks.org/problems/number-of-occurrence2259/1
 
+# Same thing as First and Last occ but extra: max_index - min_index + 1
+
+
 py:
 
 from typing import List
