@@ -1,5 +1,11 @@
 https://www.geeksforgeeks.org/dsa/find-position-element-sorted-array-infinite-numbers/
 
+# Catch in this problem is that we exactly do not know the end.
+    If arr[e] (end element) is still smaller than the target, it means target lies further to the right.
+        So we move the window forward:
+        s = e (shift the start to current end)
+        e *= 2 (double the window size → exponential growth: 1 → 2 → 4 → 8 → 16 …)
+
 py:
 
 from typing import List
