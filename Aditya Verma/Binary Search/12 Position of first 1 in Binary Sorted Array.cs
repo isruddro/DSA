@@ -1,5 +1,7 @@
 https://www.geeksforgeeks.org/problems/index-of-first-1-in-a-sorted-array-of-0s-and-1s4048/1
 
+# Treat it like a infinite sorted array + first occ problem.
+
 py:
 
 from typing import List
