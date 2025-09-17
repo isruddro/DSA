@@ -1,5 +1,11 @@
 https://leetcode.com/problems/search-in-rotated-sorted-array/description/?utm_source=chatgpt.com
 
+# How to:
+    1. Find min elements index.
+    2. Seach on right and left of that element.
+        If not found then return -1.
+        Final ans will be value :  if result != -1:
+
 py:
 
 from typing import List
