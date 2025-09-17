@@ -1,5 +1,10 @@
 https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/
 
+# In this:
+    * We need to find the exact number and also make sure if that number is there on left or right.
+    * If number is not there or if there is no first and last occ then return -1.
+    So, find exact number and check left for first occ and check right for last occ with function.
+
 py:
 
 from typing import List
