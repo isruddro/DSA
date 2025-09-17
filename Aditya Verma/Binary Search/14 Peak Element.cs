@@ -1,5 +1,9 @@
 https://leetcode.com/problems/peak-index-in-a-mountain-array/description/?utm_source=chatgpt.com
 
+# Given array is unsorted array.
+    * Peek element is greater than its neighbour.
+
+
 py:
 
 
