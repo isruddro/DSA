@@ -1,6 +1,6 @@
 https://www.geeksforgeeks.org/problems/subset-sum-problem-1611555638/1
 
-#same as 0/1 Knapsack but we use or (because here we use boolean) T || F
+# Same as 0/1 Knapsack but we use or (because here we use boolean) T || F
 py:
 
 from typing import List
