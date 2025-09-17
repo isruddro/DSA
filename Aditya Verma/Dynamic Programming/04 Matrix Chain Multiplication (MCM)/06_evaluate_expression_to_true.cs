@@ -9,7 +9,6 @@ https://leetcode.com/problems/parsing-a-boolean-expression/description/
     (We have two steps every time, that is the place of k)
 * i= 0, j = len(s) -1
 * Base case depends on T , F. We need to consider both.
-* At the time of ^(XOR): True when: l_T * r_F + l_F * r_T
 
 py:
 
