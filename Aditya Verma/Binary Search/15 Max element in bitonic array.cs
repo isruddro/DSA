@@ -1,6 +1,7 @@
 https://leetcode.com/problems/peak-index-in-a-mountain-array/description/?utm_source=chatgpt.com
 
-# Bitonic array: Monotonically increasing then monotonically decreasing.
+# Bitonic array: Monotonically increasing then monotonically decreasing. None of the two consecutive array will be equal.
+    Max will be the peek element.
 
 
 py:
