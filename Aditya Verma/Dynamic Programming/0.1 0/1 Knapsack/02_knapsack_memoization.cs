@@ -1,3 +1,5 @@
+# we think of the base case for smallest valid or invalid inputs. Especially, the input that changes.
+
 py:
 
 from typing import List
