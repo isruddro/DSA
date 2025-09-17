@@ -7,7 +7,7 @@ sum(S1) = s
 
 sum(S2) = total_sum - s
 
-The difference is |sum(S1) - sum(S2)| = |total_sum - 2*s|.
+The difference is |sum(S2) - sum(S1)| = |total_sum - 2*s|.
 
 That’s why we check abs(total_sum - 2*s).
 
