@@ -1,5 +1,14 @@
 https://www.geeksforgeeks.org/problems/rotation4723/1
 
+# No. of times array is rotated depends on smallest element
+    Cos: Rotation count is index of smallest element
+
+    For example:
+    ind:    0   1  2  3  4  5  6  7     (sorted)
+            2   5  6  8  11 12 15 18
+    ind:    0   1  2  3  4  5  6  7     (roated)
+            11  12 15 18 2  5  6  8    
+
 py:
 
 from typing import List
