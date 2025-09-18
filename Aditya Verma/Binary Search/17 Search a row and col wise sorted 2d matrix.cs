@@ -1,6 +1,7 @@
 https://leetcode.com/problems/search-a-2d-matrix-ii/description/
 
 # So, we start from the last element of the first row (n-1)
+    This is to check the 2D array bounds:   while 0 <= i < m and 0 <= j < n:
     We will check three things:
         * If that element is key then we return that index
         * If that element is greater than key we will go left side
