@@ -1,5 +1,11 @@
 https://leetcode.com/problems/search-a-2d-matrix-ii/description/
 
+# So, we start from the last element of the first row (n-1)
+    We will check three things:
+        * If that element is key then we return that index
+        * If that element is greater than key we will go left side
+        * Else we go down side
+
 # 2D array.
     Every row and column sorted.
 
