@@ -1,27 +1,21 @@
 https://leetcode.com/problems/binary-search/description/
 
 py:
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        def binarySearch(start: int, end: int) -> int:
+            if start>end:
+                return -1
+            mid = (start + end) //2
 
-from typing import List
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] > target:
+                return binarySearch(start, mid-1)
+            else:
+                return binarySearch(mid+1, end)
 
-def binary_search(start: int, end: int, lst: List[int], to_find: int) -> int:
-    if start > end:
-        return -1
-
-    mid = (start + end) // 2
-    if lst[mid] == to_find:
-        return mid
-    elif lst[mid] > to_find:
-        return binary_search(start, mid - 1, lst, to_find)
-    else:
-        return binary_search(mid + 1, end, lst, to_find)
-
-
-if __name__ == "__main__":
-    lst = [1,2,3,4,5,6,7,8,9,10]
-    to_find = 4
-    print(binary_search(0, len(lst) - 1, lst, to_find))
-
+        return binarySearch(0, len(nums)-1)
 
 
 cpp:
