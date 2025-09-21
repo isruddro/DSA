@@ -6,52 +6,41 @@ https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-
     So, find exact number and check left for first occ and check right for last occ with function.
 
 py:
-
 from typing import List
 
-min_index = float('inf')
-max_index = float('-inf')
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        min_index = float('inf')
+        max_index = float('-inf')
 
-def binary_search(start: int, end: int, nums: List[int], target: int, left_bias: bool) -> None:
-    global min_index, max_index
-    if start > end:
-        return
+        def binary_search(start: int, end: int, left_bias: bool) -> None:
+            nonlocal min_index, max_index
+            if start > end:
+                return
 
-    mid = (start + end) // 2
+            mid = (start + end) // 2
 
-    if nums[mid] > target:
-        binary_search(start, mid - 1, nums, target, left_bias)
-    elif nums[mid] < target:
-        binary_search(mid + 1, end, nums, target, left_bias)
-    else:
-        if left_bias:
-            min_index = min(min_index, mid)
-            binary_search(start, mid - 1, nums, target, left_bias)
-        else:
-            max_index = max(max_index, mid)
-            binary_search(mid + 1, end, nums, target, left_bias)
+            if nums[mid] > target:
+                binary_search(start, mid - 1, left_bias)
+            elif nums[mid] < target:
+                binary_search(mid + 1, end, left_bias)
+            else:
+                if left_bias:
+                    min_index = min(min_index, mid)
+                    binary_search(start, mid - 1, left_bias)
+                else:
+                    max_index = max(max_index, mid)
+                    binary_search(mid + 1, end, left_bias)
 
-def search_range(nums: List[int], target: int) -> List[int]:
-    global min_index, max_index
-    min_index = float('inf')
-    max_index = float('-inf')
+        binary_search(0, len(nums) - 1, True)
+        binary_search(0, len(nums) - 1, False)
 
-    binary_search(0, len(nums) - 1, nums, target, True)
-    binary_search(0, len(nums) - 1, nums, target, False)
+        if min_index == float('inf'):
+            min_index = -1
+        if max_index == float('-inf'):
+            max_index = -1
 
-    if min_index == float('inf'):
-        min_index = -1
-    if max_index == float('-inf'):
-        max_index = -1
-
-    return [min_index, max_index]
-
-
-if __name__ == "__main__":
-    nums = [5, 7, 7, 8, 8, 10]
-    target = 8
-    result = search_range(nums, target)
-    print(result)  # Output: [3, 4]
+        return [min_index, max_index]
 
 
 
