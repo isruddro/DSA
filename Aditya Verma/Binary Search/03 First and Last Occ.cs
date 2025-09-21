@@ -4,16 +4,16 @@ https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-
     * We need to find the exact number and also make sure if that number is there on left or right.
     * If number is not there or if there is no first and last occ then return -1.
     So, find exact number and check left for first occ and check right for last occ with function.
+    * We take + and - inf to dissmiss inside the min and max function. And also considering lower and upper possible bounds.
 
-py:
-from typing import List
+py:from typing import List
 
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
         min_index = float('inf')
         max_index = float('-inf')
 
-        def binary_search(start: int, end: int, left_bias: bool) -> None:
+        def binarySearch(start: int, end: int, left_bias: bool) -> None:
             nonlocal min_index, max_index
             if start > end:
                 return
@@ -21,26 +21,27 @@ class Solution:
             mid = (start + end) // 2
 
             if nums[mid] > target:
-                binary_search(start, mid - 1, left_bias)
+                binarySearch(start, mid - 1, left_bias)
             elif nums[mid] < target:
-                binary_search(mid + 1, end, left_bias)
+                binarySearch(mid + 1, end, left_bias)
             else:
                 if left_bias:
                     min_index = min(min_index, mid)
-                    binary_search(start, mid - 1, left_bias)
+                    binarySearch(start, mid - 1, left_bias)
                 else:
                     max_index = max(max_index, mid)
-                    binary_search(mid + 1, end, left_bias)
+                    binarySearch(mid + 1, end, left_bias)
 
-        binary_search(0, len(nums) - 1, True)
-        binary_search(0, len(nums) - 1, False)
+        # run both searches
+        binarySearch(0, len(nums) - 1, True)
+        binarySearch(0, len(nums) - 1, False)
 
-        if min_index == float('inf'):
-            min_index = -1
-        if max_index == float('-inf'):
-            max_index = -1
+        # if not found, return [-1, -1]
+        if min_index == float('inf') or max_index == float('-inf'):
+            return [-1, -1]
 
         return [min_index, max_index]
+
 
 
 
