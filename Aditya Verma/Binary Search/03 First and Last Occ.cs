@@ -6,11 +6,45 @@ https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-
     So, find exact number and check left for first occ and check right for last occ with function.
     * We take + and - inf to dissmiss inside the min and max function. And also considering lower and upper possible bounds.
 
-py:from typing import List
+py:
+iterative:
+Time: O(log n) (two binary searches)
+
+Space: O(1)
+
+from typing import List
+
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        def find_bound(left_bias: bool) -> int:
+            start, end = 0, len(nums) - 1
+            bound = -1
+            while start <= end:
+                mid = (start + end) // 2
+                if nums[mid] == target:
+                    bound = mid
+                    if left_bias:
+                        end = mid - 1  # search left for first occurrence
+                    else:
+                        start = mid + 1  # search right for last occurrence
+                elif nums[mid] < target:
+                    start = mid + 1
+                else:
+                    end = mid - 1
+            return bound
+
+        left_index = find_bound(True)
+        if left_index == -1:
+            return [-1, -1]  # target not found
+        right_index = find_bound(False)
+        return [left_index, right_index]
+
+rec:
+from typing import List
 
 Time: O(log n)
 
-Space: O(1)
+Space: O(log n)
 
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
