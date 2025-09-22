@@ -1,6 +1,9 @@
 https://leetcode.com/problems/binary-search/description/
 
 py:
+Time: O(log n)
+
+Space: O(1)
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
         def binarySearch(start: int, end: int) -> int:
