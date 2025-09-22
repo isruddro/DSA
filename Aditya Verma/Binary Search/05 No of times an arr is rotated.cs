@@ -10,35 +10,37 @@ https://www.geeksforgeeks.org/problems/rotation4723/1
             11  12 15 18 2  5  6  8    
 
 py:
+Time	O(log n)
+Space	O(1)
 
 from typing import List
 
-def find_k_rotation(arr: List[int], n: int) -> int:
-    start, end = 0, n - 1
+class Solution:
+    def findKRotation(self, arr: List[int]) -> int:
+        n = len(arr)
+        start, end = 0, n - 1
 
-    # If the array is already sorted (no rotation)
-    if arr[start] <= arr[end]:
-        return 0
+        # If the array is already sorted (no rotation)
+        if arr[start] <= arr[end]:
+            return 0
 
-    while start < end:
-        mid = start + (end - start) // 2
+        while start <= end:
+            mid = start + (end - start) // 2
+            next_idx = (mid + 1) % n
+            prev_idx = (mid - 1 + n) % n
 
-        # If the mid element is greater than the start, rotation is on the right side
-        if arr[mid] > arr[start]:
-            start = mid
-        else:
-            # Otherwise, rotation point is on the left side
-            end = mid
+            # Check if mid is the minimum element
+            if arr[mid] <= arr[next_idx] and arr[mid] <= arr[prev_idx]:
+                return mid
 
-    # Rotation count is index of smallest element
-    return start + 1
+            # Decide which side to go
+            if arr[mid] <= arr[end]:
+                end = mid - 1  # minimum on the left side
+            else:
+                start = mid + 1  # minimum on the right side
 
+        return 0  # fallback, should not happen if array has distinct elements
 
-if __name__ == "__main__":
-    arr = [15, 18, 2, 3, 6, 12]
-    n = len(arr)
-    rotations = find_k_rotation(arr, n)
-    print(f"The array is rotated {rotations} times.")
 
         
 cpp:
