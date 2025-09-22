@@ -8,6 +8,10 @@ https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-
 
 py:from typing import List
 
+Time: O(log n)
+
+Space: O(1)
+
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
         min_index = float('inf')
