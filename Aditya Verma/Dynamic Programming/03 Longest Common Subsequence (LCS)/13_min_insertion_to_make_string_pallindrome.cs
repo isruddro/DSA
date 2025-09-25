@@ -7,39 +7,36 @@ https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrom
 
 
 py:
+Time Complexity: O(n²) — DP for LCS between string and its reverse.
 
-# Function to compute the length of the Longest Common Subsequence (LCS)
-def LCS(X, Y, n, m):
-    dp = [[0 for _ in range(m + 1)] for _ in range(n + 1)]
-    
-    for i in range(n + 1):
-        for j in range(m + 1):
-            if i == 0 or j == 0:
-                dp[i][j] = 0
-    
-    for i in range(1, n + 1):
-        for j in range(1, m + 1):
-            if X[i - 1] == Y[j - 1]:
-                dp[i][j] = 1 + dp[i - 1][j - 1]
-            else:
-                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
-    
-    return dp[n][m]
+Space Complexity: O(n²) — full DP table stored.
 
-# Function to compute the Longest Palindromic Subsequence (LPS)
-def LPS(X, n):
-    rev_X = X[::-1]
-    return LCS(X, rev_X, n, n)
+class Solution:
+    def minInsertions(self, s: str) -> int:
+        n = len(s)
+        
+        # Function to compute the length of the Longest Common Subsequence (LCS)
+        def LCS(X, Y, n, m):
+            dp = [[0 for _ in range(m + 1)] for _ in range(n + 1)]
+            
+            for i in range(1, n + 1):
+                for j in range(1, m + 1):
+                    if X[i - 1] == Y[j - 1]:
+                        dp[i][j] = 1 + dp[i - 1][j - 1]
+                    else:
+                        dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+            return dp[n][m]
 
-# Function to compute the minimum insertions required to make the string a palindrome
-def MinInsertForPalindrome(X, n):
-    return n - LPS(X, n)
+        # Function to compute the Longest Palindromic Subsequence (LPS)
+        def LPS(X, n):
+            rev_X = X[::-1]
+            return LCS(X, rev_X, n, n)
 
-# Main execution
-X = input().strip()
-n = len(X)
-print(MinInsertForPalindrome(X, n))
+        # Function to compute the minimum insertions required to make the string a palindrome
+        def MinInsertForPalindrome(X, n):
+            return n - LPS(X, n)
 
+        return MinInsertForPalindrome(s, n)
 
         
 
