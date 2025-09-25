@@ -11,31 +11,28 @@ https://leetcode.com/problems/maximum-length-of-repeated-subarray/description/
                 Here, two strings were abc and abf. last chars c and f did not match.
 py:
 
-def lc_substr(X, Y):
-    n = len(X)
-    m = len(Y)
-    
-    # Create DP table
-    dp = [[0] * (m + 1) for _ in range(n + 1)]
-    mx = 0  # maximum length of common substring
+#User function Template for python3
+class Solution:
+    def longestCommonSubstr(self, s1, s2):
+        X, Y = s1, s2
+        n = len(X)
+        m = len(Y)
+        
+        # Create DP table
+        dp = [[0] * (m + 1) for _ in range(n + 1)]
+        mx = 0  # maximum length of common substring
 
-    for i in range(n + 1):
-        for j in range(m + 1):
-            if i == 0 or j == 0:
-                dp[i][j] = 0
-            elif X[i - 1] == Y[j - 1]:
-                dp[i][j] = 1 + dp[i - 1][j - 1]
-            else:
-                dp[i][j] = 0
-            mx = max(mx, dp[i][j])
-    
-    return mx
-
-# Example usage
-X = input()
-Y = input()
-result = lc_substr(X, Y)
-print(result)
+        for i in range(n + 1):
+            for j in range(m + 1):
+                if i == 0 or j == 0:
+                    dp[i][j] = 0
+                elif X[i - 1] == Y[j - 1]:
+                    dp[i][j] = 1 + dp[i - 1][j - 1]
+                else:
+                    dp[i][j] = 0
+                mx = max(mx, dp[i][j])
+        
+        return mx
 
 
 
