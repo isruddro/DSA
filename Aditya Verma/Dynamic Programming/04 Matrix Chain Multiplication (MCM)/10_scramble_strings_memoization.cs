@@ -1,53 +1,43 @@
 py:
 
-# Dictionary to memoize previously computed results
-memo = {}
+Time Complexity: O(n⁴), Space Complexity: O(n³) (due to memoization).
 
-def solve(X, Y):
-    key = X + " " + Y  # Unique key for memoization
+    
+class Solution:
+    def isScramble(self, s1: str, s2: str) -> bool:
+        memo = {}  # memoization dictionary per call
 
-    # Return cached result if available
-    if key in memo:
-        return memo[key]
+        def solve(X, Y):
+            key = X + " " + Y  # unique key
 
-    # Base case: strings are identical
-    if X == Y:
-        memo[key] = True
-        return True
+            if key in memo:
+                return memo[key]
 
-    # Base case: single character strings that aren't equal
-    if len(X) <= 1:
-        memo[key] = False
-        return False
+            if X == Y:
+                memo[key] = True
+                return True
 
-    n = len(X)
-    flag = False
+            if len(X) <= 1:
+                memo[key] = False
+                return False
 
-    # Try splitting the string at different positions
-    for i in range(1, n):
-        # Case 1: swap
-        if solve(X[:i], Y[n-i:]) and solve(X[i:], Y[:n-i]):
-            flag = True
-            break
-        # Case 2: no swap
-        if solve(X[:i], Y[:i]) and solve(X[i:], Y[i:]):
-            flag = True
-            break
+            n = len(X)
+            flag = False
 
-    memo[key] = flag
-    return flag
+            for i in range(1, n):
+                # Swap case
+                if solve(X[:i], Y[n-i:]) and solve(X[i:], Y[:n-i]):
+                    flag = True
+                    break
+                # No swap case
+                if solve(X[:i], Y[:i]) and solve(X[i:], Y[i:]):
+                    flag = True
+                    break
 
-# Input
-X = input().strip()
-Y = input().strip()
+            memo[key] = flag
+            return flag
 
-# Output
-memo.clear()
-if len(X) != len(Y):
-    print("No")
-else:
-    print("Yes" if solve(X, Y) else "No")
-
+        return solve(s1, s2)
 
 
 
