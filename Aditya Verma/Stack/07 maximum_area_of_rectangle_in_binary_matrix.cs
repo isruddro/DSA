@@ -14,64 +14,59 @@ https://leetcode.com/problems/maximal-rectangle/description/
         check if there is any 0 make that a[i][j] = 0
  */
 py:
+Time Complexity: O(n*m)
+Space Complexity: O(m) for histogram + O(m) for stack in MAH
+
+
 from typing import List
 
-def MAH(heights: List[int]) -> int:
-    n = len(heights)
-    stack = []
-    left = [-1] * n
-    right = [n] * n
-    
-    # Nearest Smaller to Left
-    for i in range(n):
-        while stack and heights[stack[-1]] >= heights[i]:
-            stack.pop()
-        left[i] = stack[-1] if stack else -1
-        stack.append(i)
-    
-    # Clear stack for NSR
-    stack.clear()
-    
-    # Nearest Smaller to Right
-    for i in range(n-1, -1, -1):
-        while stack and heights[stack[-1]] >= heights[i]:
-            stack.pop()
-        right[i] = stack[-1] if stack else n
-        stack.append(i)
-    
-    # Compute max area
-    max_area = 0
-    for i in range(n):
-        width = right[i] - left[i] - 1
-        max_area = max(max_area, heights[i] * width)
-    
-    return max_area
+class Solution:
+    def MAH(self, heights: List[int]) -> int:
+        n = len(heights)
+        stack = []
+        left = [-1] * n
+        right = [n] * n
+        
+        # Nearest Smaller to Left
+        for i in range(n):
+            while stack and heights[stack[-1]] >= heights[i]:
+                stack.pop()
+            left[i] = stack[-1] if stack else -1
+            stack.append(i)
+        
+        # Clear stack for NSR
+        stack.clear()
+        
+        # Nearest Smaller to Right
+        for i in range(n-1, -1, -1):
+            while stack and heights[stack[-1]] >= heights[i]:
+                stack.pop()
+            right[i] = stack[-1] if stack else n
+            stack.append(i)
+        
+        # Compute max area
+        max_area = 0
+        for i in range(n):
+            width = right[i] - left[i] - 1
+            max_area = max(max_area, heights[i] * width)
+        
+        return max_area
 
-def max_rectangle(matrix: List[List[int]]) -> int:
-    if not matrix or not matrix[0]:
-        return 0
-    
-    n, m = len(matrix), len(matrix[0])
-    histogram = [0] * m
-    max_area = 0
-    
-    for i in range(n):
-        for j in range(m):
-            histogram[j] = 0 if matrix[i][j] == 0 else histogram[j] + matrix[i][j]
-        max_area = max(max_area, MAH(histogram))
-    
-    return max_area
-
-# Example usage
-if __name__ == "__main__":
-    matrix = [
-        [1, 0, 1, 0, 0],
-        [1, 0, 1, 1, 1],
-        [1, 1, 1, 1, 1],
-        [1, 0, 0, 1, 0]
-    ]
-    print("Maximum Area of Rectangle:", max_rectangle(matrix))
-
+    def maximalRectangle(self, matrix: List[List[str]]) -> int:
+        if not matrix or not matrix[0]:
+            return 0
+        
+        n, m = len(matrix), len(matrix[0])
+        histogram = [0] * m
+        max_area = 0
+        
+        for i in range(n):
+            for j in range(m):
+                # Convert '0'/'1' to int and build histogram
+                histogram[j] = 0 if matrix[i][j] == '0' else histogram[j] + 1
+            max_area = max(max_area, self.MAH(histogram))
+        
+        return max_area
 
 
 cpp:
