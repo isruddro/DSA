@@ -11,6 +11,8 @@ https://leetcode.com/problems/maximum-length-of-repeated-subarray/description/
                 Here, two strings were abc and abf. last chars c and f did not match.
 py:
 
+O(n × m) time, O(n × m) space, where n = len(nums1) and m = len(nums2).
+
 #User function Template for python3
 class Solution:
     def longestCommonSubstr(self, s1, s2):
