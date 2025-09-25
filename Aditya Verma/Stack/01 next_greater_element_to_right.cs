@@ -23,37 +23,25 @@ https://leetcode.com/problems/next-greater-element-i/submissions/1315287157/
  
 py:
 
-def next_greater_element_to_right(arr):
-    ans = []
-    stack = []
+Time Complexity: O(n + m), where n = len(nums1), m = len(nums2)
+Space Complexity: O(m) for the stack and dictionary
 
-    # Traverse from right to left
-    for i in range(len(arr) - 1, -1, -1):
-        # Pop elements smaller or equal to current element
-        while stack and stack[-1] <= arr[i]:
-            stack.pop()
+from typing import List
 
-        # If stack is empty, no greater element
-        if not stack:
-            ans.append(-1)
-        else:
-            ans.append(stack[-1])
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        # Precompute next greater element for all nums2 using your stack logic
+        next_greater = {}
+        stack = []
 
-        # Push current element onto stack
-        stack.append(arr[i])
+        for num in reversed(nums2):
+            while stack and stack[-1] <= num:
+                stack.pop()
+            next_greater[num] = stack[-1] if stack else -1
+            stack.append(num)
 
-    # Reverse to restore original order
-    ans.reverse()
-    return ans
-
-
-if __name__ == "__main__":
-    arr = [1, 3, 2, 4]
-    result = next_greater_element_to_right(arr)
-    print("Next Greater Element to Right:", result)
-
-
-
+        # Map results for nums1
+        return [next_greater[num] for num in nums1]
 
 
 cpp:
