@@ -3,6 +3,8 @@ https://leetcode.com/problems/coin-change-ii/description/
 # In the include case, we don’t move to i-1, we stay at i. (that is the diff from 0/1 knapsack)
 
 py:
+O(n × amount) time, O(n × amount) space, where n = len(coins) and amount is the target sum.
+
 
 from typing import List
 
@@ -16,7 +18,7 @@ def get_max_number_of_ways(coins: List[int], n: int, target: int) -> int:
 
     # Fill DP table
     for i in range(1, n + 1):
-        for j in range(1, target + 1):
+        for j in range(target + 1):  # include 0 to handle zeros correctly
             if coins[i - 1] <= j:
                 dp[i][j] = dp[i - 1][j] + dp[i][j - coins[i - 1]]  # include or exclude coin
             else:
@@ -24,13 +26,9 @@ def get_max_number_of_ways(coins: List[int], n: int, target: int) -> int:
 
     return dp[n][target]
 
-if __name__ == "__main__":
-    n = int(input("Enter number of coins: "))
-    coins = list(map(int, input("Enter coin denominations: ").split()))
-    target = int(input("Enter target sum: "))
-
-    result = get_max_number_of_ways(coins, n, target)
-    print(result)
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        return get_max_number_of_ways(coins, len(coins), amount)
 
 
 cpp:
