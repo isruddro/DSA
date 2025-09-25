@@ -10,35 +10,30 @@ https://leetcode.com/problems/search-a-2d-matrix-ii/description/
 # 2D array.
     Every row and column sorted.
 
+Time: O(m + n) — because we move at most m down steps and n left steps.
+
+Space: O(1) — constant extra space.
+
 from typing import List
 
-def search(mat: List[List[int]], m: int, n: int, key: int) -> List[int]:
-    i, j = 0, n - 1
-    res = [0, 0]
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        if not matrix or not matrix[0]:
+            return False
 
-    while 0 <= i < m and 0 <= j < n:
-        if mat[i][j] == key:
-            res[0] = j
-            res[1] = i
-            return res
-        elif mat[i][j] > key:
-            j -= 1
-        else:  # mat[i][j] < key
-            i += 1
+        m, n = len(matrix), len(matrix[0])
+        i, j = 0, n - 1  # Start from top-right corner
 
-    return []
+        while i < m and j >= 0:
+            if matrix[i][j] == target:
+                return True
+            elif matrix[i][j] > target:
+                j -= 1
+            else:  # matrix[i][j] < target
+                i += 1
 
+        return False
 
-if __name__ == "__main__":
-    mat = [
-        [10, 20, 30, 40],
-        [15, 25, 35, 45],
-        [27, 29, 37, 48],
-        [32, 33, 39, 50]
-    ]
-    key = 29
-    result = search(mat, len(mat), len(mat[0]), key)
-    print("Position:", result)
 
 cpp:
 
