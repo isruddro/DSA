@@ -12,6 +12,26 @@ abs (-) 7 7 7 7 7
     The results will be on the basis of the abs diffs.
 
 py:
+import heapq
+
+class Solution:
+    def printKClosest(self, arr, k, x):
+        # Create a min-heap to store elements along with their absolute differences from x
+        min_heap = []
+        
+        # Iterate through the array
+        for num in arr:
+            # Push the tuple (absolute difference, number) into the heap
+            heapq.heappush(min_heap, (abs(num - x), num))
+        
+        # Extract the k closest elements
+        result = [heapq.heappop(min_heap)[1] for _ in range(k)]
+        
+        return result
+
+
+
+Default:
 
 import heapq
 
