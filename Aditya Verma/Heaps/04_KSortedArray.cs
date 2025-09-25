@@ -7,6 +7,28 @@ https://www.geeksforgeeks.org/problems/k-sorted-array1610/1?utm_source=chatgpt.c
 
 py:
 
+from typing import List
+
+class Solution:
+    def isKSortedArray(self, arr: List[int], n: int, k: int) -> str:
+        # Create a sorted copy of the array
+        sorted_arr = sorted(arr)
+        
+        # Check the distance of each element from its sorted position
+        for i in range(n):
+            # Find the index of arr[i] in the sorted array
+            sorted_index = sorted_arr.index(arr[i])
+            
+            # If the element is more than k positions away, return "No"
+            if abs(i - sorted_index) > k:
+                return "No"
+        
+        # If all elements are within k positions, return "Yes"
+        return "Yes"
+
+                    
+Default:
+
 import heapq
 
 def sort_using_minheap(arr, k):
@@ -25,13 +47,6 @@ def sort_using_minheap(arr, k):
         result.append(heapq.heappop(min_heap))
 
     return result
-
-# Example usage
-if __name__ == "__main__":
-    arr = [6, 5, 3, 2, 8, 10, 9]
-    k = 3
-    sorted_arr = sort_using_minheap(arr, k)
-    print("Sorted array:", *sorted_arr)
 
 
 
