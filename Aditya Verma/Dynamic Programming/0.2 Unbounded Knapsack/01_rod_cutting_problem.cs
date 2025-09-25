@@ -1,30 +1,26 @@
 https://www.geeksforgeeks.org/problems/rod-cutting0840/1
 
 py:
+O(n × n) time, O(n × n) space, where n = len(price)
 
-from typing import List
+#User function Template for python3
+class Solution:
+    def cutRod(self, price):
+        n = len(price)
+        L = n  # Rod length is equal to number of price entries
+        length = [i + 1 for i in range(n)]  # lengths 1, 2, ..., n
 
-def get_max_profit(length: List[int], price: List[int], n: int, L: int) -> int:
-    # DP table: dp[i][j] = max profit using first i lengths and rod length j
-    dp = [[0] * (L + 1) for _ in range(n + 1)]
+        # DP table: dp[i][j] = max profit using first i lengths and rod length j
+        dp = [[0] * (L + 1) for _ in range(n + 1)]
 
-    for i in range(1, n + 1):
-        for j in range(1, L + 1):
-            if length[i - 1] <= j:
-                dp[i][j] = max(dp[i - 1][j], price[i - 1] + dp[i][j - length[i - 1]])
-            else:
-                dp[i][j] = dp[i - 1][j]
+        for i in range(1, n + 1):
+            for j in range(1, L + 1):
+                if length[i - 1] <= j:
+                    dp[i][j] = max(dp[i - 1][j], price[i - 1] + dp[i][j - length[i - 1]])
+                else:
+                    dp[i][j] = dp[i - 1][j]
 
-    return dp[n][L]
-
-if __name__ == "__main__":
-    n = int(input("Enter number of lengths: "))
-    length = list(map(int, input("Enter lengths: ").split()))
-    price = list(map(int, input("Enter prices: ").split()))
-    L = int(input("Enter total rod length: "))
-
-    result = get_max_profit(length, price, n, L)
-    print(result)
+        return dp[n][L]
 
 
 
