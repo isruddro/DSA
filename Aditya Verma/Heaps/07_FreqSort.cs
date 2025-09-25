@@ -6,30 +6,35 @@ Another way to solve this using compare function.
 
 py:
 
+Time Complexity: O(n + m log m)
+
+n = size of array, m = number of distinct elements (heapify + heap operations)
+
+Space Complexity: O(m) for heap + O(n) for frequency dictionary
+
+
 import heapq
 from collections import Counter
+from typing import List
 
-def frequency_sort(arr):
-    # Count frequency of each element
-    freq = Counter(arr)
+class Solution:
+    def frequencySort(self, arr: List[int]) -> List[int]:
+        # Count frequency of each element
+        freq = Counter(arr)
 
-    # Max-heap: store (-frequency, element) so largest frequency comes first
-    maxh = [(-f, num) for num, f in freq.items()]
-    heapq.heapify(maxh)
+        # Max-heap: (-frequency, element) so higher frequency comes first
+        maxh = [(-f, num) for num, f in freq.items()]
+        heapq.heapify(maxh)
 
-    result = []
+        result = []
 
-    # Extract elements from heap in frequency order
-    while maxh:
-        f, num = heapq.heappop(maxh)
-        result.extend([num] * (-f))  # Multiply by -1 to get original frequency
+        # Extract elements from heap in frequency order
+        while maxh:
+            f, num = heapq.heappop(maxh)
+            result.extend([num] * (-f))  # Repeat element according to its frequency
 
-    return result
+        return result
 
-# Example usage
-if __name__ == "__main__":
-    arr = [4, 4, 4, 4, 3, 3, 1, 1, 1, 2]
-    print(*frequency_sort(arr))
 
 
 
