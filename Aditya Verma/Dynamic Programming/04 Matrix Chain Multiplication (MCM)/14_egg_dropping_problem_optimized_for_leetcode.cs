@@ -1,53 +1,45 @@
 py:
 
-MAX_EGGS = 107
-MAX_FLOORS = 10007
+Time Complexity: O(n × k × log k) — binary search reduces the inner loop.
 
-dp = [[-1 for _ in range(MAX_FLOORS)] for _ in range(MAX_EGGS)]
+Space Complexity: O(n × k) for memoization table.
 
-def solve(eggs, floors):
-    # If already computed, return result
-    if dp[eggs][floors] != -1:
-        return dp[eggs][floors]
+class Solution:
+    def eggDrop(self, n, k):
+        MAX_EGGS = n + 1
+        MAX_FLOORS = k + 1
+        dp = [[-1 for _ in range(MAX_FLOORS)] for _ in range(MAX_EGGS)]
 
-    # Base cases
-    if eggs == 1 or floors == 0 or floors == 1:
-        dp[eggs][floors] = floors
-        return floors
+        def solve(eggs, floors):
+            if dp[eggs][floors] != -1:
+                return dp[eggs][floors]
 
-    ans = floors
-    low, high = 1, floors
+            if eggs == 1 or floors == 0 or floors == 1:
+                dp[eggs][floors] = floors
+                return floors
 
-    # Binary search to minimize the worst-case attempts
-    while low <= high:
-        mid = low + (high - low) // 2
+            ans = floors
+            low, high = 1, floors
 
-        bottom = solve(eggs - 1, mid - 1)  # Egg breaks
-        top = solve(eggs, floors - mid)    # Egg survives
+            while low <= high:
+                mid = low + (high - low) // 2
 
-        temp = 1 + max(bottom, top)
+                bottom = solve(eggs - 1, mid - 1)  # Egg breaks
+                top = solve(eggs, floors - mid)    # Egg survives
 
-        if bottom < top:
-            low = mid + 1
-        else:
-            high = mid - 1
+                temp = 1 + max(bottom, top)
 
-        ans = min(ans, temp)
+                if bottom < top:
+                    low = mid + 1
+                else:
+                    high = mid - 1
 
-    dp[eggs][floors] = ans
-    return ans
+                ans = min(ans, temp)
 
-def super_egg_drop(K, N):
-    global dp
-    # Reset dp table for new inputs
-    dp = [[-1 for _ in range(MAX_FLOORS)] for _ in range(MAX_EGGS)]
-    return solve(K, N)
+            dp[eggs][floors] = ans
+            return ans
 
-if __name__ == "__main__":
-    K = 3  # Number of eggs
-    N = 14 # Number of floors
-
-    print(f"Minimum number of trials: {super_egg_drop(K, N)}")
+        return solve(n, k)
 
 
 
