@@ -1,31 +1,25 @@
 https://leetcode.com/problems/find-smallest-letter-greater-than-target/description/
 
 py:
+O(log n) time, O(1) space
 
 from typing import List
 
-def next_greatest_letter(letters: List[str], target: str) -> str:
-    start, end = 0, len(letters) - 1
-    ans = 0  # Default to 0, handles wrap-around if no greater letter is found
+class Solution:
+    def nextGreatestLetter(self, letters: List[str], target: str) -> str:
+        start, end = 0, len(letters) - 1
 
-    while start <= end:
-        mid = start + (end - start) // 2
+        while start <= end:
+            mid = start + (end - start) // 2
 
-        if letters[mid] <= target:
-            start = mid + 1
-        else:
-            if ans == 0 or letters[mid] < letters[ans]:
-                ans = mid
-            end = mid - 1
+            if letters[mid] <= target:
+                start = mid + 1
+            else:
+                end = mid - 1
 
-    return letters[ans]
+        # If no greater letter found, wrap around to the first element
+        return letters[start % len(letters)]
 
-
-if __name__ == "__main__":
-    letters = ['c', 'f', 'j']
-    target = 'a'
-    result = next_greatest_letter(letters, target)
-    print(f"The next greatest letter after {target} is {result}")
 
 
 
