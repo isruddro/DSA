@@ -6,30 +6,27 @@ Bottom up:
 
 py:
 
-def LCS(X: str, Y: str) -> int:
-    n = len(X)
-    m = len(Y)
-    
-    # Create DP table initialized to 0
-    dp = [[0] * (m + 1) for _ in range(n + 1)]
+O(n × m) time, O(n × m) space, where n = len(text1) and m = len(text2).
 
-    # Fill the DP table
-    for i in range(1, n + 1):
-        for j in range(1, m + 1):
-            if X[i - 1] == Y[j - 1]:
-                dp[i][j] = 1 + dp[i - 1][j - 1]
-            else:
-                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
-    
-    return dp[n][m]
+class Solution:
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        X, Y = text1, text2
+        n = len(X)
+        m = len(Y)
+        
+        # Create DP table initialized to 0
+        dp = [[0] * (m + 1) for _ in range(n + 1)]
 
+        # Fill the DP table
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                if X[i - 1] == Y[j - 1]:
+                    dp[i][j] = 1 + dp[i - 1][j - 1]
+                else:
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+        
+        return dp[n][m]
 
-if __name__ == "__main__":
-    X = input().strip()
-    Y = input().strip()
-    
-    result = LCS(X, Y)
-    print(result)
 
 
 cpp:
