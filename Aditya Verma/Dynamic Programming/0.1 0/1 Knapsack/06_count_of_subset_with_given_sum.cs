@@ -3,32 +3,30 @@ https://www.geeksforgeeks.org/problems/perfect-sum-problem5633/1
 #same as subset sum but we just use +. As we are count all the subjet that equal to sum.
 py:
 
-from typing import List
+Time Complexity:
+O(n×target),
+Space Complexity:
+O(n×target)
+class Solution:
+    def perfectSum(self, arr, target):
+        n = len(arr)
+        MOD = 10**9 + 7  # To avoid large numbers if needed
+        
+        dp = [[0 for _ in range(target + 1)] for _ in range(n + 1)]
 
-def count_subsets(arr: List[int], n: int, target: int) -> int:
-    dp = [[0 for _ in range(target + 1)] for _ in range(n + 1)]
+        # Initialization
+        for i in range(n + 1):
+            dp[i][0] = 1  # sum = 0, one subset (empty set)
+        
+        # Fill DP table
+        for i in range(1, n + 1):
+            for j in range(target + 1):
+                if arr[i - 1] <= j:
+                    dp[i][j] = (dp[i - 1][j - arr[i - 1]] + dp[i - 1][j]) % MOD
+                else:
+                    dp[i][j] = dp[i - 1][j] % MOD
 
-    # Initialization
-    for i in range(n + 1):
-        dp[i][0] = 1  # sum = 0, one subset (empty set)
-    for j in range(1, target + 1):
-        dp[0][j] = 0  # no items, 0 subsets for non-zero sum
-
-    # Fill DP table
-    for i in range(1, n + 1):
-        for j in range(1, target + 1):
-            if arr[i - 1] <= j:
-                dp[i][j] = dp[i - 1][j - arr[i - 1]] + dp[i - 1][j]  # include or exclude
-            else:
-                dp[i][j] = dp[i - 1][j]  # exclude
-
-    return dp[n][target]
-
-if __name__ == "__main__":
-    arr = [2, 3, 5, 6, 8, 10]
-    target = 10
-    result = count_subsets(arr, len(arr), target)
-    print(result)  # Output: 3
+        return dp[n][target]
 
 
 
