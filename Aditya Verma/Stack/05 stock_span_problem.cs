@@ -4,33 +4,27 @@ https://leetcode.com/problems/online-stock-span/submissions/1496528225/
     we are actually getting nearest greater to left
     then we need to find the index and add it to the answer */
 py:
+Time Complexity: Amortized O(1) per next call
+Space Complexity: O(n) for the stack
 
 from typing import List
 
-def stock_span_problem(prices: List[int]) -> List[int]:
-    ans = []
-    stack = []  # stores indices
+class StockSpanner:
+    def __init__(self):
+        # Stack stores pairs: (price, span)
+        self.stack = []
 
-    for i, price in enumerate(prices):
-        # Pop indices whose stock price is <= current price
-        while stack and prices[stack[-1]] <= price:
-            stack.pop()
+    def next(self, price: int) -> int:
+        span = 1  # Current price counts as at least 1
 
-        if not stack:
-            ans.append(i + 1)  # All previous prices smaller
-        else:
-            ans.append(i - stack[-1])  # Distance to last greater
+        # Pop prices less than or equal to current and add their spans
+        while self.stack and self.stack[-1][0] <= price:
+            span += self.stack.pop()[1]
 
-        stack.append(i)
+        # Push current price and its span onto stack
+        self.stack.append((price, span))
 
-    return ans
-
-# Example usage
-if __name__ == "__main__":
-    stock = [100, 80, 60, 70, 60, 75, 85]
-    result = stock_span_problem(stock)
-    print("Stock Span:", result)
-
+        return span
 
 
 cpp:
