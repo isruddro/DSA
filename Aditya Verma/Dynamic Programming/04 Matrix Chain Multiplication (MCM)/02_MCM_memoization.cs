@@ -1,35 +1,32 @@
 https://www.geeksforgeeks.org/problems/matrix-chain-multiplication0303/1
 
 py:
+O(n³) time, O(n²) space
+
 import sys
 sys.setrecursionlimit(10**6)
 
-# Memoization table
-t = {}
+class Solution:
+    def matrixMultiplication(self, arr):
+        t = {}  # Memoization table
 
-def solve(arr, i, j):
-    # no elements
-    if i >= j:
-        return 0
+        def solve(arr, i, j):
+            if i >= j:
+                return 0
 
-    if (i, j) in t:
-        return t[(i, j)]
+            if (i, j) in t:
+                return t[(i, j)]
 
-    ans = float('inf')
-    # k in between i and j
-    for k in range(i, j):
-        temp_ans = solve(arr, i, k) + solve(arr, k + 1, j) + arr[i - 1] * arr[k] * arr[j]
-        ans = min(ans, temp_ans)
+            ans = float('inf')
+            for k in range(i, j):
+                temp_ans = solve(arr, i, k) + solve(arr, k + 1, j) + arr[i - 1] * arr[k] * arr[j]
+                ans = min(ans, temp_ans)
 
-    t[(i, j)] = ans
-    return ans
+            t[(i, j)] = ans
+            return ans
 
-# Input
-n = int(input())
-arr = list(map(int, input().split()))
-
-# Compute minimum multiplications
-print(solve(arr, 1, n - 1))
+        n = len(arr)
+        return solve(arr, 1, n - 1)
 
 
 cpp:
