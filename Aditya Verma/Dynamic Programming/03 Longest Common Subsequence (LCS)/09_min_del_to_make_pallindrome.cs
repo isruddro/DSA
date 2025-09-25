@@ -4,7 +4,32 @@ https://www.geeksforgeeks.org/problems/minimum-number-of-deletions4610/1
         Previous concepts apply here. Be flexible.
 
 py:
+O(n²) time, O(n) space, where n = len(s).
+GFG working code:
+#User function Template for python3
+class Solution:
+    def minDeletions(self, s):
+        X = s
+        n = len(X)
+        rev_X = X[::-1]
 
+        # Optimized DP table: only two rows
+        prev = [0] * (n + 1)
+        curr = [0] * (n + 1)
+
+        for i in range(1, n + 1):
+            for j in range(1, n + 1):
+                if X[i - 1] == rev_X[j - 1]:
+                    curr[j] = 1 + prev[j - 1]
+                else:
+                    curr[j] = max(prev[j], curr[j - 1])
+            prev, curr = curr, prev  # swap rows
+        
+        lps_length = prev[n]
+        return n - lps_length
+
+
+uses O(n²) space and filling it takes O(n²) time, which exceeds GfG’s time limit when n is large (~10⁴).
 def lcs(X, Y):
     n, m = len(X), len(Y)
     dp = [[0] * (m + 1) for _ in range(n + 1)]
