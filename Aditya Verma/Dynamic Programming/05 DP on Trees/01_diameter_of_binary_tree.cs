@@ -1,12 +1,14 @@
 leetcode.com/problems/diameter-of-binary-tree/description/
 
 py:
+Time: O(n), Space: O(h) (recursion stack), where n = number of nodes, h = tree height.
 
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 
 class Solution:
     def __init__(self):
@@ -26,21 +28,13 @@ class Solution:
 
         return temp  # Return height
     
-    def diameterOfBinaryTree(self, root):
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
 
         self.res = float('-inf')  # Initialize result
         self.solve(root)
         return self.res - 1       # Subtract 1 to get actual diameter
-
-# Example usage
-if __name__ == "__main__":
-    root = TreeNode(1,
-                    TreeNode(2, TreeNode(4), TreeNode(5)),
-                    TreeNode(3))
-    sol = Solution()
-    print("Diameter of binary tree:", sol.diameterOfBinaryTree(root))
 
 
 
