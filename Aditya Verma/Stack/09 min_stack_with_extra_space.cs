@@ -1,48 +1,37 @@
 https://leetcode.com/problems/min-stack/description/?utm_source=chatgpt.com
 
 py:
+Time Complexity: O(1) per operation
+Space Complexity: O(n) for two stacks
+
+
 class MinStack:
+
     def __init__(self):
-        self.stack = []   # main stack
-        self.support = [] # support stack to track minimums
+        self.stack = []    # main stack
+        self.support = []  # stack to track current minimums
 
-    def push(self, ele: int) -> None:
-        self.stack.append(ele)
-        if not self.support or ele <= self.support[-1]:
-            self.support.append(ele)
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+        if not self.support or val <= self.support[-1]:
+            self.support.append(val)
 
-    def pop(self) -> int:
+    def pop(self) -> None:
         if not self.stack:
-            return -1
+            return
         ans = self.stack.pop()
         if self.support and ans == self.support[-1]:
             self.support.pop()
-        return ans
 
-    def get_min(self) -> int:
+    def top(self) -> int:
+        if not self.stack:
+            return -1
+        return self.stack[-1]
+
+    def getMin(self) -> int:
         if not self.support:
             return -1
         return self.support[-1]
-
-
-# Example usage
-if __name__ == "__main__":
-    arr = [18, 19, 29, 15, 16]
-    min_stack = MinStack()
-
-    for num in arr:
-        min_stack.push(num)
-        print(f"Pushed: {num}, Minimum: {min_stack.get_min()}")
-
-    print("Popping elements...")
-    while True:
-        popped = min_stack.pop()
-        if popped == -1:
-            break
-        print(f"Popped: {popped}, Minimum: {min_stack.get_min()}")
-
-
-
 
 
 
