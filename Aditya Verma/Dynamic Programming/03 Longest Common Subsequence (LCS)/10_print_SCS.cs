@@ -12,54 +12,54 @@ https://leetcode.com/problems/shortest-common-supersequence/description/
                 3. Don't forget to reverse as during filling the DP we get in reverse!
 
 py:
+O(n × m) time, O(n × m) space, where n = len(str1) and m = len(str2).
 
-def lcs_dp(X, Y):
-    n, m = len(X), len(Y)
-    dp = [[0] * (m + 1) for _ in range(n + 1)]
+        
+class Solution:
+    def shortestCommonSupersequence(self, str1: str, str2: str) -> str:
+        def lcs_dp(X, Y):
+            n, m = len(X), len(Y)
+            dp = [[0] * (m + 1) for _ in range(n + 1)]
 
-    for i in range(1, n + 1):
-        for j in range(1, m + 1):
-            if X[i - 1] == Y[j - 1]:
-                dp[i][j] = 1 + dp[i - 1][j - 1]
-            else:
-                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
-    return dp
+            for i in range(1, n + 1):
+                for j in range(1, m + 1):
+                    if X[i - 1] == Y[j - 1]:
+                        dp[i][j] = 1 + dp[i - 1][j - 1]
+                    else:
+                        dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+            return dp
 
-def scs(X, Y):
-    n, m = len(X), len(Y)
-    dp = lcs_dp(X, Y)
-    
-    a, b = n, m
-    scs_str = []
+        def scs(X, Y):
+            n, m = len(X), len(Y)
+            dp = lcs_dp(X, Y)
+            
+            a, b = n, m
+            scs_str = []
 
-    # Backtracking to build SCS
-    while a > 0 and b > 0:
-        if X[a - 1] == Y[b - 1]:
-            scs_str.append(X[a - 1])
-            a -= 1
-            b -= 1
-        elif dp[a][b - 1] > dp[a - 1][b]:
-            scs_str.append(Y[b - 1])
-            b -= 1
-        else:
-            scs_str.append(X[a - 1])
-            a -= 1
+            # Backtracking to build SCS
+            while a > 0 and b > 0:
+                if X[a - 1] == Y[b - 1]:
+                    scs_str.append(X[a - 1])
+                    a -= 1
+                    b -= 1
+                elif dp[a][b - 1] > dp[a - 1][b]:
+                    scs_str.append(Y[b - 1])
+                    b -= 1
+                else:
+                    scs_str.append(X[a - 1])
+                    a -= 1
 
-    # Add remaining characters
-    while a > 0:
-        scs_str.append(X[a - 1])
-        a -= 1
-    while b > 0:
-        scs_str.append(Y[b - 1])
-        b -= 1
+            # Add remaining characters
+            while a > 0:
+                scs_str.append(X[a - 1])
+                a -= 1
+            while b > 0:
+                scs_str.append(Y[b - 1])
+                b -= 1
 
-    return ''.join(reversed(scs_str))
+            return ''.join(reversed(scs_str))
 
-# Example usage
-X = input()
-Y = input()
-print(scs(X, Y))
-
+        return scs(str1, str2)
 
 
 
