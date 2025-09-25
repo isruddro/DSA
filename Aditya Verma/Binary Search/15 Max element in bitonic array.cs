@@ -5,33 +5,25 @@ https://leetcode.com/problems/peak-index-in-a-mountain-array/description/?utm_so
 
 
 py:
+Time: O(log n) — binary search.
+
+Space: O(1) — constant extra space.
 
 from typing import List
 
-def peak_index_in_mountain_array(arr: List[int]) -> int:
-    s, e = 0, len(arr) - 1
+class Solution:
+    def peakIndexInMountainArray(self, arr: List[int]) -> int:
+        s, e = 0, len(arr) - 1
 
-    while s < e:
-        m = s + (e - s) // 2
+        while s < e:
+            m = s + (e - s) // 2
 
-        # If element at m is less than element at m-1, move left
-        if m > 0 and arr[m] < arr[m - 1]:
-            e = m - 1
-        # If element at m is less than element at m+1, move right
-        elif m < len(arr) - 1 and arr[m] < arr[m + 1]:
-            s = m + 1
-        # Otherwise, m is the peak
-        else:
-            return m
+            if arr[m] < arr[m + 1]:  # Peak is on the right
+                s = m + 1
+            else:  # Peak is at m or on the left
+                e = m
 
-    # When s == e, we've found the peak index
-    return s
-
-
-if __name__ == "__main__":
-    arr = [0, 2, 3, 4, 3, 1, 0]
-    peak_index = peak_index_in_mountain_array(arr)
-    print(f"Peak index is: {peak_index}")
+        return s  # s == e at peak index
 
 
 cpp:
