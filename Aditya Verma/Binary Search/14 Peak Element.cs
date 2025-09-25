@@ -9,32 +9,20 @@ py:
 
 from typing import List
 
-def find_peak_element(arr: List[int]) -> int:
-    s, e = 0, len(arr) - 1
+class Solution:
+    def peakIndexInMountainArray(self, arr: List[int]) -> int:
+        s, e = 0, len(arr) - 1
 
-    while s < e:
-        m = s + (e - s) // 2
+        while s < e:
+            m = s + (e - s) // 2
 
-        # If the element at m is smaller than the element at m-1, move left
-        if m > 0 and arr[m] < arr[m - 1]:
-            e = m - 1
-        # If the element at m is smaller than the element at m+1, move right
-        elif m < len(arr) - 1 and arr[m] < arr[m + 1]:
-            s = m + 1
-        # If neither, m is the peak
-        else:
-            return m
+            if arr[m] < arr[m + 1]:  # Peak is on the right
+                s = m + 1
+            else:  # Peak is at m or on the left
+                e = m
 
-    # When s == e, we've found the peak
-    return s
+        return s  # s == e at peak index
 
-
-if __name__ == "__main__":
-    arr = [1, 2, 3, 1]
-    peak_index = find_peak_element(arr)
-    print(f"Peak element is at index: {peak_index}")
-
-        
         
 cpp:
 
