@@ -1,40 +1,37 @@
 https://leetcode.com/problems/trapping-rain-water/description/
 
 py:
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+    
 from typing import List
 
-def rain_water_trapping(arr: List[int]) -> int:
-    n = len(arr)
-    if n == 0:
-        return 0
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        n = len(height)
+        if n == 0:
+            return 0
 
-    maxL = [0] * n
-    maxR = [0] * n
+        maxL = [0] * n
+        maxR = [0] * n
 
-    # Fill maxL array (max height to the left of each element)
-    maxL[0] = arr[0]
-    for i in range(1, n):
-        maxL[i] = max(maxL[i - 1], arr[i])
+        # Fill maxL array (max height to the left of each element)
+        maxL[0] = height[0]
+        for i in range(1, n):
+            maxL[i] = max(maxL[i - 1], height[i])
 
-    # Fill maxR array (max height to the right of each element)
-    maxR[n - 1] = arr[n - 1]
-    for i in range(n - 2, -1, -1):
-        maxR[i] = max(maxR[i + 1], arr[i])
+        # Fill maxR array (max height to the right of each element)
+        maxR[n - 1] = height[n - 1]
+        for i in range(n - 2, -1, -1):
+            maxR[i] = max(maxR[i + 1], height[i])
 
-    # Calculate total trapped water
-    total_water = 0
-    for i in range(n):
-        total_water += min(maxL[i], maxR[i]) - arr[i]
+        # Calculate total trapped water
+        total_water = 0
+        for i in range(n):
+            total_water += min(maxL[i], maxR[i]) - height[i]
 
-    return total_water
-
-# Example usage
-if __name__ == "__main__":
-    arr = [3, 0, 0, 2, 0, 4]
-    result = rain_water_trapping(arr)
-    print("Total trapped rainwater:", result)
-
-
+        return total_water
 
 
 
