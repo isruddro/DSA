@@ -11,26 +11,27 @@ https://leetcode.com/problems/target-sum/description/
 
 py:
 
+O(n × total_sum) time, O(n × total_sum) space, where total_sum = sum(nums)
+    
 from typing import List
 
 def count_subsets_with_sum(arr: List[int], n: int, target_sum: int) -> int:
-    # DP table: t[i][j] = number of subsets using first i elements to sum j
+    if target_sum < 0:  # invalid sum
+        return 0
+
     t = [[0] * (target_sum + 1) for _ in range(n + 1)]
 
     # Initialization
     for i in range(n + 1):
         t[i][0] = 1  # sum = 0, empty subset
 
-    for j in range(1, target_sum + 1):
-        t[0][j] = 0  # no items cannot form sum > 0
-
     # Fill DP table
     for i in range(1, n + 1):
-        for j in range(1, target_sum + 1):
+        for j in range(target_sum + 1):
             if arr[i - 1] <= j:
-                t[i][j] = t[i - 1][j - arr[i - 1]] + t[i - 1][j]  # include or exclude
+                t[i][j] = t[i - 1][j - arr[i - 1]] + t[i - 1][j]
             else:
-                t[i][j] = t[i - 1][j]  # exclude
+                t[i][j] = t[i - 1][j]
 
     return t[n][target_sum]
 
@@ -42,14 +43,14 @@ def count_subsets_with_diff(arr: List[int], diff: int) -> int:
         return 0
 
     target_sum = (total_sum + diff) // 2
+    if target_sum < 0:  # impossible sum
+        return 0
+
     return count_subsets_with_sum(arr, len(arr), target_sum)
 
-if __name__ == "__main__":
-    arr = [1, 1, 2, 3]
-    diff = 1
-    result = count_subsets_with_diff(arr, diff)
-    print(result)  # Output: 3
-
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        return count_subsets_with_diff(nums, target)
 
 
 cpp:
