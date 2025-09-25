@@ -1,3 +1,4 @@
+https://www.geeksforgeeks.org/problems/print-all-lcs-sequences3413/1
 # Things to rem:
     * First is same as LCSe.
     * During printing (last cell to gradually going up:
@@ -10,6 +11,49 @@
 
 
 py:
+GFG working code:
+
+#User function Template for python3
+class Solution:
+    def allLCS(self, s1, s2):
+        X, Y = s1, s2
+        n, m = len(X), len(Y)
+        
+        # DP table initialization
+        dp = [[0] * (m + 1) for _ in range(n + 1)]
+
+        # Fill the DP table
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                if X[i - 1] == Y[j - 1]:
+                    dp[i][j] = 1 + dp[i - 1][j - 1]
+                else:
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+        
+        from functools import lru_cache
+
+        @lru_cache(maxsize=None)
+        def backtrack(i, j):
+            if i == 0 or j == 0:
+                return {""}  # Base case: empty string
+            elif X[i - 1] == Y[j - 1]:
+                return {z + X[i - 1] for z in backtrack(i - 1, j - 1)}
+            else:
+                result = set()
+                if dp[i - 1][j] >= dp[i][j - 1]:
+                    result.update(backtrack(i - 1, j))
+                if dp[i][j - 1] >= dp[i - 1][j]:
+                    result.update(backtrack(i, j - 1))
+                return result
+        
+        lcs_set = backtrack(n, m)
+        lcs_list = list(lcs_set)
+        lcs_list.sort()
+        
+        return lcs_list
+
+        
+Default:
 
 def lcs(X, Y):
     n = len(X)
