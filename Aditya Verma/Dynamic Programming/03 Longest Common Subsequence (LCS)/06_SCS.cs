@@ -12,29 +12,25 @@ https://www.geeksforgeeks.org/problems/shortest-common-supersequence0322/1
 
 py:
 
-def lcs_length(X, Y):
-    n, m = len(X), len(Y)
-    dp = [[0] * (m + 1) for _ in range(n + 1)]
-
-    # Fill DP table
-    for i in range(1, n + 1):
-        for j in range(1, m + 1):
-            if X[i - 1] == Y[j - 1]:
-                dp[i][j] = 1 + dp[i - 1][j - 1]
-            else:
-                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
-
-    return dp[n][m]
-
-def scs_length(X, Y):
-    n, m = len(X), len(Y)
-    return n + m - lcs_length(X, Y)
-
-# Example usage
-X = input()
-Y = input()
-print(scs_length(X, Y))
-
+O(n × m) time, O(n × m) space, where n = len(s1) and m = len(s2).
+#User function Template for python3
+class Solution:
+    # Function to find length of shortest common supersequence of two strings.
+    def shortestCommonSupersequence(self, s1, s2):
+        X, Y = s1, s2
+        n, m = len(X), len(Y)
+        
+        # Step 1: Compute LCS DP table
+        dp = [[0] * (m + 1) for _ in range(n + 1)]
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                if X[i - 1] == Y[j - 1]:
+                    dp[i][j] = 1 + dp[i - 1][j - 1]
+                else:
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+        
+        # Step 2: Length of SCS = n + m - LCS
+        return n + m - dp[n][m]
 
 
 
