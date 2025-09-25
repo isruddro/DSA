@@ -3,12 +3,15 @@ https://leetcode.com/problems/binary-tree-maximum-path-sum/description/
 //Any to Any
 //focus on the negative so we consider that too
 py:
+Time: O(n), Space: O(h) (recursion stack), where n = number of nodes, h = tree height.
 
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 
 class Solution:
     def __init__(self):
@@ -34,19 +37,10 @@ class Solution:
         
         return temp  # Return max sum starting from current node
     
-    def maxPathSum(self, root):
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
         self.res = float('-inf')
         self.solve(root)
         return self.res
-
-# Example usage
-if __name__ == "__main__":
-    root = TreeNode(10, 
-                    TreeNode(2, TreeNode(20), TreeNode(1)), 
-                    TreeNode(10, None, TreeNode(-25, TreeNode(3), TreeNode(4)))
-                   )
-    sol = Solution()
-    print("Maximum Path Sum:", sol.maxPathSum(root))
 
 
 
