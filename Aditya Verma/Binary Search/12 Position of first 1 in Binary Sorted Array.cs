@@ -3,34 +3,28 @@ https://www.geeksforgeeks.org/problems/index-of-first-1-in-a-sorted-array-of-0s-
 # Treat it like a infinite sorted array + first occ problem.
 
 py:
+Time: O(log n) — binary search
+
+Space: O(1) — constant extra space
+
 
 from typing import List
 
-def first_index(a: List[int]) -> int:
-    i, j = 0, len(a) - 1
+class Solution:
+    def firstIndex(self, arr: List[int]) -> int:
+        i, j = 0, len(arr) - 1
 
-    # Perform binary search to find first 1
-    while i < j:
-        m = i + (j - i) // 2
-        if a[m] == 1:
-            j = m  # Search left half
-        else:
-            i = m + 1  # Search right half
+        while i < j:
+            m = i + (j - i) // 2
+            if arr[m] == 1:
+                j = m  # search left half
+            else:
+                i = m + 1  # search right half
 
-    # If no 1's in the array
-    if a[i] == 0:
+        if i < len(arr) and arr[i] == 1:
+            return i
         return -1
 
-    return i  # Index of first 1
-
-
-if __name__ == "__main__":
-    a = [0, 0, 0, 1, 1, 1, 1]
-    result = first_index(a)
-    if result != -1:
-        print(f"First index of 1 is: {result}")
-    else:
-        print("No 1's found in the array")
 
 
 cpp:
