@@ -10,43 +10,41 @@ https://leetcode.com/problems/largest-rectangle-in-histogram/
                         on the NSL we hypothetically get a index, -1, as it will have 0 
      */
 py:
+Time Complexity: O(n) — each element pushed/popped at most once
+Space Complexity: O(n) for nsr and nsl arrays
+
 from typing import List
 
-def largest_rectangle_area(heights: List[int]) -> int:
-    n = len(heights)
-    
-    # Nearest Smaller to Right (NSR)
-    nsr = [0] * n
-    stack = []
-    for i in range(n - 1, -1, -1):
-        while stack and heights[stack[-1]] >= heights[i]:
-            stack.pop()
-        nsr[i] = stack[-1] if stack else n
-        stack.append(i)
-    
-    # Nearest Smaller to Left (NSL)
-    nsl = [0] * n
-    stack.clear()
-    for i in range(n):
-        while stack and heights[stack[-1]] >= heights[i]:
-            stack.pop()
-        nsl[i] = stack[-1] if stack else -1
-        stack.append(i)
-    
-    # Calculate max area
-    max_area = 0
-    for i in range(n):
-        width = nsr[i] - nsl[i] - 1
-        area = heights[i] * width
-        max_area = max(max_area, area)
-    
-    return max_area
-
-# Example usage
-if __name__ == "__main__":
-    heights = [2, 1, 5, 6, 2, 3]
-    print("Largest rectangle area:", largest_rectangle_area(heights))
-
+class Solution:
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        n = len(heights)
+        
+        # Nearest Smaller to Right (NSR)
+        nsr = [0] * n
+        stack = []
+        for i in range(n - 1, -1, -1):
+            while stack and heights[stack[-1]] >= heights[i]:
+                stack.pop()
+            nsr[i] = stack[-1] if stack else n
+            stack.append(i)
+        
+        # Nearest Smaller to Left (NSL)
+        nsl = [0] * n
+        stack.clear()
+        for i in range(n):
+            while stack and heights[stack[-1]] >= heights[i]:
+                stack.pop()
+            nsl[i] = stack[-1] if stack else -1
+            stack.append(i)
+        
+        # Calculate max area
+        max_area = 0
+        for i in range(n):
+            width = nsr[i] - nsl[i] - 1
+            area = heights[i] * width
+            max_area = max(max_area, area)
+        
+        return max_area
 
 
 cpp:
