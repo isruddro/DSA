@@ -1,29 +1,3 @@
-py:
-
-import heapq
-
-def find_kth_smallest(arr, k):
-    # Max-heap to store k smallest elements (invert values)
-    max_heap = []
-
-    for num in arr:
-        # Push inverted number to simulate max-heap
-        heapq.heappush(max_heap, -num)
-
-        # If heap size exceeds k, remove the largest (smallest negative)
-        if len(max_heap) > k:
-            heapq.heappop(max_heap)
-
-    # Top of max-heap (inverted back) is the kth smallest element
-    return -max_heap[0]
-
-if __name__ == "__main__":
-    arr = [7, 12, 9, 4, 1, 8, 3, 5, 6, 10]
-    k = int(input("Enter position: "))
-    print(find_kth_smallest(arr, k))
-
-
-
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
@@ -56,6 +30,33 @@ int main() {
 
     return 0;
 }
+
+py3:
+
+import heapq
+
+def find_kth_smallest(arr, k):
+    # Max-heap to store k smallest elements (invert values)
+    max_heap = []
+
+    for num in arr:
+        # Push inverted number to simulate max-heap
+        heapq.heappush(max_heap, -num)
+
+        # If heap size exceeds k, remove the largest (smallest negative)
+        if len(max_heap) > k:
+            heapq.heappop(max_heap)
+
+    # Top of max-heap (inverted back) is the kth smallest element
+    return -max_heap[0]
+
+if __name__ == "__main__":
+    arr = [7, 12, 9, 4, 1, 8, 3, 5, 6, 10]
+    k = int(input("Enter position: "))
+    print(find_kth_smallest(arr, k))
+
+
+
 
 
 
