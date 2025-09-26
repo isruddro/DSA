@@ -1,4 +1,60 @@
-py:
+https://leetcode.com/problems/scramble-string/description/
+
+cpp:
+Time Complexity: O(n⁴), Space Complexity: O(n³) (due to memoization).
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    bool isScramble(string s1, string s2) {
+        unordered_map<string, bool> memo;  // memoization dictionary per call
+
+        function<bool(string, string)> solve = [&](string X, string Y) {
+            string key = X + " " + Y;  // unique key
+
+            if (memo.find(key) != memo.end()) {
+                return memo[key];
+            }
+
+            if (X == Y) {
+                memo[key] = true;
+                return true;
+            }
+
+            if (X.size() <= 1) {
+                memo[key] = false;
+                return false;
+            }
+
+            int n = X.size();
+            bool flag = false;
+
+            for (int i = 1; i < n; i++) {
+                // Swap case
+                if (solve(X.substr(0, i), Y.substr(n - i)) &&
+                    solve(X.substr(i), Y.substr(0, n - i))) {
+                    flag = true;
+                    break;
+                }
+                // No swap case
+                if (solve(X.substr(0, i), Y.substr(0, i)) &&
+                    solve(X.substr(i), Y.substr(i))) {
+                    flag = true;
+                    break;
+                }
+            }
+
+            memo[key] = flag;
+            return flag;
+        };
+
+        return solve(s1, s2);
+    }
+};
+
+
+py3:
 
 Time Complexity: O(n⁴), Space Complexity: O(n³) (due to memoization).
 
