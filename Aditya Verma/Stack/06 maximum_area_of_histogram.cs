@@ -9,7 +9,51 @@ https://leetcode.com/problems/largest-rectangle-in-histogram/
     edge case is that: on the NSR we hypothetically get a index, length +1, as it will have 0
                         on the NSL we hypothetically get a index, -1, as it will have 0 
      */
-py:
+cpp:
+Time Complexity: O(n) — each element pushed/popped at most once
+Space Complexity: O(n) for nsr and nsl arrays
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        int n = heights.size();
+
+        // Nearest Smaller to Right (NSR)
+        vector<int> nsr(n);
+        stack<int> st;
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.empty() && heights[st.top()] >= heights[i])
+                st.pop();
+            nsr[i] = st.empty() ? n : st.top();
+            st.push(i);
+        }
+
+        // Nearest Smaller to Left (NSL)
+        vector<int> nsl(n);
+        while (!st.empty()) st.pop(); // clear stack
+        for (int i = 0; i < n; i++) {
+            while (!st.empty() && heights[st.top()] >= heights[i])
+                st.pop();
+            nsl[i] = st.empty() ? -1 : st.top();
+            st.push(i);
+        }
+
+        // Calculate max area
+        int max_area = 0;
+        for (int i = 0; i < n; i++) {
+            int width = nsr[i] - nsl[i] - 1;
+            int area = heights[i] * width;
+            max_area = max(max_area, area);
+        }
+
+        return max_area;
+    }
+};
+
+
+py3:
 Time Complexity: O(n) — each element pushed/popped at most once
 Space Complexity: O(n) for nsr and nsl arrays
 
