@@ -1,4 +1,66 @@
-py:
+https://www.geeksforgeeks.org/problems/boolean-parenthesization5610/1
+
+cpp:
+Time Complexity: O(N^3), Space Complexity: O(N^2)
+    
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int countWays(string s) {
+        int n = s.size();
+        int MAX = n + 1;
+
+        // dp[isTrue][i][j]
+        vector<vector<vector<int>>> dp(2, vector<vector<int>>(MAX, vector<int>(MAX, -1)));
+
+        function<int(string&, int, int, bool)> solve = [&](string &X, int i, int j, bool is_true) {
+            int idx = is_true ? 1 : 0;
+
+            if (i > j) return 0;
+
+            if (i == j) {
+                dp[idx][i][j] = ((X[i] == 'T' && is_true) || (X[i] == 'F' && !is_true)) ? 1 : 0;
+                return dp[idx][i][j];
+            }
+
+            if (dp[idx][i][j] != -1) return dp[idx][i][j];
+
+            int ans = 0;
+            for (int k = i + 1; k < j; k += 2) {
+                int l_T = solve(X, i, k - 1, true);
+                int l_F = solve(X, i, k - 1, false);
+                int r_T = solve(X, k + 1, j, true);
+                int r_F = solve(X, k + 1, j, false);
+
+                if (X[k] == '|') {
+                    if (is_true)
+                        ans += l_T * r_T + l_T * r_F + l_F * r_T;
+                    else
+                        ans += l_F * r_F;
+                } else if (X[k] == '&') {
+                    if (is_true)
+                        ans += l_T * r_T;
+                    else
+                        ans += l_T * r_F + l_F * r_T + l_F * r_F;
+                } else if (X[k] == '^') {
+                    if (is_true)
+                        ans += l_T * r_F + l_F * r_T;
+                    else
+                        ans += l_T * r_T + l_F * r_F;
+                }
+            }
+
+            dp[idx][i][j] = ans;
+            return ans;
+        };
+
+        return solve(s, 0, n - 1, true);
+    }
+};
+
+py3:
 
 class Solution:
     def countWays(self, s):
