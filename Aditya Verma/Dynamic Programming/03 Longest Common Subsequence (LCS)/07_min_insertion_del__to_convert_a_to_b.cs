@@ -10,7 +10,42 @@ Too easy to rem:
             deletions = n - lcs_len;
             insertions = m - lcs_len;
 
-py:
+cpp:
+O(n × m) time, O(n × m) space, where n = len(s1) and m = len(s2).
+#include <vector>
+#include <string>
+using namespace std;
+
+class Solution {
+public:
+    int minOperations(string s1, string s2) {
+        string X = s1, Y = s2;
+        int n = X.size();
+        int m = Y.size();
+
+        // Step 1: Compute LCS DP table
+        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (X[i - 1] == Y[j - 1]) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+
+        int lcs_len = dp[n][m];
+
+        // Step 2: Minimum deletions and insertions
+        int deletions = n - lcs_len;
+        int insertions = m - lcs_len;
+
+        return deletions + insertions;
+    }
+};
+
+py3:
 O(n × m) time, O(n × m) space, where n = len(s1) and m = len(s2).
 
 
