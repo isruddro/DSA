@@ -1,45 +1,5 @@
 https://leetcode.com/problems/subsets/description/
 
-py:
-from typing import List
-
-class Solution:
-    def get_sorted(self, op: List[int], nums: List[int], result: List[List[int]]):
-        # Base case: no numbers left
-        if not nums:
-            result.append(op.copy())
-            return
-
-        first = nums[0]
-        nums.pop(0)
-
-        # Include first element
-        op.append(first)
-        self.get_sorted(op, nums, result)
-        op.pop()  # backtrack
-
-        # Exclude first element
-        self.get_sorted(op, nums, result)
-
-        # Restore nums
-        nums.insert(0, first)
-
-    def subsets(self, nums: List[int]) -> List[List[int]]:
-        result = []
-        self.get_sorted([], nums, result)
-        return result
-
-
-if __name__ == "__main__":
-    nums = [1, 2, 3]
-    solution = Solution()
-    result = solution.subsets(nums)
-
-    for subset in result:
-        print(subset)
-
-
-
 
 cpp:
 #include <bits/stdc++.h>
@@ -95,6 +55,50 @@ int main() {
 
     return 0;
 }
+
+
+
+
+py3:
+from typing import List
+
+class Solution:
+    def get_sorted(self, op: List[int], nums: List[int], result: List[List[int]]):
+        # Base case: no numbers left
+        if not nums:
+            result.append(op.copy())
+            return
+
+        first = nums[0]
+        nums.pop(0)
+
+        # Include first element
+        op.append(first)
+        self.get_sorted(op, nums, result)
+        op.pop()  # backtrack
+
+        # Exclude first element
+        self.get_sorted(op, nums, result)
+
+        # Restore nums
+        nums.insert(0, first)
+
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        result = []
+        self.get_sorted([], nums, result)
+        return result
+
+
+if __name__ == "__main__":
+    nums = [1, 2, 3]
+    solution = Solution()
+    result = solution.subsets(nums)
+
+    for subset in result:
+        print(subset)
+
+
+
 
 
 
