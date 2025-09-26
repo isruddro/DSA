@@ -20,8 +20,42 @@ https://leetcode.com/problems/next-greater-element-i/submissions/1315287157/
     At last we need to reverse for the answer
 
 
- 
-py:
+cpp:
+
+Time Complexity: O(n + m), where n = len(nums1), m = len(nums2)
+Space Complexity: O(m) for the stack and dictionary
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        unordered_map<int,int> next_greater;
+        stack<int> st;
+
+        // Precompute next greater element for all nums2
+        for (int i = nums2.size() - 1; i >= 0; i--) {
+            int num = nums2[i];
+            while (!st.empty() && st.top() <= num) {
+                st.pop();
+            }
+            next_greater[num] = st.empty() ? -1 : st.top();
+            st.push(num);
+        }
+
+        // Map results for nums1
+        vector<int> result;
+        for (int num : nums1) {
+            result.push_back(next_greater[num]);
+        }
+
+        return result;
+    }
+};
+
+
+py3:
 
 Time Complexity: O(n + m), where n = len(nums1), m = len(nums2)
 Space Complexity: O(m) for the stack and dictionary
