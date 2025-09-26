@@ -13,7 +13,69 @@ https://leetcode.com/problems/maximal-rectangle/description/
     traverse every row.
         check if there is any 0 make that a[i][j] = 0
  */
-py:
+cpp:
+Time Complexity: O(n*m)
+Space Complexity: O(m) for histogram + O(m) for stack in MAH
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    // Maximum Area Histogram
+    int MAH(vector<int>& heights) {
+        int n = heights.size();
+        stack<int> st;
+        vector<int> left(n, -1), right(n, n);
+
+        // Nearest Smaller to Left
+        for (int i = 0; i < n; i++) {
+            while (!st.empty() && heights[st.top()] >= heights[i])
+                st.pop();
+            left[i] = st.empty() ? -1 : st.top();
+            st.push(i);
+        }
+
+        // Clear stack for NSR
+        while (!st.empty()) st.pop();
+
+        // Nearest Smaller to Right
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.empty() && heights[st.top()] >= heights[i])
+                st.pop();
+            right[i] = st.empty() ? n : st.top();
+            st.push(i);
+        }
+
+        // Compute max area
+        int max_area = 0;
+        for (int i = 0; i < n; i++) {
+            int width = right[i] - left[i] - 1;
+            max_area = max(max_area, heights[i] * width);
+        }
+
+        return max_area;
+    }
+
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        if (matrix.empty() || matrix[0].empty()) return 0;
+
+        int n = matrix.size(), m = matrix[0].size();
+        vector<int> histogram(m, 0);
+        int max_area = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                histogram[j] = (matrix[i][j] == '0') ? 0 : histogram[j] + 1;
+            }
+            max_area = max(max_area, MAH(histogram));
+        }
+
+        return max_area;
+    }
+};
+
+
+py3:
 Time Complexity: O(n*m)
 Space Complexity: O(m) for histogram + O(m) for stack in MAH
 
