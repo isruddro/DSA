@@ -1,6 +1,11 @@
 https://leetcode.com/problems/min-stack/description/?utm_source=chatgpt.com
 
-py:
+cpp:
+Time Complexity: O(1) per operation
+Space Complexity: O(n) for two stacks
+
+
+py3:
 Time Complexity: O(1) per operation
 Space Complexity: O(n) for two stacks
 
