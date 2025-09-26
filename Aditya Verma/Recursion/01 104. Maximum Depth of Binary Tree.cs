@@ -1,35 +1,5 @@
 https://leetcode.com/problems/maximum-depth-of-binary-tree/description/
-py:
-# Definition for a binary tree node
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
 
-class Solution:
-    def maxDepth(self, root: TreeNode) -> int:
-        # Base case: if root is None, depth is 0
-        if not root:
-            return 0
-
-        # Recursively compute the depth of left and right subtrees
-        left_depth = self.maxDepth(root.left)
-        right_depth = self.maxDepth(root.right)
-
-        # Return max depth plus 1 for current node
-        return 1 + max(left_depth, right_depth)
-
-# Example usage
-if __name__ == "__main__":
-    root = TreeNode(1)
-    root.left = TreeNode(2)
-    root.right = TreeNode(3)
-    root.left.left = TreeNode(4)
-    root.left.right = TreeNode(5)
-
-    sol = Solution()
-    print("Maximum Depth:", sol.maxDepth(root))
 
 
 
@@ -76,6 +46,39 @@ int main() {
 
     return 0;
 }
+
+py3:
+# Definition for a binary tree node
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        # Base case: if root is None, depth is 0
+        if not root:
+            return 0
+
+        # Recursively compute the depth of left and right subtrees
+        left_depth = self.maxDepth(root.left)
+        right_depth = self.maxDepth(root.right)
+
+        # Return max depth plus 1 for current node
+        return 1 + max(left_depth, right_depth)
+
+# Example usage
+if __name__ == "__main__":
+    root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+    root.left.left = TreeNode(4)
+    root.left.right = TreeNode(5)
+
+    sol = Solution()
+    print("Maximum Depth:", sol.maxDepth(root))
+
 
 
 c#:
