@@ -2,7 +2,37 @@
     We need to consider number and frequency.
         
 
-py:
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> topKFrequent(vector<int>& arr, int k) {
+    // Count frequency of each element
+    unordered_map<int,int> freq_map;
+    for (int num : arr) freq_map[num]++;
+
+    // Min-heap: store pairs (frequency, number), smallest frequency on top
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> min_heap;
+
+    for (auto& [num, freq] : freq_map) {
+        min_heap.push({freq, num});
+        if ((int)min_heap.size() > k) {
+            min_heap.pop(); // Remove element with smallest frequency
+        }
+    }
+
+    // Extract top k elements
+    vector<int> result;
+    while (!min_heap.empty()) {
+        result.push_back(min_heap.top().second);
+        min_heap.pop();
+    }
+
+    reverse(result.begin(), result.end()); // Optional: highest frequency first
+    return result;
+}
+
+py3:
 
 
 import heapq
