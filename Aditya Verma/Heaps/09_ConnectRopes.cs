@@ -3,32 +3,6 @@
         * find 2 smallest element each time.
 
 
-py:
-
-import heapq
-
-def min_cost_to_connect_ropes(arr):
-    cost = 0
-
-    # Convert the list into a min-heap
-    heapq.heapify(arr)
-
-    # Connect ropes until there is more than one rope
-    while len(arr) >= 2:
-        len1 = heapq.heappop(arr)
-        len2 = heapq.heappop(arr)
-
-        cost += len1 + len2
-        heapq.heappush(arr, len1 + len2)
-
-    return cost
-
-# Example usage
-if __name__ == "__main__":
-    arr = [1, 2, 3, 4, 5, 6]
-    print(min_cost_to_connect_ropes(arr))
-
-
 
 cpp:
 #include <bits/stdc++.h>
@@ -64,6 +38,33 @@ int main() {
 
     return 0;
 }
+
+py3:
+
+import heapq
+
+def min_cost_to_connect_ropes(arr):
+    cost = 0
+
+    # Convert the list into a min-heap
+    heapq.heapify(arr)
+
+    # Connect ropes until there is more than one rope
+    while len(arr) >= 2:
+        len1 = heapq.heappop(arr)
+        len2 = heapq.heappop(arr)
+
+        cost += len1 + len2
+        heapq.heappush(arr, len1 + len2)
+
+    return cost
+
+# Example usage
+if __name__ == "__main__":
+    arr = [1, 2, 3, 4, 5, 6]
+    print(min_cost_to_connect_ropes(arr))
+
+
 
 
 c#:
