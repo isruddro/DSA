@@ -6,7 +6,41 @@ https://www.geeksforgeeks.org/problems/longest-palindromic-subsequence-161232787
             As:
                 A = A str
                 B = reverse(A str)
-py:
+cpp:
+O(n²) time, O(n²) space, where n = len(s).
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    int longestPalinSubseq(string s) {
+        string X = s;
+        string rev_X = X;
+        reverse(rev_X.begin(), rev_X.end());
+        int n = X.size();
+
+        // DP table for LCS between X and its reverse
+        vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0));
+
+        // Fill DP table
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (X[i - 1] == rev_X[j - 1]) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+
+        return dp[n][n];
+    }
+};
+
+
+py3:
 O(n²) time, O(n²) space, where n = len(s).
 
 
