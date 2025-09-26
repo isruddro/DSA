@@ -3,7 +3,43 @@ https://www.geeksforgeeks.org/problems/minimum-number-of-deletions4610/1
 # Things to rem:
         Previous concepts apply here. Be flexible.
 
-py:
+cpp:
+O(n²) time, O(n) space, where n = len(s).
+GFG working code:
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    int minDeletions(string s) {
+        string X = s;
+        string rev_X = X;
+        reverse(rev_X.begin(), rev_X.end());
+        int n = X.size();
+
+        vector<int> prev(n + 1, 0);
+        vector<int> curr(n + 1, 0);
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (X[i - 1] == rev_X[j - 1]) {
+                    curr[j] = 1 + prev[j - 1];
+                } else {
+                    curr[j] = max(prev[j], curr[j - 1]);
+                }
+            }
+            prev.swap(curr);  // swap the two rows efficiently
+        }
+
+        int lps_length = prev[n];
+        return n - lps_length;
+    }
+};
+
+
+py3:
 O(n²) time, O(n) space, where n = len(s).
 GFG working code:
 #User function Template for python3
