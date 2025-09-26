@@ -4,14 +4,47 @@ https://www.geeksforgeeks.org/problems/sorting-elements-of-an-array-by-frequency
     We print everything.
 Another way to solve this using compare function.
 
-py:
-
+cpp:
 Time Complexity: O(n + m log m)
 
 n = size of array, m = number of distinct elements (heapify + heap operations)
 
 Space Complexity: O(m) for heap + O(n) for frequency dictionary
 
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> frequencySort(vector<int>& arr) {
+        // Count frequency of each element
+        unordered_map<int,int> freq;
+        for (int num : arr) freq[num]++;
+
+        // Max-heap: (frequency, element) so higher frequency comes first
+        priority_queue<pair<int,int>> maxh; // default is max-heap
+        for (auto& [num, f] : freq) {
+            maxh.push({f, num});
+        }
+
+        vector<int> result;
+
+        // Extract elements from heap in frequency order
+        while (!maxh.empty()) {
+            auto [f, num] = maxh.top();
+            maxh.pop();
+            for (int i = 0; i < f; i++) {
+                result.push_back(num); // Repeat element according to its frequency
+            }
+        }
+
+        return result;
+    }
+};
+
+
+
+py3:
 
 import heapq
 from collections import Counter
