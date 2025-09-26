@@ -2,7 +2,37 @@ https://www.geeksforgeeks.org/problems/index-of-first-1-in-a-sorted-array-of-0s-
 
 # Treat it like a infinite sorted array + first occ problem.
 
-py:
+cpp:
+Time: O(log n) — binary search
+
+Space: O(1) — constant extra space
+
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int firstIndex(const vector<int>& arr) {
+        int i = 0, j = (int)arr.size() - 1;
+
+        while (i < j) {
+            int m = i + (j - i) / 2;
+            if (arr[m] == 1) {
+                j = m;  // search left half
+            } else {
+                i = m + 1;  // search right half
+            }
+        }
+
+        if (i < (int)arr.size() && arr[i] == 1) {
+            return i;
+        }
+        return -1;
+    }
+};
+
+
+py3:
 Time: O(log n) — binary search
 
 Space: O(1) — constant extra space
