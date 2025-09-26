@@ -14,41 +14,6 @@
             hypothesis will remove one
             induction will add that after comparing in the base condition 
  */
-py:
-from typing import List
-
-class Solution:
-    def insert_in_sorted_order(self, nums: List[int], t: int):
-        # Base case: insert at end if list empty or t >= last element
-        if not nums or t >= nums[-1]:
-            nums.append(t)
-            return
-
-        # Remove last element
-        last = nums.pop()
-        # Recursively insert t
-        self.insert_in_sorted_order(nums, t)
-        # Put back last element
-        nums.append(last)
-
-    def get_sorted(self, nums: List[int]):
-        if not nums:
-            return
-        last = nums.pop()
-        self.get_sorted(nums)
-        self.insert_in_sorted_order(nums, last)
-
-    def sort_array(self, nums: List[int]) -> List[int]:
-        self.get_sorted(nums)
-        return nums
-
-if __name__ == "__main__":
-    nums = [2, 5, 4, 1, 3]
-    solution = Solution()
-    sorted_nums = solution.sort_array(nums)
-    print(sorted_nums)
-
-        
 
 cpp:
 #include <bits/stdc++.h>
@@ -104,6 +69,44 @@ int main() {
 
     return 0;
 }
+
+
+
+py3:
+from typing import List
+
+class Solution:
+    def insert_in_sorted_order(self, nums: List[int], t: int):
+        # Base case: insert at end if list empty or t >= last element
+        if not nums or t >= nums[-1]:
+            nums.append(t)
+            return
+
+        # Remove last element
+        last = nums.pop()
+        # Recursively insert t
+        self.insert_in_sorted_order(nums, t)
+        # Put back last element
+        nums.append(last)
+
+    def get_sorted(self, nums: List[int]):
+        if not nums:
+            return
+        last = nums.pop()
+        self.get_sorted(nums)
+        self.insert_in_sorted_order(nums, last)
+
+    def sort_array(self, nums: List[int]) -> List[int]:
+        self.get_sorted(nums)
+        return nums
+
+if __name__ == "__main__":
+    nums = [2, 5, 4, 1, 3]
+    solution = Solution()
+    sorted_nums = solution.sort_array(nums)
+    print(sorted_nums)
+
+        
 
 
 
