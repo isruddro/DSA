@@ -1,51 +1,5 @@
 https://www.geeksforgeeks.org/problems/sort-a-stack/1
 
-py:
-class SortedStack:
-    def __init__(self):
-        self.s = []
-
-    # Helper to insert an element into sorted stack
-    def get_stack(self, st, val):
-        if not st or val >= st[-1]:
-            st.append(val)
-            return
-        top = st.pop()
-        self.get_stack(st, val)
-        st.append(top)
-
-    # Recursive sort
-    def sort_stack(self):
-        if not self.s:
-            return
-        top = self.s.pop()
-        self.sort_stack()
-        self.get_stack(self.s, top)
-
-    # Push element
-    def push(self, val):
-        self.s.append(val)
-
-    # Sort the stack
-    def sort(self):
-        self.sort_stack()
-
-    # Print stack from bottom to top
-    def print_stack(self):
-        print(' '.join(map(str, self.s)))
-
-if __name__ == "__main__":
-    sorted_stack = SortedStack()
-    n = int(input())
-    vals = list(map(int, input().split()))
-    for v in vals:
-        sorted_stack.push(v)
-
-    sorted_stack.sort()
-    sorted_stack.print_stack()
-
-
-
 
 cpp:
 #include <bits/stdc++.h>
@@ -121,6 +75,55 @@ int main() {
 
     return 0;
 }
+
+
+py3:
+class SortedStack:
+    def __init__(self):
+        self.s = []
+
+    # Helper to insert an element into sorted stack
+    def get_stack(self, st, val):
+        if not st or val >= st[-1]:
+            st.append(val)
+            return
+        top = st.pop()
+        self.get_stack(st, val)
+        st.append(top)
+
+    # Recursive sort
+    def sort_stack(self):
+        if not self.s:
+            return
+        top = self.s.pop()
+        self.sort_stack()
+        self.get_stack(self.s, top)
+
+    # Push element
+    def push(self, val):
+        self.s.append(val)
+
+    # Sort the stack
+    def sort(self):
+        self.sort_stack()
+
+    # Print stack from bottom to top
+    def print_stack(self):
+        print(' '.join(map(str, self.s)))
+
+if __name__ == "__main__":
+    sorted_stack = SortedStack()
+    n = int(input())
+    vals = list(map(int, input().split()))
+    for v in vals:
+        sorted_stack.push(v)
+
+    sorted_stack.sort()
+    sorted_stack.print_stack()
+
+
+
+
 
 
 c#:
