@@ -3,9 +3,42 @@ https://leetcode.com/problems/online-stock-span/submissions/1496528225/
 /* Previously Consicutive smaller or equal to the number, return how many number
     we are actually getting nearest greater to left
     then we need to find the index and add it to the answer */
-py:
+
+cpp:
 Time Complexity: Amortized O(1) per next call
 Space Complexity: O(n) for the stack
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class StockSpanner {
+public:
+    // Stack stores pairs: (price, span)
+    stack<pair<int,int>> st;
+
+    StockSpanner() {
+        // Constructor does nothing special
+    }
+
+    int next(int price) {
+        int span = 1; // Current price counts as at least 1
+
+        // Pop prices less than or equal to current and add their spans
+        while (!st.empty() && st.top().first <= price) {
+            span += st.top().second;
+            st.pop();
+        }
+
+        // Push current price and its span onto stack
+        st.push({price, span});
+
+        return span;
+    }
+};
+
+
+py3:
+
 
 from typing import List
 
