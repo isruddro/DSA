@@ -1,28 +1,4 @@
 https://www.geeksforgeeks.org/dsa/permute-string-changing-case/
-py:
-
-from typing import List
-
-class Solution:
-    def get_solve(self, op: str, s: str, result: List[str]):
-        if not s:  # Base case: if string is empty
-            result.append(op)
-            return
-
-        # Take the first character and branch into lowercase and uppercase
-        op1 = op + s[0].lower()
-        op2 = op + s[0].upper()
-        self.get_solve(op1, s[1:], result)
-        self.get_solve(op2, s[1:], result)
-
-if __name__ == "__main__":
-    s = input("Enter string: ")  # Input string
-    result = []
-    solution = Solution()
-    solution.get_solve("", s, result)
-
-    print(" ".join(result))
-
 
 
 cpp:
@@ -65,6 +41,32 @@ int main() {
 
     return 0;
 }
+
+py3:
+
+from typing import List
+
+class Solution:
+    def get_solve(self, op: str, s: str, result: List[str]):
+        if not s:  # Base case: if string is empty
+            result.append(op)
+            return
+
+        # Take the first character and branch into lowercase and uppercase
+        op1 = op + s[0].lower()
+        op2 = op + s[0].upper()
+        self.get_solve(op1, s[1:], result)
+        self.get_solve(op2, s[1:], result)
+
+if __name__ == "__main__":
+    s = input("Enter string: ")  # Input string
+    result = []
+    solution = Solution()
+    solution.get_solve("", s, result)
+
+    print(" ".join(result))
+
+
 
 
 c#:
