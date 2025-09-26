@@ -9,7 +9,63 @@ https://leetcode.com/problems/target-sum/description/
 
     rest is same as target sum.
 
-py:
+cpp:
+O(n × total_sum) time, O(n × total_sum) space, where total_sum = sum(nums)
+
+#include <vector>
+#include <numeric>
+using namespace std;
+
+class Solution {
+public:
+    // Helper function to count subsets with a given sum
+    int count_subsets_with_sum(vector<int>& arr, int target_sum) {
+        int n = arr.size();
+
+        if (target_sum < 0) return 0; // invalid sum
+
+        vector<vector<int>> dp(n + 1, vector<int>(target_sum + 1, 0));
+
+        // Initialization: one way to make sum 0 (empty subset)
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = 1;
+        }
+
+        // Fill DP table
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j <= target_sum; j++) {
+                if (arr[i - 1] <= j) {
+                    dp[i][j] = dp[i - 1][j - arr[i - 1]] + dp[i - 1][j];
+                } else {
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+
+        return dp[n][target_sum];
+    }
+
+    // Count subsets with given difference
+    int count_subsets_with_diff(vector<int>& arr, int diff) {
+        int total_sum = accumulate(arr.begin(), arr.end(), 0);
+
+        // Check if valid partition is possible
+        if ((total_sum + diff) % 2 != 0) return 0;
+
+        int target_sum = (total_sum + diff) / 2;
+        if (target_sum < 0) return 0;
+
+        return count_subsets_with_sum(arr, target_sum);
+    }
+
+    // Main function for Leetcode 494
+    int findTargetSumWays(vector<int>& nums, int target) {
+        return count_subsets_with_diff(nums, target);
+    }
+};
+
+
+py3:
 
 O(n × total_sum) time, O(n × total_sum) space, where total_sum = sum(nums)
     
