@@ -6,7 +6,41 @@ https://www.geeksforgeeks.org/dsa/find-position-element-sorted-array-infinite-nu
         s = e (shift the start to current end)
         e *= 2 (double the window size → exponential growth: 1 → 2 → 4 → 8 → 16 …)
 
-py:
+cpp:
+O(log p), where p is the position of the target (or the closest element greater than the target), Space Complexity: O(1)
+    
+#include <vector>
+using namespace std;
+
+int binary_search(const vector<int>& arr, int s, int e, int target) {
+    while (s <= e) {
+        int m = s + (e - s) / 2;
+        if (arr[m] == target) {
+            return m;  // Found target
+        } else if (arr[m] < target) {
+            s = m + 1;
+        } else {
+            e = m - 1;
+        }
+    }
+    return -1;  // Target not found
+}
+
+int findPositionInInfiniteArray(const vector<int>& arr, int target) {
+    int s = 0, e = 1;
+    int n = (int)arr.size();
+
+    // Expand the range exponentially until we find a value >= target or exceed array bounds
+    while (e < n && arr[e] < target) {
+        s = e;
+        e = e * 2;
+    }
+
+    // Binary search within the identified range, ensuring e does not exceed array size
+    return binary_search(arr, s, min(e, n - 1), target);
+}
+
+py3:
 
 from typing import List
 
