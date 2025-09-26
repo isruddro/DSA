@@ -1,6 +1,49 @@
 https://www.geeksforgeeks.org/problems/matrix-chain-multiplication0303/1
 
-py:
+cpp:
+O(n³) time, O(n²) space
+
+#include <vector>
+#include <climits>
+#include <unordered_map>
+using namespace std;
+
+class Solution {
+public:
+    // Hash function for pair<int,int> to be used as unordered_map key
+    struct pair_hash {
+        size_t operator()(const pair<int,int>& p) const {
+            return hash<int>()(p.first) ^ hash<int>()(p.second);
+        }
+    };
+
+    unordered_map<pair<int,int>, int, pair_hash> t;
+
+    int solve(const vector<int>& arr, int i, int j) {
+        if (i >= j) return 0;
+
+        auto key = make_pair(i, j);
+        if (t.find(key) != t.end()) return t[key];
+
+        int ans = INT_MAX;
+        for (int k = i; k < j; ++k) {
+            int temp_ans = solve(arr, i, k) + solve(arr, k + 1, j) + arr[i - 1] * arr[k] * arr[j];
+            ans = min(ans, temp_ans);
+        }
+
+        t[key] = ans;
+        return ans;
+    }
+
+    int matrixMultiplication(vector<int>& arr) {
+        t.clear();
+        int n = (int)arr.size();
+        return solve(arr, 1, n - 1);
+    }
+};
+
+
+py3:
 O(n³) time, O(n²) space
 
 import sys
