@@ -11,7 +11,75 @@ https://leetcode.com/problems/shortest-common-supersequence/description/
                                     else: alternate
                 3. Don't forget to reverse as during filling the DP we get in reverse!
 
-py:
+cpp:
+O(n × m) time, O(n × m) space, where n = len(str1) and m = len(str2).
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<int>> lcs_dp(const string &X, const string &Y) {
+        int n = X.size();
+        int m = Y.size();
+        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+
+        for (int i = 1; i <= n; ++i) {
+            for (int j = 1; j <= m; ++j) {
+                if (X[i - 1] == Y[j - 1]) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        return dp;
+    }
+
+    string shortestCommonSupersequence(string str1, string str2) {
+        vector<vector<int>> dp = lcs_dp(str1, str2);
+
+        int a = (int)str1.size();
+        int b = (int)str2.size();
+        string scs_str;
+
+        // Backtracking to build SCS string
+        while (a > 0 && b > 0) {
+            if (str1[a - 1] == str2[b - 1]) {
+                scs_str.push_back(str1[a - 1]);
+                a--;
+                b--;
+            } else if (dp[a][b - 1] > dp[a - 1][b]) {
+                scs_str.push_back(str2[b - 1]);
+                b--;
+            } else {
+                scs_str.push_back(str1[a - 1]);
+                a--;
+            }
+        }
+
+        // Add remaining characters from str1
+        while (a > 0) {
+            scs_str.push_back(str1[a - 1]);
+            a--;
+        }
+
+        // Add remaining characters from str2
+        while (b > 0) {
+            scs_str.push_back(str2[b - 1]);
+            b--;
+        }
+
+        // Reverse the constructed string as we've built it backwards
+        reverse(scs_str.begin(), scs_str.end());
+
+        return scs_str;
+    }
+};
+
+
+py3:
 O(n × m) time, O(n × m) space, where n = len(str1) and m = len(str2).
 
         
