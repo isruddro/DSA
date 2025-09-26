@@ -1,38 +1,3 @@
-py:
-
-from typing import List
-
-def next_smaller_element_to_right(arr: List[int]) -> List[int]:
-    ans = []
-    stack = []
-
-    # Traverse from right to left
-    for num in reversed(arr):
-        # Pop elements greater than or equal to current number
-        while stack and stack[-1] >= num:
-            stack.pop()
-
-        # If stack is empty, no smaller element to right
-        if not stack:
-            ans.append(-1)
-        else:
-            ans.append(stack[-1])
-
-        # Push current number onto stack
-        stack.append(num)
-
-    # Reverse result to match original order
-    ans.reverse()
-    return ans
-
-# Example usage:
-if __name__ == "__main__":
-    arr = [4, 5, 2, 10, 8]
-    result = next_smaller_element_to_right(arr)
-    print("Next Smaller Element to Right:", result)
-
-
-
 
 
 cpp:
@@ -75,6 +40,43 @@ int main() {
 
     return 0;
 }
+
+
+py3:
+
+from typing import List
+
+def next_smaller_element_to_right(arr: List[int]) -> List[int]:
+    ans = []
+    stack = []
+
+    # Traverse from right to left
+    for num in reversed(arr):
+        # Pop elements greater than or equal to current number
+        while stack and stack[-1] >= num:
+            stack.pop()
+
+        # If stack is empty, no smaller element to right
+        if not stack:
+            ans.append(-1)
+        else:
+            ans.append(stack[-1])
+
+        # Push current number onto stack
+        stack.append(num)
+
+    # Reverse result to match original order
+    ans.reverse()
+    return ans
+
+# Example usage:
+if __name__ == "__main__":
+    arr = [4, 5, 2, 10, 8]
+    result = next_smaller_element_to_right(arr)
+    print("Next Smaller Element to Right:", result)
+
+
+
 
 
 c#:
