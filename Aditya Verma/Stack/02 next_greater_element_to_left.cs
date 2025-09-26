@@ -1,36 +1,6 @@
 
 # In this question: I need to go left to right and we dont need to make reverse as it will give the answer directly.
 
-    
-py:
-from typing import List
-
-def next_greater_element_to_left(arr: List[int]) -> List[int]:
-    ans = []
-    stack = []
-
-    for num in arr:
-        # Pop elements smaller or equal to current number
-        while stack and stack[-1] <= num:
-            stack.pop()
-
-        # If stack is empty, no greater element to left
-        if not stack:
-            ans.append(-1)
-        else:
-            ans.append(stack[-1])
-
-        # Push current number onto stack
-        stack.append(num)
-
-    return ans
-
-# Example usage:
-if __name__ == "__main__":
-    arr = [1, 3, 2, 4]
-    result = next_greater_element_to_left(arr)
-    print("Next Greater Element to Left:", result)
-
 
 
 
@@ -72,6 +42,37 @@ int main() {
 
     return 0;
 }
+    
+py3:
+from typing import List
+
+def next_greater_element_to_left(arr: List[int]) -> List[int]:
+    ans = []
+    stack = []
+
+    for num in arr:
+        # Pop elements smaller or equal to current number
+        while stack and stack[-1] <= num:
+            stack.pop()
+
+        # If stack is empty, no greater element to left
+        if not stack:
+            ans.append(-1)
+        else:
+            ans.append(stack[-1])
+
+        # Push current number onto stack
+        stack.append(num)
+
+    return ans
+
+# Example usage:
+if __name__ == "__main__":
+    arr = [1, 3, 2, 4]
+    result = next_greater_element_to_left(arr)
+    print("Next Greater Element to Left:", result)
+
+
 
 
 
