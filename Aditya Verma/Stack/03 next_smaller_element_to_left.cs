@@ -1,35 +1,3 @@
-py:
-
-from typing import List
-
-def next_smaller_element_to_left(arr: List[int]) -> List[int]:
-    ans = []
-    stack = []
-
-    for num in arr:
-        # Pop elements greater than or equal to current number
-        while stack and stack[-1] >= num:
-            stack.pop()
-
-        # If stack is empty, no smaller element to left
-        if not stack:
-            ans.append(-1)
-        else:
-            ans.append(stack[-1])
-
-        # Push current number onto stack
-        stack.append(num)
-
-    return ans
-
-# Example usage:
-if __name__ == "__main__":
-    arr = [4, 5, 2, 10, 8]
-    result = next_smaller_element_to_left(arr)
-    print("Next Smaller Element to Left:", result)
-
-
-
 cpp:
 #include <bits/stdc++.h>
 using namespace std;
@@ -68,6 +36,40 @@ int main() {
 
     return 0;
 }
+
+
+py3:
+
+from typing import List
+
+def next_smaller_element_to_left(arr: List[int]) -> List[int]:
+    ans = []
+    stack = []
+
+    for num in arr:
+        # Pop elements greater than or equal to current number
+        while stack and stack[-1] >= num:
+            stack.pop()
+
+        # If stack is empty, no smaller element to left
+        if not stack:
+            ans.append(-1)
+        else:
+            ans.append(stack[-1])
+
+        # Push current number onto stack
+        stack.append(num)
+
+    return ans
+
+# Example usage:
+if __name__ == "__main__":
+    arr = [4, 5, 2, 10, 8]
+    result = next_smaller_element_to_left(arr)
+    print("Next Smaller Element to Left:", result)
+
+
+
 
 
 c#:
