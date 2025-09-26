@@ -1,41 +1,6 @@
 https://leetcode.com/problems/letter-case-permutation/description/
 
 
-py:
-
-def solve(ip: str, op: str):
-    # Base case: if input is empty, print current output
-    if not ip:
-        print(op)
-        return
-
-    # Option 1: add an underscore before the next character
-    op1 = op + "_" + ip[0]
-
-    # Option 2: add the character directly
-    op2 = op + ip[0]
-
-    # Remove the first character from input
-    ip_rest = ip[1:]
-
-    # Recursive calls
-    solve(ip_rest, op1)
-    solve(ip_rest, op2)
-
-
-if __name__ == "__main__":
-    input_str = "ABC"  # Example input
-
-    # Initialize output with the first character
-    output = input_str[0]
-    input_str = input_str[1:]
-
-    # Start recursion
-    solve(input_str, output)
-
-
-
-
 
 cpp:
 #include <bits/stdc++.h>
@@ -75,6 +40,43 @@ int main() {
 
     return 0;
 }
+
+
+
+py3:
+
+def solve(ip: str, op: str):
+    # Base case: if input is empty, print current output
+    if not ip:
+        print(op)
+        return
+
+    # Option 1: add an underscore before the next character
+    op1 = op + "_" + ip[0]
+
+    # Option 2: add the character directly
+    op2 = op + ip[0]
+
+    # Remove the first character from input
+    ip_rest = ip[1:]
+
+    # Recursive calls
+    solve(ip_rest, op1)
+    solve(ip_rest, op2)
+
+
+if __name__ == "__main__":
+    input_str = "ABC"  # Example input
+
+    # Initialize output with the first character
+    output = input_str[0]
+    input_str = input_str[1:]
+
+    # Start recursion
+    solve(input_str, output)
+
+
+
 
 
 c#:
