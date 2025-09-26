@@ -1,6 +1,41 @@
 leetcode.com/problems/diameter-of-binary-tree/description/
 
-py:
+cpp:
+Time: O(n), Space: O(h) (recursion stack), where n = number of nodes, h = tree height.
+
+class Solution {
+public:
+    int res;
+
+    Solution() {
+        res = INT_MIN; // Initialize result
+    }
+
+    // Helper function to calculate height and update diameter
+    int solve(TreeNode* root) {
+        if (!root) return 0;
+
+        int left = solve(root->left);    // Height of left subtree
+        int right = solve(root->right);  // Height of right subtree
+
+        int temp = 1 + max(left, right);      // Height of current node
+        int ans = max(temp, left + right + 1); // Max diameter including this node
+        res = max(res, ans);                  // Update global maximum
+
+        return temp;  // Return height
+    }
+
+    int diameterOfBinaryTree(TreeNode* root) {
+        if (!root) return 0;
+
+        res = INT_MIN;  // Initialize result
+        solve(root);
+        return res - 1; // Subtract 1 to get actual diameter
+    }
+};
+
+
+py3:
 Time: O(n), Space: O(h) (recursion stack), where n = number of nodes, h = tree height.
 
 # Definition for a binary tree node.
