@@ -1,5 +1,4 @@
 https://www.geeksforgeeks.org/problems/longest-common-substring1452/1
-https://leetcode.com/problems/maximum-length-of-repeated-subarray/description/
 
 # Things to rem:
     same as LCSe but: whenever we found any discontinuty on two strings we put zero and 
@@ -9,7 +8,43 @@ https://leetcode.com/problems/maximum-length-of-repeated-subarray/description/
             a b f c e
             1+1+0 = here the moment last two char did not match, we put zero and move on.
                 Here, two strings were abc and abf. last chars c and f did not match.
-py:
+
+cpp:
+O(n × m) time, O(n × m) space, where n = len(nums1) and m = len(nums2).
+#include <vector>
+#include <string>
+#include <algorithm> // for std::max
+using namespace std;
+
+class Solution {
+public:
+    int longestCommonSubstr(string s1, string s2) {
+        string X = s1, Y = s2;
+        int n = X.size();
+        int m = Y.size();
+
+        // Create DP table
+        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+        int mx = 0; // maximum length of common substring
+
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= m; j++) {
+                if (i == 0 || j == 0) {
+                    dp[i][j] = 0;
+                } else if (X[i - 1] == Y[j - 1]) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = 0;
+                }
+                mx = max(mx, dp[i][j]);
+            }
+        }
+
+        return mx;
+    }
+};
+
+py3:
 
 O(n × m) time, O(n × m) space, where n = len(nums1) and m = len(nums2).
 
