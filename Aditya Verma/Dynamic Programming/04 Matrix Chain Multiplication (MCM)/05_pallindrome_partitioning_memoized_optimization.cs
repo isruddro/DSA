@@ -1,6 +1,115 @@
 https://www.geeksforgeeks.org/problems/palindromic-patitioning4845/1
 
-py:
+cpp:
+Working code:
+#include <vector>
+#include <string>
+#include <climits>
+using namespace std;
+
+class Solution {
+public:
+    int palPartition(string X) {
+        int n = (int)X.size();
+
+        // Precompute palindrome table
+        vector<vector<bool>> is_pal(n, vector<bool>(n, false));
+        for (int i = 0; i < n; ++i) {
+            is_pal[i][i] = true;
+        }
+        for (int i = 0; i < n - 1; ++i) {
+            is_pal[i][i + 1] = (X[i] == X[i + 1]);
+        }
+        for (int length = 3; length <= n; ++length) {
+            for (int i = 0; i <= n - length; ++i) {
+                int j = i + length - 1;
+                is_pal[i][j] = (X[i] == X[j]) && is_pal[i + 1][j - 1];
+            }
+        }
+
+        // dp[i] = min cuts for substring X[0..i]
+        vector<int> dp(n, 0);
+        for (int i = 0; i < n; ++i) {
+            if (is_pal[0][i]) {
+                dp[i] = 0;
+            } else {
+                dp[i] = INT_MAX;
+                for (int j = 0; j < i; ++j) {
+                    if (is_pal[j + 1][i]) {
+                        dp[i] = min(dp[i], dp[j] + 1);
+                    }
+                }
+            }
+        }
+
+        return dp[n - 1];
+    }
+};
+
+TLE:
+#include <iostream>
+#include <vector>
+#include <string>
+#include <climits>
+using namespace std;
+
+class Solution {
+private:
+    vector<vector<int>> t;
+    string X;
+
+    // Check if substring X[i..j] is palindrome
+    bool is_palindrome(int i, int j) {
+        while (i <= j) {
+            if (X[i] != X[j]) return false;
+            i++;
+            j--;
+        }
+        return true;
+    }
+
+    // Recursive function with memoization
+    int solve(int i, int j) {
+        if (t[i][j] != -1) return t[i][j];
+
+        if (i >= j || is_palindrome(i, j)) {
+            t[i][j] = 0;
+            return 0;
+        }
+
+        int ans = INT_MAX;
+        for (int k = i; k < j; ++k) {
+            int left = (t[i][k] != -1) ? t[i][k] : solve(i, k);
+            int right = (t[k+1][j] != -1) ? t[k+1][j] : solve(k+1, j);
+            int temp_ans = left + right + 1;
+            ans = min(ans, temp_ans);
+        }
+
+        t[i][j] = ans;
+        return ans;
+    }
+
+public:
+    int minCut(string s) {
+        X = s;
+        int n = (int)X.size();
+        t.assign(n, vector<int>(n, -1));
+        return solve(0, n - 1);
+    }
+};
+
+int main() {
+    string X;
+    cin >> X;
+
+    Solution sol;
+    cout << sol.minCut(X) << "\n";
+
+    return 0;
+}
+
+
+py3:
 Working code:
 class Solution:
     def palPartition(self, X):
