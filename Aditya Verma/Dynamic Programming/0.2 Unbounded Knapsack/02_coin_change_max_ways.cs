@@ -1,8 +1,67 @@
 https://leetcode.com/problems/coin-change-ii/description/
-
+In this problem py3 2D works but on cpp we need to use 1D version that will not give runtime error.
 # In the include case, we don’t move to i-1, we stay at i. (that is the diff from 0/1 knapsack)
 
-py:
+
+cpp:
+O(n × amount) time, O(n × amount) space, where n = len(coins) and amount is the target sum.
+    
+    1D:
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int change(int amount, vector<int>& coins) {
+        vector<unsigned long long> dp(amount + 1, 0);
+        dp[0] = 1;  // Base case: 1 way to make 0 amount
+
+        for (int coin : coins) {
+            for (int j = coin; j <= amount; ++j) {
+                dp[j] += dp[j - coin];
+            }
+        }
+
+        // Cast back to int since answer fits in 32-bit int per problem constraints
+        return (int)dp[amount];
+    }
+};
+
+
+    2D:
+#include <vector>
+using namespace std;
+
+int get_max_number_of_ways(vector<int>& coins, int n, int target) {
+    // Use long long to avoid integer overflow
+    vector<vector<long long>> dp(n + 1, vector<long long>(target + 1, 0));
+
+    for (int i = 0; i <= n; ++i) {
+        dp[i][0] = 1;
+    }
+
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 0; j <= target; ++j) {
+            if (coins[i - 1] <= j) {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - coins[i - 1]];
+            } else {
+                dp[i][j] = dp[i - 1][j];
+            }
+        }
+    }
+
+    return (int)dp[n][target]; // Cast back to int for return
+}
+
+class Solution {
+public:
+    int change(int amount, vector<int>& coins) {
+        return get_max_number_of_ways(coins, coins.size(), amount);
+    }
+};
+
+
+py3:
 O(n × amount) time, O(n × amount) space, where n = len(coins) and amount is the target sum.
 
 
