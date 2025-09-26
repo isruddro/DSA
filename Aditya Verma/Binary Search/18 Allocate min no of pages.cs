@@ -1,6 +1,59 @@
 https://www.geeksforgeeks.org/problems/allocate-minimum-number-of-pages0937/1
 
-py:
+cpp:
+Time: O(N * log(sum(A)))
+
+Space: O(1)
+
+    #include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    // Helper function to check if allocation is possible
+    bool check(const vector<int>& A, int N, int days, int Pages) {
+        int curr = 0, d = 1;
+        for (int i = 0; i < N; i++) {
+            curr += A[i];
+            if (curr > Pages) {
+                curr = A[i];
+                d++;
+                if (d > days) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    // Function to find minimum pages
+    int findPages(const vector<int>& A, int M) {
+        int N = (int)A.size();
+        if (M > N) {
+            return -1;
+        }
+
+        int mn = *max_element(A.begin(), A.end());  // Minimum possible pages
+        int mx = 0;
+        for (int x : A) mx += x;                     // Maximum possible pages
+
+        // Binary search for the answer
+        while (mn < mx) {
+            int mid = mn + (mx - mn) / 2;
+            if (check(A, N, M, mid)) {
+                mx = mid;
+            } else {
+                mn = mid + 1;
+            }
+        }
+
+        return mn;
+    }
+};
+
+
+py3:
 
 Time: O(N * log(sum(A)))
 
