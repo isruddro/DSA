@@ -4,7 +4,57 @@ https://leetcode.com/problems/partition-equal-subset-sum/description/
 # Same as subset sum but we check if the sum is possible in a funcion. If half of total sum is odd
 then partition is not possible.
 
-py:
+cpp:
+Time: O(n × target)
+
+Space: O(n × target)
+
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    bool canPartition(vector<int>& nums) {
+        int total_sum = 0;
+        for (int num : nums) total_sum += num;
+
+        // If total sum is odd, can't split into two equal subsets
+        if (total_sum % 2 != 0) {
+            return false;
+        }
+
+        int target = total_sum / 2;
+        int n = (int)nums.size();
+
+        // Subset Sum DP
+        vector<vector<bool>> dp(n + 1, vector<bool>(target + 1, false));
+
+        // Initialization
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = true;  // sum 0 is always possible
+        }
+
+        for (int j = 1; j <= target; j++) {
+            dp[0][j] = false;  // no items can't form positive sum
+        }
+
+        // Build DP table
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= target; j++) {
+                if (nums[i - 1] <= j) {
+                    dp[i][j] = dp[i - 1][j - nums[i - 1]] || dp[i - 1][j];
+                } else {
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+
+        return dp[n][target];
+    }
+};
+
+    
+py3:
 Time: O(n × target)
 
 Space: O(n × target)
