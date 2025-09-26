@@ -1,12 +1,42 @@
 https://leetcode.com/problems/is-subsequence/description/
 
 # Things to rem:
-    We can solve this q using recursion too!
+    We can solve this question using recursion too!
     But its better to know the LCS connection.
 
         * Logic is simple: 
             Return after checking, if the shorter str is the LCS of both.
-py:
+cpp:
+Complexity: O(n × m) time, O(n × m) space.
+#include <vector>
+#include <string>
+using namespace std;
+
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        int n = (int)s.size();
+        int m = (int)t.size();
+
+        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+
+        for (int i = 1; i <= n; ++i) {
+            for (int j = 1; j <= m; ++j) {
+                if (s[i - 1] == t[j - 1]) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+
+        // s is subsequence of t if LCS length == length of s
+        return dp[n][m] == n;
+    }
+};
+
+
+py3:
 Complexity: O(n × m) time, O(n × m) space.
     
 class Solution:
