@@ -1,8 +1,58 @@
 https://www.geeksforgeeks.org/problems/maximum-path-sum/1
 
-//Leaf to Leaf
-//so we don't consider the root, unless only one element is root. then we take that root.
-py:
+# Leaf to Leaf. So we don't consider the root, unless only one element is root. then we take that root.
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+// Definition for a binary tree node.
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+
+class Solution {
+public:
+    int res;
+
+    Solution() {
+        res = INT_MIN; // Initialize global maximum
+    }
+
+    // Recursive function to calculate maximum leaf-to-leaf path sum
+    int solve(TreeNode* root) {
+        if (!root) return 0;
+
+        int left = solve(root->left);
+        int right = solve(root->right);
+
+        int temp;
+
+        // If both children exist, consider path through this node
+        if (root->left && root->right) {
+            res = max(res, left + right + root->val);
+            temp = root->val + max(left, right);
+        } else if (root->left) {
+            temp = root->val + left;
+        } else if (root->right) {
+            temp = root->val + right;
+        } else { // Leaf node
+            temp = root->val;
+        }
+
+        return temp;
+    }
+
+    int maxPathSum(TreeNode* root) {
+        res = INT_MIN;
+        solve(root);
+        return res;
+    }
+};
+
+py3:
 
 class Node:
     def __init__(self, data):
