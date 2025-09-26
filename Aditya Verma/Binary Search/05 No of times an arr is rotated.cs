@@ -8,8 +8,49 @@ https://www.geeksforgeeks.org/problems/rotation4723/1
             2   5  6  8  11 12 15 18
     ind:    0   1  2  3  4  5  6  7     (roated)
             11  12 15 18 2  5  6  8    
+cpp:
+Time	O(log n)
+Space	O(1)
 
-py:
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int findKRotation(vector<int>& arr) {
+        int n = arr.size();
+        int start = 0, end = n - 1;
+
+        // If the array is already sorted (no rotation)
+        if (arr[start] <= arr[end]) {
+            return 0;
+        }
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            int next_idx = (mid + 1) % n;
+            int prev_idx = (mid - 1 + n) % n;
+
+            // Check if mid is the minimum element
+            if (arr[mid] <= arr[next_idx] && arr[mid] <= arr[prev_idx]) {
+                return mid;
+            }
+
+            // Decide which side to go
+            if (arr[mid] <= arr[end]) {
+                end = mid - 1;  // minimum on the left side
+            } else {
+                start = mid + 1;  // minimum on the right side
+            }
+        }
+
+        return 0;  // fallback, should not happen if array has distinct elements
+    }
+};
+
+
+
+py3:
 Time	O(log n)
 Space	O(1)
 
