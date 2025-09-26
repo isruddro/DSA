@@ -1,6 +1,44 @@
 https://leetcode.com/problems/trapping-rain-water/description/
 
-py:
+cpp:
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n = height.size();
+        if (n == 0) return 0;
+
+        vector<int> maxL(n), maxR(n);
+
+        // Fill maxL array (max height to the left of each element)
+        maxL[0] = height[0];
+        for (int i = 1; i < n; i++) {
+            maxL[i] = max(maxL[i - 1], height[i]);
+        }
+
+        // Fill maxR array (max height to the right of each element)
+        maxR[n - 1] = height[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            maxR[i] = max(maxR[i + 1], height[i]);
+        }
+
+        // Calculate total trapped water
+        int total_water = 0;
+        for (int i = 0; i < n; i++) {
+            total_water += min(maxL[i], maxR[i]) - height[i];
+        }
+
+        return total_water;
+    }
+};
+
+
+py3:
 Time Complexity: O(n)
 Space Complexity: O(n)
 
