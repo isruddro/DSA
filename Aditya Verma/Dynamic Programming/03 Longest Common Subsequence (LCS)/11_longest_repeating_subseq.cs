@@ -10,7 +10,10 @@ https://www.geeksforgeeks.org/problems/longest-repeating-subsequence2004/1
 
     * Rest is just LCS as both has same seq and it also repeats!
 
-py:
+cpp:
+O(n²) time, O(n²) space
+
+py3:
 O(n²) time, O(n²) space
 
 #User function Template for python3
