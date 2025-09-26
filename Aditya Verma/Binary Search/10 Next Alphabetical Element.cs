@@ -1,6 +1,33 @@
 https://leetcode.com/problems/find-smallest-letter-greater-than-target/description/
 
-py:
+cpp:
+O(log n) time, O(1) space
+
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    char nextGreatestLetter(vector<char>& letters, char target) {
+        int start = 0, end = (int)letters.size() - 1;
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+
+            if (letters[mid] <= target) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+
+        // Wrap around if no greater letter found
+        return letters[start % (int)letters.size()];
+    }
+};
+
+
+py3:
 O(log n) time, O(1) space
 
 from typing import List
