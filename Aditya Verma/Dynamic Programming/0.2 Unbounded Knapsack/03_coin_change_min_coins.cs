@@ -2,7 +2,61 @@ https://www.geeksforgeeks.org/problems/number-of-coins1824/1
 
 //on this question we need to check the second row initialization for overflow, that's why we need to check and use INF.
 //as it it working on the coin so we need to add 1, not the dp[i-1] that we used to do.
-py:
+cpp:
+O(n × target) time, O(n × target) space, where n = len(coins).
+
+#include <vector>
+#include <climits> // For INT_MAX
+using namespace std;
+
+class Solution {
+public:
+    int minCoins(vector<int>& coins, int target) {
+        int n = coins.size();
+        int INF = INT_MAX;
+        
+        // dp[i][j] = min coins to make sum j using first i coins
+        vector<vector<int>> dp(n + 1, vector<int>(target + 1, 0));
+
+        // Initialization
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= target; j++) {
+                if (j == 0) {
+                    dp[i][j] = 0; // 0 coins needed for sum 0
+                }
+                else if (i == 0) {
+                    dp[i][j] = INF; // Impossible with 0 coins
+                }
+                else if (i == 1) {
+                    // Using only first coin: if divisible, set count else INF
+                    if (j % coins[0] == 0) dp[i][j] = j / coins[0];
+                    else dp[i][j] = INF;
+                }
+            }
+        }
+
+        // Fill DP table for coins 2 to n
+        for (int i = 2; i <= n; i++) {
+            for (int j = 1; j <= target; j++) {
+                if (coins[i - 1] <= j) {
+                    // Min of excluding current coin or including it
+                    int exclude = dp[i - 1][j];
+                    int include = (dp[i][j - coins[i - 1]] == INF) ? INF : 1 + dp[i][j - coins[i - 1]];
+                    dp[i][j] = min(exclude, include);
+                } else {
+                    // Current coin too big, exclude
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+
+        // Return -1 if no solution found
+        return (dp[n][target] == INF) ? -1 : dp[n][target];
+    }
+};
+
+
+py3:
 O(n × target) time, O(n × target) space, where n = len(coins).
 
 
