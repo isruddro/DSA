@@ -5,8 +5,53 @@ https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrom
         that is why we substract LPS from n to get insertion number.
     * Rest of the process is same like LPS previous problem.
 
+cpp:
+Time Complexity: O(n²) — DP for LCS between string and its reverse.
 
-py:
+Space Complexity: O(n²) — full DP table stored.
+
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    int minInsertions(string s) {
+        int n = (int)s.size();
+
+        // Function to compute LCS length between X and Y
+        auto LCS = [](const string &X, const string &Y, int n, int m) -> int {
+            vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+
+            for (int i = 1; i <= n; ++i) {
+                for (int j = 1; j <= m; ++j) {
+                    if (X[i - 1] == Y[j - 1]) {
+                        dp[i][j] = 1 + dp[i - 1][j - 1];
+                    } else {
+                        dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+                    }
+                }
+            }
+            return dp[n][m];
+        };
+
+        // Function to compute Longest Palindromic Subsequence length
+        auto LPS = [&](const string &X, int n) -> int {
+            string rev_X = X;
+            reverse(rev_X.begin(), rev_X.end());
+            return LCS(X, rev_X, n, n);
+        };
+
+        // Minimum insertions = string length - length of LPS
+        int MinInsertForPalindrome = n - LPS(s, n);
+
+        return MinInsertForPalindrome;
+    }
+};
+
+
+py3:
 Time Complexity: O(n²) — DP for LCS between string and its reverse.
 
 Space Complexity: O(n²) — full DP table stored.
