@@ -1,7 +1,48 @@
 https://www.geeksforgeeks.org/problems/perfect-sum-problem5633/1
 
 #same as subset sum but we just use +. As we are count all the subjet that equal to sum.
-py:
+
+cpp:
+Time Complexity:
+O(n×target),
+Space Complexity:
+O(n×target)
+
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int perfectSum(vector<int>& arr, int target) {
+        int n = arr.size();
+        const int MOD = 1e9 + 7;
+
+        // DP table: dp[i][j] = number of subsets using first i elements with sum j
+        vector<vector<int>> dp(n + 1, vector<int>(target + 1, 0));
+
+        // Initialization: sum = 0 is always possible by taking the empty subset
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = 1;
+        }
+
+        // Fill DP table
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j <= target; j++) {
+                if (arr[i - 1] <= j) {
+                    dp[i][j] = (dp[i - 1][j - arr[i - 1]] + dp[i - 1][j]) % MOD;
+                } else {
+                    dp[i][j] = dp[i - 1][j] % MOD;
+                }
+            }
+        }
+
+        return dp[n][target];
+    }
+};
+
+
+
+py3:
 
 Time Complexity:
 O(n×target),
