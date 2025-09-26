@@ -1,10 +1,38 @@
 https://www.geeksforgeeks.org/problems/floor-in-a-sorted-array-1587115620/1
 
 # Floor of 5 = greatest element smaller than 5. Its 4.
+cpp:
 
 Time Complexity: O(log n)
 Space Complexity: O(1)
-py:
+
+    #include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int findFloor(const vector<int>& arr, int x) {
+        int n = (int)arr.size();
+        int low = 0, high = n - 1;
+        int result = -1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (arr[mid] <= x) {
+                result = mid;
+                low = mid + 1;
+            } else { // arr[mid] > x
+                high = mid - 1;
+            }
+        }
+
+        return result;
+    }
+};
+
+    
+py3:
 
 class Solution:
     def findFloor(self, arr, x):
