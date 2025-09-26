@@ -3,8 +3,40 @@ Bottom up:
     We just initialize every cell of the table with zero. And on the loop we start from the
     second to last for both row and column and we keep filling the dp table later when we
     recursively find any elements, so everything is inside the table.
+cpp:
+O(n × m) time, O(n × m) space, where n = len(text1) and m = len(text2).
 
-py:
+#include <vector>
+#include <string>
+#include <algorithm>  // For std::max
+using namespace std;
+
+class Solution {
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+        string X = text1, Y = text2;
+        int n = X.size();
+        int m = Y.size();
+
+        // Create DP table initialized to 0
+        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+
+        // Fill the DP table
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (X[i - 1] == Y[j - 1]) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+
+        return dp[n][m];
+    }
+};
+
+py3:
 
 O(n × m) time, O(n × m) space, where n = len(text1) and m = len(text2).
 
