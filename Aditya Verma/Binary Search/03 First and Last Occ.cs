@@ -6,12 +6,98 @@ https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-
     So, find exact number and check left for first occ and check right for last occ with function.
     * We take + and - inf to dissmiss inside the min and max function. And also considering lower and upper possible bounds.
 
-py:
 iterative:
 Time: O(log n) (two binary searches)
 
 Space: O(1)
+cpp:
+#include <vector>
+using namespace std;
 
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        // Helper function to find left or right bound
+        auto find_bound = [&](bool left_bias) -> int {
+            int start = 0, end = nums.size() - 1;
+            int bound = -1;
+
+            while (start <= end) {
+                int mid = (start + end) / 2;
+                
+                if (nums[mid] == target) {
+                    bound = mid;
+                    if (left_bias)
+                        end = mid - 1; // move left
+                    else
+                        start = mid + 1; // move right
+                } else if (nums[mid] < target) {
+                    start = mid + 1;
+                } else {
+                    end = mid - 1;
+                }
+            }
+
+            return bound;
+        };
+
+        int left_index = find_bound(true);
+        if (left_index == -1)
+            return {-1, -1};
+
+        int right_index = find_bound(false);
+        return {left_index, right_index};
+    }
+};
+
+rec:
+#include <vector>
+#include <limits>
+using namespace std;
+
+class Solution {
+public:
+    int min_index = numeric_limits<int>::max();
+    int max_index = numeric_limits<int>::min();
+
+    void binarySearch(vector<int>& nums, int start, int end, int target, bool left_bias) {
+        if (start > end) return;
+
+        int mid = (start + end) / 2;
+
+        if (nums[mid] > target) {
+            binarySearch(nums, start, mid - 1, target, left_bias);
+        } else if (nums[mid] < target) {
+            binarySearch(nums, mid + 1, end, target, left_bias);
+        } else {
+            if (left_bias) {
+                min_index = min(min_index, mid);
+                binarySearch(nums, start, mid - 1, target, left_bias);
+            } else {
+                max_index = max(max_index, mid);
+                binarySearch(nums, mid + 1, end, target, left_bias);
+            }
+        }
+    }
+
+    vector<int> searchRange(vector<int>& nums, int target) {
+        min_index = numeric_limits<int>::max();
+        max_index = numeric_limits<int>::min();
+
+        binarySearch(nums, 0, nums.size() - 1, target, true);
+        binarySearch(nums, 0, nums.size() - 1, target, false);
+
+        if (min_index == numeric_limits<int>::max() || max_index == numeric_limits<int>::min()) {
+            return {-1, -1};
+        }
+
+        return {min_index, max_index};
+    }
+};
+
+
+py3:
+iterative:
 from typing import List
 
 class Solution:
