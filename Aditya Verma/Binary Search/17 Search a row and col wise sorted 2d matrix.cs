@@ -10,6 +10,44 @@ https://leetcode.com/problems/search-a-2d-matrix-ii/description/
 # 2D array.
     Every row and column sorted.
 
+cpp:
+Time: O(m + n) — because we move at most m down steps and n left steps.
+
+Space: O(1) — constant extra space.
+
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    bool searchMatrix(const vector<vector<int>>& matrix, int target) {
+        if (matrix.empty() || matrix[0].empty()) {
+            return false;
+        }
+
+        int m = (int)matrix.size();
+        int n = (int)matrix[0].size();
+        int i = 0, j = n - 1;  // Start from top-right corner
+
+        while (i < m && j >= 0) {
+            if (matrix[i][j] == target) {
+                return true;
+            } else if (matrix[i][j] > target) {
+                j--;
+            } else {  // matrix[i][j] < target
+                i++;
+            }
+        }
+
+        return false;
+    }
+};
+
+    
+
+            
+py3:
+
 Time: O(m + n) — because we move at most m down steps and n left steps.
 
 Space: O(1) — constant extra space.
