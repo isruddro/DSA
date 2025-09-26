@@ -1,38 +1,6 @@
 #we initialize the first row and first column with base case of 2D matrix
 
 
-py:
-
-from typing import List
-
-def knapsack(wt: List[int], val: List[int], W: int) -> int:
-    n = len(wt)
-    dp = [[0 for _ in range(W + 1)] for _ in range(n + 1)]
-
-    for i in range(n + 1):
-        for j in range(W + 1):
-            if i == 0 or j == 0:
-                dp[i][j] = 0  # Base case
-            elif wt[i - 1] <= j:
-                val1 = val[i - 1] + dp[i - 1][j - wt[i - 1]]  # Take item
-                val2 = dp[i - 1][j]                            # Skip item
-                dp[i][j] = max(val1, val2)
-            else:
-                dp[i][j] = dp[i - 1][j]  # Can't take item
-
-    return dp[n][W]
-
-
-if __name__ == "__main__":
-    weights = [1, 3, 4, 5]
-    values = [1, 4, 5, 7]
-    capacity = 7
-
-    max_value = knapsack(weights, values, capacity)
-    print(max_value)  # Output: 9
-
-
-
 cpp:
 
 #include <iostream>
@@ -73,6 +41,40 @@ int main() {
 
     return 0;
 }
+
+
+
+py3:
+
+from typing import List
+
+def knapsack(wt: List[int], val: List[int], W: int) -> int:
+    n = len(wt)
+    dp = [[0 for _ in range(W + 1)] for _ in range(n + 1)]
+
+    for i in range(n + 1):
+        for j in range(W + 1):
+            if i == 0 or j == 0:
+                dp[i][j] = 0  # Base case
+            elif wt[i - 1] <= j:
+                val1 = val[i - 1] + dp[i - 1][j - wt[i - 1]]  # Take item
+                val2 = dp[i - 1][j]                            # Skip item
+                dp[i][j] = max(val1, val2)
+            else:
+                dp[i][j] = dp[i - 1][j]  # Can't take item
+
+    return dp[n][W]
+
+
+if __name__ == "__main__":
+    weights = [1, 3, 4, 5]
+    values = [1, 4, 5, 7]
+    capacity = 7
+
+    max_value = knapsack(weights, values, capacity)
+    print(max_value)  # Output: 9
+
+
 
 
 
