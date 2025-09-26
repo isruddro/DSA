@@ -10,7 +10,40 @@ https://www.geeksforgeeks.org/problems/shortest-common-supersequence0322/1
 # Things to rem:
     It's sequence, so order matters here but not necessary continous.
 
-py:
+
+cpp:
+O(n × m) time, O(n × m) space, where n = len(s1) and m = len(s2).
+
+#include <vector>
+#include <string>
+using namespace std;
+
+class Solution {
+public:
+    // Function to find length of shortest common supersequence of two strings.
+    int shortestCommonSupersequence(string s1, string s2) {
+        string X = s1, Y = s2;
+        int n = X.size();
+        int m = Y.size();
+
+        // Step 1: Compute LCS DP table
+        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (X[i - 1] == Y[j - 1]) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+
+        // Step 2: Length of SCS = n + m - LCS
+        return n + m - dp[n][m];
+    }
+};
+
+py3:
 
 O(n × m) time, O(n × m) space, where n = len(s1) and m = len(s2).
 #User function Template for python3
