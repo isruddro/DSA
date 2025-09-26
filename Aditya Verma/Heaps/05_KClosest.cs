@@ -1,4 +1,3 @@
-https://www.geeksforgeeks.org/problems/k-closest-elements3619/0
 
 # Think of this:
         5 6 6 8 9
@@ -10,8 +9,35 @@ abs (-) 7 7 7 7 7
     
     In this problem i need to consider abs diffs numbers of k. Both abs diffs (work as key) and the number I need to put on the heap.
     The results will be on the basis of the abs diffs.
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
 
-py:
+class Solution {
+public:
+    vector<int> printKClosest(vector<int>& arr, int k, int x) {
+        // Min-heap to store pairs: (absolute difference, element)
+        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> min_heap;
+
+        // Iterate through the array
+        for (int num : arr) {
+            // Push the pair (absolute difference, number) into the heap
+            min_heap.push({abs(num - x), num});
+        }
+
+        // Extract the k closest elements
+        vector<int> result;
+        for (int i = 0; i < k; i++) {
+            result.push_back(min_heap.top().second);
+            min_heap.pop();
+        }
+
+        return result;
+    }
+};
+
+
+py3:
 import heapq
 
 class Solution:
