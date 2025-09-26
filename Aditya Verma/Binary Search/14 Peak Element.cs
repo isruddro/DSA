@@ -3,9 +3,32 @@ https://leetcode.com/problems/peak-index-in-a-mountain-array/description/?utm_so
 # Given array is unsorted array.
     * Peek element is greater than its neighbour.
 
+cpp:
+Time Complexity: O(log n), Space Complexity: O(1)
+   
+#include <vector>
+using namespace std;
 
-py:
+class Solution {
+public:
+    int peakIndexInMountainArray(const vector<int>& arr) {
+        int s = 0, e = (int)arr.size() - 1;
 
+        while (s < e) {
+            int m = s + (e - s) / 2;
+
+            if (arr[m] < arr[m + 1]) {
+                s = m + 1;  // Peak is on the right
+            } else {
+                e = m;      // Peak is at m or on the left
+            }
+        }
+
+        return s;  // s == e at peak index
+    }
+};
+
+py3:
 
 from typing import List
 
