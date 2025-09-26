@@ -6,7 +6,7 @@ cpp:
 Time Complexity: O(log n)
 Space Complexity: O(1)
 
-    #include <vector>
+#include <vector>
 using namespace std;
 
 class Solution {
