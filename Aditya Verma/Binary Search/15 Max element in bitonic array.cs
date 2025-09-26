@@ -3,8 +3,33 @@ https://leetcode.com/problems/peak-index-in-a-mountain-array/description/?utm_so
 # Bitonic array: Monotonically increasing then monotonically decreasing. None of the two consecutive array will be equal.
     Max will be the peek element.
 
+cpp:
+Time: O(log n) — binary search.
 
-py:
+Space: O(1) — constant extra space.
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int peakIndexInMountainArray(const vector<int>& arr) {
+        int s = 0, e = (int)arr.size() - 1;
+
+        while (s < e) {
+            int m = s + (e - s) / 2;
+
+            if (arr[m] < arr[m + 1]) {  // Peak is on the right
+                s = m + 1;
+            } else {  // Peak is at m or on the left
+                e = m;
+            }
+        }
+
+        return s;  // s == e at peak index
+    }
+};
+
+py3:
 Time: O(log n) — binary search.
 
 Space: O(1) — constant extra space.
