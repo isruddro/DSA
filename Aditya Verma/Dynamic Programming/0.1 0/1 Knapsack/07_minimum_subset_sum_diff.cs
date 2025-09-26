@@ -12,10 +12,55 @@ The difference is |sum(S2) - sum(S1)| = |total_sum - 2*s|.
 That’s why we check abs(total_sum - 2*s).
 
 
+cpp:
+O(n × total_sum) for both time and space
+#include <vector>
+#include <numeric>
+#include <climits>
+using namespace std;
+
+class Solution {
+public:
+    int minDifference(vector<int>& arr) {
+        int n = arr.size();
+        int total_sum = accumulate(arr.begin(), arr.end(), 0);
+
+        // DP table: t[i][j] = true if sum j is possible with first i elements
+        vector<vector<bool>> t(n + 1, vector<bool>(total_sum + 1, false));
+
+        // Initialization
+        for (int i = 0; i <= n; i++) {
+            t[i][0] = true;  // sum = 0 is always possible
+        }
+        for (int j = 1; j <= total_sum; j++) {
+            t[0][j] = false;  // no items can't form sum > 0
+        }
+
+        // Fill DP table
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= total_sum; j++) {
+                if (arr[i - 1] <= j) {
+                    t[i][j] = t[i - 1][j - arr[i - 1]] || t[i - 1][j];  // include or exclude
+                } else {
+                    t[i][j] = t[i - 1][j];  // exclude
+                }
+            }
+        }
+
+        // Find the minimum difference
+        int min_diff = INT_MAX;
+        for (int j = 0; j <= total_sum / 2; j++) {
+            if (t[n][j]) {
+                min_diff = min(min_diff, total_sum - 2 * j);
+            }
+        }
+
+        return min_diff;
+    }
+};
 
 
-
-py:
+py3:
 O(n × total_sum) for both time and space
 
 #User function Template for python3
