@@ -1,7 +1,42 @@
 https://www.geeksforgeeks.org/problems/subset-sum-problem-1611555638/1
 
 # Same as 0/1 Knapsack but we use or (because here we use boolean) T || F
-py:
+
+cpp:
+Time: O(N × target), Space: O(N × target)
+
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    bool isSubsetSum(vector<int>& arr, int target) {
+        int N = (int)arr.size();
+        // DP table: dp[i][j] = true if sum j can be formed with first i elements
+        vector<vector<bool>> dp(N + 1, vector<bool>(target + 1, false));
+
+        // Initialization: sum 0 is always possible
+        for (int i = 0; i <= N; i++) {
+            dp[i][0] = true;
+        }
+
+        // Build the DP table
+        for (int i = 1; i <= N; i++) {
+            for (int j = 1; j <= target; j++) {
+                if (arr[i - 1] <= j) {
+                    dp[i][j] = dp[i - 1][j - arr[i - 1]] || dp[i - 1][j];
+                } else {
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+
+        return dp[N][target];
+    }
+};
+
+
+py3:
 
 Time: O(N × target), Space: O(N × target)
 
