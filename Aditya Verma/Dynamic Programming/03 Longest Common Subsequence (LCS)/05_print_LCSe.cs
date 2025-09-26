@@ -13,67 +13,65 @@ cpp:
 GFG working code:
 #include <vector>
 #include <string>
+#include <unordered_map>
 #include <set>
 #include <algorithm>
-#include <unordered_map>
 using namespace std;
 
-class Solution {
-    string X, Y;
-    vector<vector<int>> dp;
-    // Memo cache: key = "i#j", value = set of LCS strings for dp[i][j]
-    unordered_map<string, set<string>> memo;
-
-    set<string> backtrack(int i, int j) {
-        string key = to_string(i) + "#" + to_string(j);
-        if (memo.find(key) != memo.end())
-            return memo[key];
-
-        set<string> result;
-        if (i == 0 || j == 0) {
-            result.insert("");  // base case
-        }
-        else if (X[i - 1] == Y[j - 1]) {
-            set<string> temp = backtrack(i - 1, j - 1);
-            for (const string& str : temp) {
-                result.insert(str + X[i - 1]);
-            }
-        }
-        else {
-            if (dp[i - 1][j] >= dp[i][j - 1]) {
-                set<string> top = backtrack(i - 1, j);
-                result.insert(top.begin(), top.end());
-            }
-            if (dp[i][j - 1] >= dp[i - 1][j]) {
-                set<string> left = backtrack(i, j - 1);
-                result.insert(left.begin(), left.end());
-            }
-        }
-        memo[key] = result;
-        return result;
+struct pair_hash {
+    size_t operator()(const pair<int,int>& p) const {
+        return hash<int>()(p.first) ^ (hash<int>()(p.second) << 1);
     }
+};
 
+class Solution {
 public:
-    vector<string> allLCS(string s1, string s2) {
-        X = s1;
-        Y = s2;
-        int n = (int)X.size();
-        int m = (int)Y.size();
+    vector<string> allLCS(string &s1, string &s2) {
+        int n = (int)s1.size();
+        int m = (int)s2.size();
 
-        dp.assign(n + 1, vector<int>(m + 1, 0));
+        // DP table for LCS length calculation
+        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+        for (int i = 1; i <= n; ++i)
+            for (int j = 1; j <= m; ++j)
+                dp[i][j] = (s1[i-1] == s2[j-1]) ? 1 + dp[i-1][j-1] : max(dp[i-1][j], dp[i][j-1]);
 
-        // Fill DP table
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= m; j++) {
-                if (X[i - 1] == Y[j - 1])
-                    dp[i][j] = 1 + dp[i - 1][j - 1];
-                else
-                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+        unordered_map<pair<int,int>, set<string>, pair_hash> memo;
+
+        // Backtracking with memoization to get all LCS strings
+        function<set<string>(int,int)> backtrack = [&](int i, int j) -> set<string> {
+            if (i == 0 || j == 0) return {""};
+
+            auto key = make_pair(i, j);
+            if (memo.find(key) != memo.end()) return memo[key];
+
+            if (s1[i-1] == s2[j-1]) {
+                set<string> prev = backtrack(i-1, j-1);
+                set<string> res;
+                for (auto &str : prev)
+                    res.insert(str + s1[i-1]);
+                return memo[key] = res;
+            } else {
+                set<string> res;
+                if (dp[i-1][j] >= dp[i][j-1]) {
+                    set<string> top = backtrack(i-1, j);
+                    res.insert(top.begin(), top.end());
+                }
+                if (dp[i][j-1] >= dp[i-1][j]) {
+                    set<string> left = backtrack(i, j-1);
+                    res.insert(left.begin(), left.end());
+                }
+                return memo[key] = res;
             }
-        }
+        };
 
         set<string> lcs_set = backtrack(n, m);
-        vector<string> lcs_list_
+        vector<string> lcs_list(lcs_set.begin(), lcs_set.end());
+        sort(lcs_list.begin(), lcs_list.end());
+        return lcs_list;
+    }
+};
+
 
 Default:
 #include <vector>
