@@ -3,7 +3,48 @@
     So, it is: root(x^2 + y^2)
           simplify: x^2 + y^2
 
-py:
+cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+// Class to represent a point
+class Pair {
+public:
+    int first, second;
+    Pair(int x, int y) : first(x), second(y) {}
+};
+
+// Comparator for max-heap based on distance
+struct cmp {
+    bool operator()(const Pair& a, const Pair& b) {
+        return (a.first * a.first + a.second * a.second) < (b.first * b.first + b.second * b.second);
+    }
+};
+
+vector<Pair> kClosestPoints(vector<Pair>& arr, int k) {
+    // Max-heap using custom comparator
+    priority_queue<Pair, vector<Pair>, cmp> maxh;
+
+    for (auto& point : arr) {
+        maxh.push(point);
+
+        if ((int)maxh.size() > k) {
+            maxh.pop(); // Remove farthest point
+        }
+    }
+
+    // Extract points from heap
+    vector<Pair> result;
+    while (!maxh.empty()) {
+        result.push_back(maxh.top());
+        maxh.pop();
+    }
+
+    reverse(result.begin(), result.end()); // Optional: closest to farthest
+    return result;
+}
+
+py3:
 
 
 import heapq
