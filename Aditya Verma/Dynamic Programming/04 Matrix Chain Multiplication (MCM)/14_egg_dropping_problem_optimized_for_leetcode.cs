@@ -1,4 +1,59 @@
-py:
+https://www.geeksforgeeks.org/problems/egg-dropping-puzzle-1587115620/1
+
+cpp:
+Time Complexity: O(n × k × log k) — binary search reduces the inner loop.
+    
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int eggDrop(int n, int k) {
+        int MAX_EGGS = n + 1;
+        int MAX_FLOORS = k + 1;
+
+        // dp[eggs][floors]
+        vector<vector<int>> dp(MAX_EGGS, vector<int>(MAX_FLOORS, -1));
+
+        function<int(int,int)> solve = [&](int eggs, int floors) -> int {
+            if (dp[eggs][floors] != -1)
+                return dp[eggs][floors];
+
+            if (eggs == 1 || floors == 0 || floors == 1) {
+                dp[eggs][floors] = floors;
+                return floors;
+            }
+
+            int ans = floors;
+            int low = 1, high = floors;
+
+            while (low <= high) {
+                int mid = low + (high - low) / 2;
+
+                int bottom = solve(eggs - 1, mid - 1);  // Egg breaks
+                int top = solve(eggs, floors - mid);    // Egg survives
+
+                int temp = 1 + max(bottom, top);
+
+                if (bottom < top) {
+                    low = mid + 1;
+                } else {
+                    high = mid - 1;
+                }
+
+                ans = min(ans, temp);
+            }
+
+            dp[eggs][floors] = ans;
+            return ans;
+        };
+
+        return solve(n, k);
+    }
+};
+
+
+py3:
 
 Time Complexity: O(n × k × log k) — binary search reduces the inner loop.
 
