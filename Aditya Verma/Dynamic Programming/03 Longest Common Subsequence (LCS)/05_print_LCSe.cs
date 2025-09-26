@@ -9,8 +9,119 @@ https://www.geeksforgeeks.org/problems/print-all-lcs-sequences3413/1
         3. By that we got subse in reverse (bottom up). So we reverse that to get the correct subsequence.
 
 
+cpp:
+GFG working code:
+#include <vector>
+#include <string>
+#include <set>
+#include <algorithm>
+#include <unordered_map>
+using namespace std;
 
-py:
+class Solution {
+    string X, Y;
+    vector<vector<int>> dp;
+    // Memo cache: key = "i#j", value = set of LCS strings for dp[i][j]
+    unordered_map<string, set<string>> memo;
+
+    set<string> backtrack(int i, int j) {
+        string key = to_string(i) + "#" + to_string(j);
+        if (memo.find(key) != memo.end())
+            return memo[key];
+
+        set<string> result;
+        if (i == 0 || j == 0) {
+            result.insert("");  // base case
+        }
+        else if (X[i - 1] == Y[j - 1]) {
+            set<string> temp = backtrack(i - 1, j - 1);
+            for (const string& str : temp) {
+                result.insert(str + X[i - 1]);
+            }
+        }
+        else {
+            if (dp[i - 1][j] >= dp[i][j - 1]) {
+                set<string> top = backtrack(i - 1, j);
+                result.insert(top.begin(), top.end());
+            }
+            if (dp[i][j - 1] >= dp[i - 1][j]) {
+                set<string> left = backtrack(i, j - 1);
+                result.insert(left.begin(), left.end());
+            }
+        }
+        memo[key] = result;
+        return result;
+    }
+
+public:
+    vector<string> allLCS(string s1, string s2) {
+        X = s1;
+        Y = s2;
+        int n = (int)X.size();
+        int m = (int)Y.size();
+
+        dp.assign(n + 1, vector<int>(m + 1, 0));
+
+        // Fill DP table
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (X[i - 1] == Y[j - 1])
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                else
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+
+        set<string> lcs_set = backtrack(n, m);
+        vector<string> lcs_list_
+
+Default:
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+string lcs(string X, string Y) {
+    int n = X.size();
+    int m = Y.size();
+
+    // DP table initialization
+    vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+
+    // Fill the DP table
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            if (X[i - 1] == Y[j - 1]) {
+                dp[i][j] = 1 + dp[i - 1][j - 1];
+            } else {
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+    }
+
+    // Reconstruct the LCS string
+    int i = n, j = m;
+    string lcs_str = "";
+    while (i > 0 && j > 0) {
+        if (X[i - 1] == Y[j - 1]) {
+            lcs_str.push_back(X[i - 1]);
+            i--;
+            j--;
+        } else if (dp[i - 1][j] > dp[i][j - 1]) {
+            i--;
+        } else {
+            j--;
+        }
+    }
+
+    // Reverse to get correct order
+    reverse(lcs_str.begin(), lcs_str.end());
+    return lcs_str;
+}
+
+
+       
+py3:
 GFG working code:
 
 #User function Template for python3
