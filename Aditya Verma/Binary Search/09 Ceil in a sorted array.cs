@@ -1,6 +1,40 @@
 https://leetcode.com/problems/search-insert-position/description/?utm_source=chatgpt.com
 
-py:
+cpp:
+Time Complexity: O(log n), Space Complexity: O(1)
+    
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int start = 0, end = (int)nums.size() - 1;
+        int ans = (int)nums.size();  // Default insert position is at the end
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+
+            if (nums[mid] == target) {
+                return mid;
+            }
+
+            if (nums[mid] < target) {
+                start = mid + 1;
+            } else {
+                // Update ans if current mid is a better insertion point
+                if (ans == (int)nums.size() || nums[mid] < nums[ans]) {
+                    ans = mid;
+                }
+                end = mid - 1;
+            }
+        }
+
+        return ans;
+    }
+};
+
+py3:
 
 from typing import List
 
