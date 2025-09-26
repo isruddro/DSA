@@ -1,8 +1,46 @@
 https://leetcode.com/problems/binary-tree-maximum-path-sum/description/
 
-//Any to Any
-//focus on the negative so we consider that too
-py:
+# Any to Any. Focus on the negative so we consider that too
+cpp:
+Time: O(n), Space: O(h) (recursion stack), where n = number of nodes, h = tree height.
+
+class Solution {
+public:
+    int res;
+
+    Solution() {
+        res = INT_MIN; // Initialize global maximum
+    }
+
+    // Recursive function to calculate maximum path sum
+    int solve(TreeNode* root) {
+        if (!root) return 0;
+
+        // Maximum path sum from left and right subtrees (discard negatives)
+        int left = max(0, solve(root->left));
+        int right = max(0, solve(root->right));
+
+        // Maximum path starting from current node
+        int temp = max(root->val + max(left, right), root->val);
+
+        // Maximum path including current node as junction
+        int ans = max(temp, left + right + root->val);
+
+        // Update global maximum
+        res = max(res, ans);
+
+        return temp; // Return max sum starting from current node
+    }
+
+    int maxPathSum(TreeNode* root) {
+        res = INT_MIN; // Initialize result
+        solve(root);
+        return res;
+    }
+};
+
+
+py3:
 Time: O(n), Space: O(h) (recursion stack), where n = number of nodes, h = tree height.
 
 
